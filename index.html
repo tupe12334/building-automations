@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Automations · Guide</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="step-indicator" id="step-indicator" aria-live="polite">
+    <span id="step-label"></span>
+  </div>
+
+  <div class="deck">
+
+    <!-- ─── SLIDE 0: HERO ─── -->
+    <div class="slide active" id="s0">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <rect class="flicker" x="0" y="0" width="800" height="500" fill="none" />
+        <text x="400" y="185" text-anchor="middle" class="t-hero">Building Automations</text>
+        <text x="400" y="242" text-anchor="middle" class="t-sub">Alert · Skill · Pipeline</text>
+        <line x1="200" y1="265" x2="600" y2="265" class="rule-line" />
+        <text x="400" y="297" text-anchor="middle" class="t-eyebrow">AI Week · 2026</text>
+        <rect x="395" y="308" width="10" height="2" class="cursor-blink" />
+        <text x="400" y="470" text-anchor="middle" class="t-eyebrow" style="opacity:0.35">press → to begin</text>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 1: MANUAL VS AUTOMATED ─── -->
+    <div class="slide" id="s1">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="42" text-anchor="middle" class="t-label">the same 30 minutes, every time</text>
+
+        <g class="reveal-group" style="--d:0.1s">
+          <text x="192" y="80" text-anchor="middle" class="t-fail-label">manual</text>
+          <rect x="44" y="90" width="296" height="310" class="box-failure" />
+          <text x="192" y="118" text-anchor="middle" class="t-caption">alert arrives</text>
+          <rect x="68" y="126" width="248" height="28" class="box-mono" />
+          <text x="192" y="144" text-anchor="middle" class="t-mono-faint">open Sentry · find the issue</text>
+          <rect x="68" y="162" width="248" height="28" class="box-mono" />
+          <text x="192" y="180" text-anchor="middle" class="t-mono-faint">scroll 200 breadcrumbs</text>
+          <rect x="68" y="198" width="248" height="28" class="box-mono" />
+          <text x="192" y="216" text-anchor="middle" class="t-mono-faint">grep GCP logs for user</text>
+          <rect x="68" y="234" width="248" height="28" class="box-mono" />
+          <text x="192" y="252" text-anchor="middle" class="t-mono-faint">find FullStory session</text>
+          <rect x="68" y="270" width="248" height="28" class="box-mono" />
+          <text x="192" y="288" text-anchor="middle" class="t-mono-faint">form hypothesis</text>
+          <line x1="68" y1="305" x2="316" y2="305" class="grid-line" />
+          <text x="192" y="330" text-anchor="middle" class="t-caption">~30 min · quality varies</text>
+          <text x="192" y="350" text-anchor="middle" class="t-caption">not shareable · done again tomorrow</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.45s">
+          <rect x="353" y="200" width="94" height="26" class="file-tab" />
+          <text x="400" y="217" text-anchor="middle" class="t-filetab">SKILL.md</text>
+          <line x1="344" y1="237" x2="452" y2="237" class="connector-h" />
+          <polygon points="447,231 460,237 447,243" class="arrowhead" />
+        </g>
+
+        <g class="reveal-group" style="--d:0.7s">
+          <text x="608" y="80" text-anchor="middle" class="t-tag">automated</text>
+          <rect x="460" y="90" width="296" height="310" class="box-main" />
+          <text x="608" y="118" text-anchor="middle" class="t-caption">alert arrives</text>
+          <rect x="484" y="126" width="248" height="28" class="box-mono" />
+          <text x="608" y="144" text-anchor="middle" class="t-mono-faint">skill triggers</text>
+          <rect x="484" y="162" width="248" height="28" class="box-mono" />
+          <text x="608" y="180" text-anchor="middle" class="t-mono-faint">Sentry + GCP + FullStory · parallel</text>
+          <rect x="484" y="198" width="248" height="28" class="box-mono" />
+          <text x="608" y="216" text-anchor="middle" class="t-mono-faint">timeline reconstructed</text>
+          <rect x="484" y="234" width="248" height="28" class="box-mono" />
+          <text x="608" y="252" text-anchor="middle" class="t-mono-faint">root cause + fix direction</text>
+          <line x1="484" y1="270" x2="732" y2="270" class="grid-line" />
+          <text x="608" y="300" text-anchor="middle" class="t-caption">~10 seconds · consistent · shareable</text>
+          <text x="608" y="320" text-anchor="middle" class="t-caption">runs while you sleep</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 2: THE DEMO CASE ─── -->
+    <div class="slide" id="s2">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="42" text-anchor="middle" class="t-label">the demo case</text>
+
+        <g class="reveal-group" style="--d:0.1s">
+          <rect x="60" y="60" width="680" height="70" class="box-failure" />
+          <text x="400" y="90" text-anchor="middle" class="t-label" style="font-size:14px">TypeError: Cannot read properties of undefined</text>
+          <text x="400" y="114" text-anchor="middle" class="t-mono-faint">(reading 'setVideoUploaded') · src/main/main.ts:1135</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.35s">
+          <rect x="60"  y="155" width="196" height="90" class="box-main" />
+          <text x="158" y="188" text-anchor="middle" class="t-label" style="font-size:28px">443</text>
+          <text x="158" y="212" text-anchor="middle" class="t-caption">users impacted</text>
+          <text x="158" y="232" text-anchor="middle" class="t-caption">NL · GB · CH · ···</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.5s">
+          <rect x="302" y="155" width="196" height="90" class="box-main" />
+          <text x="400" y="188" text-anchor="middle" class="t-label" style="font-size:28px">7 041</text>
+          <text x="400" y="212" text-anchor="middle" class="t-caption">events · since Dec 2024</text>
+          <text x="400" y="232" text-anchor="middle" class="t-caption">still firing today</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.65s">
+          <rect x="544" y="155" width="196" height="90" class="box-main" />
+          <text x="642" y="185" text-anchor="middle" class="t-caption">status: resolved</text>
+          <text x="642" y="207" text-anchor="middle" class="t-caption">assigned: alex</text>
+          <text x="642" y="227" text-anchor="middle" class="t-caption">v0.2.32 · Electron 31</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.85s">
+          <line x1="80" y1="278" x2="720" y2="278" class="rule-line" />
+          <text x="400" y="316" text-anchor="middle" class="t-caption">marked resolved · still firing on the same day ·</text>
+          <text x="400" y="340" text-anchor="middle" class="t-caption">the fix was merged but the pattern is still alive</text>
+          <text x="400" y="390" text-anchor="middle" class="t-label" style="font-size:15px">the question is not how to fix this one</text>
+          <text x="400" y="418" text-anchor="middle" class="t-label" style="font-size:15px">it is how to stop spending 30 min on the next one</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 3: BREADCRUMB TIMELINE ─── -->
+    <div class="slide" id="s3">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">the story is in the breadcrumbs</text>
+
+        <line x1="400" y1="55" x2="400" y2="470" class="spine" />
+
+        <g class="reveal-group" style="--d:0.05s">
+          <circle cx="400" cy="80"  r="7" class="spine-dot" />
+          <line x1="392" y1="80"  x2="260" y2="80"  class="spine-branch" />
+          <rect x="60"  y="62"  width="200" height="36" class="tag-box algo-box" />
+          <text x="160" y="79"  text-anchor="middle" class="t-tag">ALGORITHM</text>
+          <text x="160" y="93"  text-anchor="middle" class="t-caption">Start recording...</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.15s">
+          <circle cx="400" cy="138" r="7" class="spine-dot" />
+          <line x1="392" y1="138" x2="260" y2="138" class="spine-branch" />
+          <rect x="60"  y="120" width="200" height="36" class="tag-box algo-box" />
+          <text x="160" y="137" text-anchor="middle" class="t-tag">ALGORITHM</text>
+          <text x="160" y="151" text-anchor="middle" class="t-caption">TakeScreenshot × N (every ~200ms)</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.25s">
+          <circle cx="400" cy="196" r="7" class="spine-dot" />
+          <line x1="392" y1="196" x2="260" y2="196" class="spine-branch" />
+          <rect x="60"  y="178" width="200" height="36" class="tag-box algo-box" />
+          <text x="160" y="195" text-anchor="middle" class="t-tag">ALGORITHM</text>
+          <text x="160" y="209" text-anchor="middle" class="t-caption">Step added successfully (×4)</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.38s">
+          <circle cx="400" cy="258" r="7" class="spine-dot" />
+          <line x1="392" y1="258" x2="260" y2="258" class="spine-branch" />
+          <rect x="60"  y="240" width="200" height="36" class="tag-box algo-box" />
+          <text x="160" y="257" text-anchor="middle" class="t-tag">ALGORITHM</text>
+          <text x="160" y="271" text-anchor="middle" class="t-caption">Pause · Stop · Deleting recording...</text>
+        </g>
+
+        <!-- breakpoint line -->
+        <g class="reveal-group" style="--d:0.5s">
+          <line x1="60" y1="293" x2="740" y2="293" stroke="#c8c4bc" stroke-width="1" stroke-dasharray="3 3" />
+          <text x="740" y="291" text-anchor="end" class="t-caption">teardown ↑  ·  in-flight ↓</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.62s">
+          <circle cx="400" cy="328" r="7" class="spine-dot" />
+          <line x1="408" y1="328" x2="540" y2="328" class="spine-branch-r" />
+          <rect x="540" y="310" width="200" height="36" class="box-failure" />
+          <text x="640" y="327" text-anchor="middle" class="t-tag">IN-FLIGHT</text>
+          <text x="640" y="341" text-anchor="middle" class="t-caption">Step added successfully ← after delete</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.78s">
+          <circle cx="400" cy="400" r="7" class="spine-dot" />
+          <line x1="408" y1="400" x2="540" y2="400" class="spine-branch-r" />
+          <rect x="540" y="382" width="200" height="36" class="box-failure" />
+          <text x="640" y="399" text-anchor="middle" class="t-tag">CRASH</text>
+          <text x="640" y="413" text-anchor="middle" class="t-caption">setVideoUploaded on undefined</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.95s">
+          <text x="400" y="470" text-anchor="middle" class="t-caption">race condition · in-flight callback on deleted object</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 4: THE PIPELINE ─── -->
+    <div class="slide" id="s4">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">alert → pipeline → report</text>
+
+        <!-- Input -->
+        <g class="reveal-group" style="--d:0s">
+          <circle cx="80" cy="250" r="45" class="data-blob" />
+          <text x="80" y="244" text-anchor="middle" class="t-caption">Sentry</text>
+          <text x="80" y="260" text-anchor="middle" class="t-caption">alert</text>
+        </g>
+
+        <!-- Fork lines -->
+        <g class="reveal-group" style="--d:0.2s">
+          <line x1="125" y1="250" x2="230" y2="130" class="split-line-algo" />
+          <line x1="125" y1="250" x2="230" y2="250" class="split-line-algo" />
+          <line x1="125" y1="250" x2="230" y2="370" class="split-line-algo" />
+        </g>
+
+        <!-- Three parallel boxes -->
+        <g class="reveal-group" style="--d:0.38s">
+          <rect x="230" y="96"  width="200" height="68" class="box-main" />
+          <text x="330" y="126" text-anchor="middle" class="t-tag">Sentry</text>
+          <text x="330" y="146" text-anchor="middle" class="t-caption">issue + breadcrumbs + events</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.5s">
+          <rect x="230" y="216" width="200" height="68" class="box-main" />
+          <text x="330" y="246" text-anchor="middle" class="t-tag">GCP Logs</text>
+          <text x="330" y="266" text-anchor="middle" class="t-caption">cloud_run ±5min · /c/v1/ errors</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.62s">
+          <rect x="230" y="336" width="200" height="68" class="box-main" />
+          <text x="330" y="366" text-anchor="middle" class="t-tag">FullStory</text>
+          <text x="330" y="386" text-anchor="middle" class="t-caption">session events · user actions</text>
+        </g>
+
+        <!-- Join lines -->
+        <g class="reveal-group" style="--d:0.75s">
+          <line x1="430" y1="130" x2="550" y2="250" class="split-line-algo" />
+          <line x1="430" y1="250" x2="550" y2="250" class="split-line-algo" />
+          <line x1="430" y1="370" x2="550" y2="250" class="split-line-algo" />
+        </g>
+
+        <!-- Synthesize -->
+        <g class="reveal-group" style="--d:0.88s">
+          <rect x="550" y="200" width="200" height="100" class="box-skill" />
+          <text x="650" y="238" text-anchor="middle" class="t-label" style="font-size:15px">synthesize</text>
+          <text x="650" y="260" text-anchor="middle" class="t-caption">timeline · root cause</text>
+          <text x="650" y="278" text-anchor="middle" class="t-caption">fix direction</text>
+        </g>
+
+        <!-- Parallel label -->
+        <g class="reveal-group" style="--d:1s">
+          <text x="330" y="468" text-anchor="middle" class="t-caption">dispatched in a single message · runs in parallel</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 5: PARALLEL DISPATCH ─── -->
+    <div class="slide" id="s5">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="42" text-anchor="middle" class="t-label">single message = parallel = half the wall time</text>
+
+        <!-- Sequential -->
+        <g class="reveal-group" style="--d:0.1s">
+          <text x="192" y="80" text-anchor="middle" class="t-fail-label">sequential (3 messages)</text>
+          <rect x="44"  y="96" width="296" height="280" class="box-failure" />
+
+          <rect x="68" y="114" width="248" height="40" class="tag-box algo-box" />
+          <text x="192" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
+          <text x="192" y="150" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <line x1="192" y1="154" x2="192" y2="170" class="spine" />
+
+          <rect x="68" y="170" width="248" height="40" class="tag-box algo-box" />
+          <text x="192" y="192" text-anchor="middle" class="t-tag">GCP query</text>
+          <text x="192" y="206" text-anchor="middle" class="t-caption">~3 s</text>
+
+          <line x1="192" y1="210" x2="192" y2="226" class="spine" />
+
+          <rect x="68" y="226" width="248" height="40" class="tag-box algo-box" />
+          <text x="192" y="248" text-anchor="middle" class="t-tag">FullStory fetch</text>
+          <text x="192" y="262" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <line x1="68"  y1="275" x2="316" y2="275" class="rule-line" />
+          <text x="192" y="310" text-anchor="middle" class="t-label" style="font-size:26px">~7 s</text>
+          <text x="192" y="340" text-anchor="middle" class="t-caption">+ 3× round-trip overhead</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.4s">
+          <text x="400" y="213" text-anchor="middle" class="t-vs">vs</text>
+        </g>
+
+        <!-- Parallel -->
+        <g class="reveal-group" style="--d:0.6s">
+          <text x="608" y="80" text-anchor="middle" class="t-tag">parallel (1 message)</text>
+          <rect x="460" y="96" width="296" height="280" class="box-main" />
+
+          <rect x="484" y="114" width="248" height="40" class="tag-box algo-box" />
+          <text x="608" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
+          <text x="608" y="150" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <rect x="484" y="160" width="248" height="40" class="tag-box algo-box" />
+          <text x="608" y="182" text-anchor="middle" class="t-tag">GCP query</text>
+          <text x="608" y="196" text-anchor="middle" class="t-caption">~3 s</text>
+
+          <rect x="484" y="206" width="248" height="40" class="tag-box algo-box" />
+          <text x="608" y="228" text-anchor="middle" class="t-tag">FullStory fetch</text>
+          <text x="608" y="242" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <line x1="484" y1="255" x2="732" y2="255" class="rule-line" />
+          <text x="608" y="295" text-anchor="middle" class="t-label" style="font-size:26px">~3 s</text>
+          <text x="608" y="325" text-anchor="middle" class="t-caption">= slowest task · not the sum</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.9s">
+          <line x1="80" y1="432" x2="720" y2="432" class="rule-line" />
+          <text x="400" y="460" text-anchor="middle" class="t-caption">dispatch all tool calls in one message · the model waits for all results before continuing</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 6: SKILL ANATOMY ─── -->
+    <div class="slide" id="s6">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <rect x="100" y="36" width="580" height="430" class="box-main" />
+        <rect x="100" y="16" width="300" height="28" class="file-tab" />
+        <text x="250" y="34" text-anchor="middle" class="t-filetab">commands/triage-desktop-crash.md</text>
+
+        <!-- Frontmatter section -->
+        <rect x="100" y="44" width="580" height="100" class="section-front" />
+        <text x="120" y="67"  class="t-code"><tspan class="c-punct">---</tspan></text>
+        <text x="120" y="85"  class="t-code"><tspan class="c-key">name</tspan><tspan class="c-punct">: </tspan><tspan class="c-val">triage-desktop-crash</tspan></text>
+        <text x="120" y="103" class="t-code"><tspan class="c-key">argument-hint</tspan><tspan class="c-punct">: </tspan><tspan class="c-val">[&lt;sentry-issue-id&gt;]</tspan></text>
+        <text x="120" y="121" class="t-code"><tspan class="c-key">allowed-tools</tspan><tspan class="c-punct">: </tspan><tspan class="c-val">Sentry · gcloud · FullStory · Skill</tspan></text>
+        <text x="120" y="139" class="t-code"><tspan class="c-punct">---</tspan></text>
+
+        <text x="120" y="165" class="t-code c-comment">## Fixed context   ← what Claude can't discover</text>
+        <text x="120" y="183" class="t-code c-val">Sentry org: guiddeco · GCP: guidde-production</text>
+
+        <text x="120" y="213" class="t-code c-comment">## Parallel dispatch   ← the pipeline</text>
+        <text x="120" y="231" class="t-code c-val">Sentry + GCP + FullStory · single message</text>
+
+        <text x="120" y="261" class="t-code c-comment">## Timeline rules   ← domain knowledge</text>
+        <text x="120" y="279" class="t-code c-val">look for events after "Deleting recording..."</text>
+
+        <text x="120" y="309" class="t-code c-comment">## Output format   ← the contract</text>
+        <text x="120" y="327" class="t-code c-val">impact · timeline · root cause · fix direction</text>
+
+        <text x="120" y="357" class="t-code c-comment">## Known patterns   ← encode what's stable</text>
+        <text x="120" y="375" class="t-code c-val">teardown race · IPC empty result · permission loss</text>
+
+        <rect x="120" y="400" width="8" height="16" class="cursor-blink" rx="1" />
+
+        <!-- Annotations -->
+        <g class="reveal-group" style="--d:0.5s">
+          <line x1="690" y1="44"  x2="710" y2="44"  class="ann-tick" />
+          <line x1="710" y1="44"  x2="710" y2="148" class="ann-bracket" />
+          <line x1="690" y1="148" x2="710" y2="148" class="ann-tick" />
+          <text x="718" y="90"  class="t-ann">routing</text>
+          <text x="718" y="106" class="t-ann">trigger</text>
+        </g>
+        <g class="reveal-group" style="--d:0.75s">
+          <line x1="690" y1="152" x2="710" y2="152" class="ann-tick" />
+          <line x1="710" y1="152" x2="710" y2="390" class="ann-bracket" />
+          <line x1="690" y1="390" x2="710" y2="390" class="ann-tick" />
+          <text x="718" y="260" class="t-ann">workflow</text>
+          <text x="718" y="276" class="t-ann">+ domain</text>
+          <text x="718" y="292" class="t-ann">knowledge</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 7: DESIGN DEBATE ─── -->
+    <div class="slide" id="s7">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="42" text-anchor="middle" class="t-label">what to put in a skill?</text>
+
+        <g class="reveal-group" style="--d:0.1s">
+          <text x="192" y="80" text-anchor="middle" class="t-fail-label">principles only</text>
+          <rect x="44" y="90" width="296" height="260" class="box-failure" />
+          <text x="192" y="122" text-anchor="middle" class="t-caption">skills encode what, not how</text>
+          <text x="192" y="145" text-anchor="middle" class="t-caption">agent discovers project IDs at runtime</text>
+          <text x="192" y="168" text-anchor="middle" class="t-caption">enforcement lives in ESLint · hooks</text>
+          <line x1="68" y1="184" x2="316" y2="184" class="grid-line" />
+          <text x="192" y="212" text-anchor="middle" class="t-caption">✓ ages well · survives infra changes</text>
+          <text x="192" y="235" text-anchor="middle" class="t-caption">✓ no hardcoded IDs to break</text>
+          <text x="192" y="258" text-anchor="middle" class="t-caption">⚠ may miss cross-repo context</text>
+          <text x="192" y="281" text-anchor="middle" class="t-caption">⚠ re-discovers the same things</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.35s">
+          <text x="400" y="225" text-anchor="middle" class="t-vs">vs</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.55s">
+          <text x="608" y="80" text-anchor="middle" class="t-tag">encode patterns</text>
+          <rect x="460" y="90" width="296" height="260" class="box-main" />
+          <text x="608" y="122" text-anchor="middle" class="t-caption">document what Claude can't discover</text>
+          <text x="608" y="145" text-anchor="middle" class="t-caption">auth handshakes · DB conventions</text>
+          <text x="608" y="168" text-anchor="middle" class="t-caption">microservice contracts · known patterns</text>
+          <line x1="484" y1="184" x2="732" y2="184" class="grid-line" />
+          <text x="608" y="212" text-anchor="middle" class="t-caption">✓ saves tokens every session</text>
+          <text x="608" y="235" text-anchor="middle" class="t-caption">✓ consistent with your actual stack</text>
+          <text x="608" y="258" text-anchor="middle" class="t-caption">⚠ implementation details rot fast</text>
+          <text x="608" y="281" text-anchor="middle" class="t-caption">⚠ hardcoded env IDs break on deploy</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.8s">
+          <rect x="140" y="380" width="520" height="68" class="box-skill" />
+          <text x="400" y="408" text-anchor="middle" class="t-label" style="font-size:14px">encode operational knowledge · discover implementation details</text>
+          <text x="400" y="430" text-anchor="middle" class="t-caption">GCP project + API paths = stable · which lib version = let Claude decide</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 8: TAKEAWAYS ─── -->
+    <div class="slide" id="s8">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="46" text-anchor="middle" class="t-label">take away</text>
+        <line x1="200" y1="62" x2="600" y2="62" class="rule-line" />
+
+        <g class="reveal-group" style="--d:0.1s">
+          <circle cx="72" cy="120" r="16" class="num-circle" />
+          <text x="72" y="125" text-anchor="middle" class="t-tag">1</text>
+          <text x="106" y="114" class="t-label" style="font-size:16px">do it manually first</text>
+          <text x="106" y="134" class="t-caption">understand the steps before you automate · the skill is a distillation</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.3s">
+          <circle cx="72" cy="200" r="16" class="num-circle" />
+          <text x="72" y="205" text-anchor="middle" class="t-tag">2</text>
+          <text x="106" y="194" class="t-label" style="font-size:16px">dispatch in parallel</text>
+          <text x="106" y="214" class="t-caption">single message · wall time = slowest task · not the sum</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.5s">
+          <circle cx="72" cy="280" r="16" class="num-circle" />
+          <text x="72" y="285" text-anchor="middle" class="t-tag">3</text>
+          <text x="106" y="274" class="t-label" style="font-size:16px">encode what's stable · discover the rest</text>
+          <text x="106" y="294" class="t-caption">operational knowledge in the skill · implementation details at runtime</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.7s">
+          <circle cx="72" cy="360" r="16" class="num-circle" />
+          <text x="72" y="365" text-anchor="middle" class="t-tag">4</text>
+          <text x="106" y="354" class="t-label" style="font-size:16px">any repeated investigation is a candidate</text>
+          <text x="106" y="374" class="t-caption">alert triage · PR impact check · CI failure diagnosis · deploy status</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.9s">
+          <line x1="200" y1="432" x2="600" y2="432" class="rule-line" />
+          <text x="400" y="462" text-anchor="middle" class="t-eyebrow">now build one</text>
+        </g>
+      </svg>
+    </div>
+
+  </div><!-- /.deck -->
+
+  <!-- Guide panel -->
+  <div class="guide-panel" id="guide-panel">
+    <button class="guide-handle" id="guide-handle" aria-expanded="false">
+      <span class="guide-handle-label">tutorial guide</span>
+      <span class="guide-handle-icon" id="guide-icon" aria-hidden="true">▲</span>
+    </button>
+    <div class="guide-content" id="guide-content">
+      <p class="guide-text" id="guide-text"></p>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="slide-nav">
+    <button class="nav-btn" id="prev" aria-label="Previous step">←</button>
+    <div class="progress-dots" id="dots"></div>
+    <button class="nav-btn" id="next" aria-label="Next step">→</button>
+    <div class="nav-separator" aria-hidden="true"></div>
+    <button class="nav-btn tts-btn" id="speak-btn" title="Read aloud (Kokoro TTS)" aria-label="Read slide aloud">▶</button>
+  </nav>
+
+  <script type="module">
+    const TTS_TEXTS = [
+      "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
+      "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
+      "The demo case is a real crash: TypeError, cannot read properties of undefined, reading set video uploaded. It hit four hundred and forty three users, over seven thousand times, since December twenty twenty four. It was marked resolved and assigned. It is still firing today. The question is not how to fix this one. The question is how to stop spending thirty minutes on the next one.",
+      "The story is in the breadcrumbs. The recording starts, screenshots fire every two hundred milliseconds, steps are added. Then the user pauses. Stop is called. The server is closed. The recording object is deleted. But at this point, in-flight screenshot upload callbacks are still in flight. They resolve after the recording object is gone. When they try to call set video uploaded, the object is undefined. The crash happens. The breadcrumb trail makes this visible in under a minute. A human digging through the same two hundred lines takes twenty.",
+      "The pipeline: an alert arrives with a Sentry issue ID. The skill dispatches three things simultaneously: fetch the Sentry issue details, breadcrumbs, and recent events; query GCP Cloud Run logs for the five minutes around the crash; and retrieve the FullStory session transcript. All three run in parallel. When they all return, the skill synthesizes a timeline, identifies the root cause, and suggests a fix direction.",
+      "The key pattern: dispatch everything in a single message. When you send multiple tool calls in one message, the model runs them in parallel. The wall time equals the slowest single task, not the sum of all tasks. Three sequential messages at two, three, and two seconds costs seven seconds plus three round trips. One message with three parallel calls costs three seconds, period. This is the most important pattern in agentic design.",
+      "A triage skill is a markdown file. The frontmatter tells Claude when to trigger it and which tools are allowed. The fixed context section encodes what Claude cannot discover: the Sentry organization slug, the GCP project name, and the API paths. The parallel dispatch section defines the pipeline. The timeline rules section teaches Claude what to look for in Electron breadcrumbs. The output format section defines the contract. The known patterns section encodes recurring crash classes so Claude can match them instantly instead of re-reasoning from scratch.",
+      "There are two schools of thought on what belongs in a skill. The first: encode only principles, let the agent discover implementation details at runtime, and keep skills generic so they age well. The second: document what Claude genuinely cannot discover — cross-repo patterns, auth handshakes, database conventions, microservice contracts. The synthesis: encode operational knowledge that is stable and expensive to re-discover. Let Claude figure out implementation details that change. The GCP project name and API paths are stable. Which library version to use is not.",
+      "Four things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Now build one.",
+    ];
+
+    const SLIDE_NAMES = [
+      'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
+      'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'takeaways',
+    ];
+
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    let tts = null;
+    let currentSource = null;
+    let currentAudioCtx = null;
+    let ttsState = 'idle';
+
+    function buildDots() {
+      const container = document.getElementById('dots');
+      slides.forEach(() => {
+        const d = document.createElement('span');
+        d.className = 'dot';
+        container.appendChild(d);
+      });
+    }
+
+    function updateDots() {
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('dot-active', i === current);
+      });
+    }
+
+    function updateStepIndicator() {
+      const name = SLIDE_NAMES[current] || '';
+      document.getElementById('step-label').textContent =
+        `${current + 1} / ${slides.length}  ·  ${name}`;
+    }
+
+    function updateGuideText() {
+      document.getElementById('guide-text').textContent = TTS_TEXTS[current] || '';
+    }
+
+    function go(n) {
+      if (currentSource) { try { currentSource.stop(); } catch (_) {} currentSource = null; }
+      if (ttsState === 'playing' || ttsState === 'generating') {
+        setTTSState(tts ? 'ready' : 'idle');
+      }
+
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(n, slides.length - 1));
+
+      slides[current].querySelectorAll('.reveal-group').forEach(g => {
+        g.style.animation = 'none';
+        void g.offsetWidth;
+        g.style.animation = '';
+      });
+
+      slides[current].classList.add('active');
+      updateDots();
+      updateStepIndicator();
+      updateGuideText();
+
+      document.getElementById('prev').disabled = current === 0;
+      document.getElementById('next').disabled = current === slides.length - 1;
+    }
+
+    const guidePanel = document.getElementById('guide-panel');
+    document.getElementById('guide-handle').addEventListener('click', () => {
+      const open = guidePanel.classList.toggle('guide-open');
+      document.getElementById('guide-handle').setAttribute('aria-expanded', String(open));
+      document.getElementById('guide-icon').textContent = open ? '▼' : '▲';
+    });
+
+    function setTTSState(state) {
+      ttsState = state;
+      const btn = document.getElementById('speak-btn');
+      btn.className = 'nav-btn tts-btn';
+      btn.disabled = false;
+
+      switch (state) {
+        case 'loading':
+          btn.textContent = '···';
+          btn.disabled = true;
+          btn.classList.add('tts-loading');
+          btn.title = 'Loading Kokoro TTS model (~50 MB, one-time)…';
+          break;
+        case 'generating':
+          btn.textContent = '···';
+          btn.disabled = true;
+          btn.classList.add('tts-loading');
+          btn.title = 'Synthesising speech…';
+          break;
+        case 'playing':
+          btn.textContent = '■';
+          btn.classList.add('tts-playing');
+          btn.title = 'Stop';
+          break;
+        case 'error':
+          btn.textContent = '✕';
+          btn.title = 'TTS unavailable — check console';
+          break;
+        default:
+          btn.textContent = '▶';
+          btn.title = 'Read aloud (Kokoro TTS)';
+      }
+    }
+
+    async function ensureTTS() {
+      if (tts) return true;
+      setTTSState('loading');
+      try {
+        const { KokoroTTS } = await import('https://esm.sh/kokoro-js');
+        tts = await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0', { dtype: 'q8' });
+        setTTSState('ready');
+        return true;
+      } catch (err) {
+        console.error('[Kokoro TTS]', err);
+        setTTSState('error');
+        return false;
+      }
+    }
+
+    async function handleSpeak() {
+      if (ttsState === 'playing') {
+        if (currentSource) { try { currentSource.stop(); } catch (_) {} currentSource = null; }
+        setTTSState('ready');
+        return;
+      }
+      if (['loading', 'generating', 'error'].includes(ttsState)) return;
+
+      const text = TTS_TEXTS[current];
+      if (!text) return;
+
+      const ok = await ensureTTS();
+      if (!ok) return;
+
+      setTTSState('generating');
+      try {
+        const audio = await tts.generate(text, { voice: 'af_bella' });
+
+        if (currentAudioCtx) { try { currentAudioCtx.close(); } catch (_) {} }
+        currentAudioCtx = new AudioContext({ sampleRate: audio.sampling_rate });
+        const buffer = currentAudioCtx.createBuffer(1, audio.data.length, audio.sampling_rate);
+        buffer.getChannelData(0).set(audio.data);
+
+        currentSource = currentAudioCtx.createBufferSource();
+        currentSource.buffer = buffer;
+        currentSource.connect(currentAudioCtx.destination);
+        currentSource.onended = () => { currentSource = null; setTTSState('ready'); };
+        currentSource.start();
+        setTTSState('playing');
+      } catch (err) {
+        console.error('[Kokoro TTS generate]', err);
+        setTTSState('error');
+      }
+    }
+
+    document.getElementById('speak-btn').addEventListener('click', handleSpeak);
+    document.getElementById('prev').addEventListener('click', () => go(current - 1));
+    document.getElementById('next').addEventListener('click', () => go(current + 1));
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(current + 1);
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(current - 1);
+    });
+
+    let touchX = 0;
+    document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 50) go(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    buildDots();
+    go(0);
+  </script>
+</body>
+</html>

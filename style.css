@@ -1,0 +1,674 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #1a1a18;
+  --ink-l: #3d3d3a;
+  --ink-f: #6e6e6a;
+  --paper: #f0ede6;
+  --paper-d: #e4e0d8;
+  --border: #c8c4bc;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Georgia", serif;
+  background: var(--paper-d);
+  color: var(--ink);
+}
+
+/* ── DECK & SLIDES ── */
+
+.deck {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── SVG CANVAS ── */
+
+.slide-svg {
+  width: min(90vw, 900px);
+  height: min(80vh, 560px);
+  overflow: visible;
+}
+
+/* ── TYPOGRAPHY (SVG text classes) ── */
+
+.t-hero {
+  font-family: "Georgia", serif;
+  font-size: 52px;
+  font-weight: 700;
+  fill: var(--ink);
+  letter-spacing: -1px;
+}
+
+.t-sub {
+  font-family: "SF Mono", monospace;
+  font-size: 18px;
+  fill: var(--ink-f);
+  letter-spacing: 3px;
+}
+
+.t-eyebrow {
+  font-family: "SF Mono", monospace;
+  font-size: 13px;
+  fill: var(--ink-f);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.t-label {
+  font-family: "Georgia", serif;
+  font-size: 18px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.t-skill {
+  font-family: "Georgia", serif;
+  font-size: 22px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.t-caption {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  fill: var(--ink-f);
+  letter-spacing: 0.5px;
+}
+
+.t-giant-q {
+  font-family: "Georgia", serif;
+  font-size: 120px;
+  font-weight: 700;
+  fill: var(--ink-f);
+  opacity: 0.4;
+}
+
+.t-code {
+  font-family: "SF Mono", "Fira Mono", monospace;
+  font-size: 13px;
+  fill: var(--ink-l);
+}
+
+.t-filetab {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  fill: var(--ink-f);
+  letter-spacing: 0.3px;
+}
+
+.t-ann {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  fill: var(--ink-f);
+  letter-spacing: 0.5px;
+}
+
+.t-tag {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ink);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.t-tag-llm {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ink-f);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.t-route-label {
+  font-family: "SF Mono", monospace;
+  font-size: 12px;
+  fill: var(--ink-f);
+}
+
+.t-example {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  fill: var(--ink-f);
+}
+
+/* Code colors */
+.c-key   { fill: var(--ink);   }
+.c-val   { fill: var(--ink-l); }
+.c-punct { fill: var(--ink-f); }
+.c-comment { fill: var(--ink-f); font-style: italic; }
+
+/* ── SHAPES ── */
+
+.box-main {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.box-skill {
+  fill: var(--paper-d);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.box-wavy {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.file-tab {
+  fill: var(--paper-d);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.section-front {
+  fill: var(--paper-d);
+  stroke: none;
+}
+
+/* Grid lines inside algo box */
+.grid-line {
+  stroke: var(--border);
+  stroke-width: 0.5;
+}
+
+/* ── LINES & ARROWS ── */
+
+.rule-line {
+  stroke: var(--ink-f);
+  stroke-width: 1;
+}
+
+.arrow-v {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.arrowhead {
+  fill: var(--ink);
+}
+
+.spine {
+  stroke: var(--border);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+
+.spine-branch, .spine-branch-r {
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+
+.spine-dot {
+  fill: var(--ink);
+}
+
+.spine-dot-llm {
+  fill: var(--ink-f);
+  stroke: var(--ink-f);
+}
+
+.split-line-algo {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.split-line-llm {
+  stroke: var(--ink-f);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 3;
+}
+
+.example-line {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.ann-bracket {
+  stroke: var(--ink-f);
+  stroke-width: 1;
+}
+
+.ann-tick {
+  stroke: var(--ink-f);
+  stroke-width: 1;
+}
+
+/* ── FUNNEL ── */
+
+.funnel-top {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.funnel-mid {
+  fill: var(--paper-d);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.funnel-bot {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.drip {
+  fill: var(--ink-f);
+  opacity: 0.3;
+}
+
+/* ── TAG BOXES ── */
+
+.tag-box {
+  stroke-width: 1.5;
+}
+
+.algo-box {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+
+.llm-box {
+  fill: var(--paper-d);
+  stroke: var(--ink-f);
+}
+
+/* ── ANIMATED ELEMENTS ── */
+
+/* Flow dots */
+.flow-dot, .spine-flow {
+  fill: var(--ink);
+}
+
+.flow-dot-fetch {
+  fill: var(--ink);
+}
+
+.flow-dot-under {
+  fill: var(--ink-f);
+}
+
+.funnel-dot {
+  fill: var(--ink-f);
+  opacity: 0.7;
+}
+
+/* Cursor blink */
+.cursor-blink {
+  fill: var(--ink);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Hero flicker (e-ink refresh) */
+.flicker {
+  animation: eink-refresh 0.08s step-end 3;
+  animation-delay: 0.1s;
+}
+
+@keyframes eink-refresh {
+  0%   { fill: var(--ink); opacity: 0.04; }
+  50%  { fill: var(--ink); opacity: 0.10; }
+  100% { fill: none;        opacity: 0; }
+}
+
+/* Reveal groups (stagger on slide-in) */
+.reveal-group {
+  opacity: 0;
+  animation: none;
+}
+
+.slide.active .reveal-group {
+  animation: fade-up 0.5s ease forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* SVG path draw-on */
+.draw-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.slide.active .draw-path {
+  animation: draw 0.8s ease forwards;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Data blob pulse */
+.data-blob {
+  fill: var(--paper-d);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { r: 45; }
+  50%       { r: 48; }
+}
+
+/* ── FAILURE MODE BOXES ── */
+
+.box-failure {
+  fill: var(--paper);
+  stroke: var(--border);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 3;
+}
+
+.box-mono {
+  fill: var(--paper-d);
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.brain-shape {
+  fill: var(--paper-d);
+  stroke: var(--ink-f);
+  stroke-width: 1.5;
+}
+
+.arrow-wrong {
+  stroke: var(--ink-f);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.arrowhead-wrong {
+  fill: var(--ink-f);
+}
+
+.t-fail-label {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ink-f);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.t-mono {
+  font-family: "SF Mono", monospace;
+  font-size: 12px;
+  fill: var(--ink);
+}
+
+.t-mono-faint {
+  font-family: "SF Mono", monospace;
+  font-size: 10px;
+  fill: var(--ink-f);
+}
+
+.t-vs {
+  font-family: "Georgia", serif;
+  font-size: 32px;
+  font-weight: 700;
+  fill: var(--border);
+}
+
+/* ── SPECTRUM SLIDE ── */
+
+.axis-line {
+  stroke: var(--ink-f);
+  stroke-width: 1.5;
+}
+
+.axis-tick {
+  stroke: var(--ink-f);
+  stroke-width: 1.5;
+}
+
+.t-axis {
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  fill: var(--ink-f);
+  letter-spacing: 0.5px;
+}
+
+.t-connector {
+  font-family: "SF Mono", monospace;
+  font-size: 10px;
+  fill: var(--ink-f);
+}
+
+.connector-h {
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+.wave-line {
+  fill: none;
+  stroke: var(--ink-f);
+  stroke-width: 1;
+}
+
+.axis-dot {
+  fill: var(--ink-f);
+  opacity: 0.6;
+}
+
+/* ── NAV ── */
+
+.slide-nav {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1.25rem;
+  box-shadow: 2px 2px 0 var(--border);
+  z-index: 100;
+}
+
+.nav-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-size: 1rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  font-family: "Georgia", serif;
+  transition: background 0.15s;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--paper-d);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── PROGRESS DOTS ── */
+
+.progress-dots {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: center;
+  min-width: 5rem;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.dot-active {
+  background: var(--ink);
+  transform: scale(1.4);
+}
+
+/* ── NUMBER CIRCLES (takeaways slide) ── */
+
+.num-circle {
+  fill: var(--paper-d);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+/* ── REDUCED MOTION ── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal-group { opacity: 1 !important; }
+}
+
+/* ── STEP INDICATOR ── */
+
+.step-indicator {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 200;
+  font-family: "SF Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-f);
+  letter-spacing: 1px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── GUIDE PANEL ── */
+
+.guide-panel {
+  position: fixed;
+  bottom: 4.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90vw, 860px);
+  background: var(--paper);
+  border: 1px solid var(--border);
+  box-shadow: 2px 2px 0 var(--border);
+  z-index: 90;
+  overflow: hidden;
+  max-height: 1.75rem;
+  transition: max-height 0.35s ease;
+}
+
+.guide-panel.guide-open {
+  max-height: 18rem;
+}
+
+.guide-handle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.35rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+.guide-panel.guide-open .guide-handle {
+  border-bottom-color: var(--border);
+}
+
+.guide-handle-label {
+  font-family: "SF Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-f);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.guide-handle-icon {
+  font-size: 9px;
+  color: var(--ink-f);
+  transition: color 0.15s;
+}
+
+.guide-handle:hover .guide-handle-icon {
+  color: var(--ink);
+}
+
+.guide-content {
+  padding: 0.85rem 1.1rem 1rem;
+  overflow-y: auto;
+  max-height: 15rem;
+}
+
+.guide-text {
+  font-family: "Georgia", serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-l);
+}
+
+/* ── NAV ADDITIONS ── */
+
+.nav-separator {
+  width: 1px;
+  height: 1.1rem;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.tts-btn {
+  font-family: "SF Mono", monospace;
+  font-size: 0.75rem;
+  min-width: 2rem;
+  letter-spacing: 0;
+}
+
+.tts-btn.tts-playing {
+  background: var(--paper-d);
+  border-color: var(--ink);
+}
