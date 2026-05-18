@@ -311,101 +311,8 @@
       </svg>
     </div>
 
-    <!-- ─── SLIDE 6: SKILL ANATOMY ─── -->
-    <div class="slide" id="s6">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <rect x="100" y="36" width="580" height="430" class="box-main" />
-        <rect x="100" y="16" width="300" height="28" class="file-tab" />
-        <text x="250" y="34" text-anchor="middle" class="t-filetab">commands/triage-desktop-crash.md</text>
 
-        <!-- Frontmatter section -->
-        <rect x="100" y="44" width="580" height="100" class="section-front" />
-        <text x="120" y="67"  class="t-code"><tspan class="c-punct">---</tspan></text>
-        <text x="120" y="85"  class="t-code"><tspan class="c-key">name</tspan><tspan class="c-punct">: </tspan><tspan class="c-val">triage-desktop-crash</tspan></text>
-        <text x="120" y="103" class="t-code"><tspan class="c-key">argument-hint</tspan><tspan class="c-punct">: </tspan><tspan class="c-val">[&lt;sentry-issue-id&gt;]</tspan></text>
-        <text x="120" y="121" class="t-code"><tspan class="c-key">allowed-tools</tspan><tspan class="c-punct">: </tspan><tspan class="c-val">Sentry · gcloud · FullStory · Skill</tspan></text>
-        <text x="120" y="139" class="t-code"><tspan class="c-punct">---</tspan></text>
-
-        <text x="120" y="165" class="t-code c-comment">## Fixed context   ← what Claude can't discover</text>
-        <text x="120" y="183" class="t-code c-val">Sentry org: guiddeco · GCP: guidde-production</text>
-
-        <text x="120" y="213" class="t-code c-comment">## Parallel dispatch   ← the pipeline</text>
-        <text x="120" y="231" class="t-code c-val">Sentry + GCP + FullStory · single message</text>
-
-        <text x="120" y="261" class="t-code c-comment">## Timeline rules   ← domain knowledge</text>
-        <text x="120" y="279" class="t-code c-val">look for events after "Deleting recording..."</text>
-
-        <text x="120" y="309" class="t-code c-comment">## Output format   ← the contract</text>
-        <text x="120" y="327" class="t-code c-val">impact · timeline · root cause · fix direction</text>
-
-        <text x="120" y="357" class="t-code c-comment">## Known patterns   ← encode what's stable</text>
-        <text x="120" y="375" class="t-code c-val">teardown race · IPC empty result · permission loss</text>
-
-        <rect x="120" y="400" width="8" height="16" class="cursor-blink" rx="1" />
-
-        <!-- Annotations -->
-        <g class="reveal-group" style="--d:0.5s">
-          <line x1="690" y1="44"  x2="710" y2="44"  class="ann-tick" />
-          <line x1="710" y1="44"  x2="710" y2="148" class="ann-bracket" />
-          <line x1="690" y1="148" x2="710" y2="148" class="ann-tick" />
-          <text x="718" y="90"  class="t-ann">routing</text>
-          <text x="718" y="106" class="t-ann">trigger</text>
-        </g>
-        <g class="reveal-group" style="--d:0.75s">
-          <line x1="690" y1="152" x2="710" y2="152" class="ann-tick" />
-          <line x1="710" y1="152" x2="710" y2="390" class="ann-bracket" />
-          <line x1="690" y1="390" x2="710" y2="390" class="ann-tick" />
-          <text x="718" y="260" class="t-ann">workflow</text>
-          <text x="718" y="276" class="t-ann">+ domain</text>
-          <text x="718" y="292" class="t-ann">knowledge</text>
-        </g>
-      </svg>
-    </div>
-
-    <!-- ─── SLIDE 7: DESIGN DEBATE ─── -->
-    <div class="slide" id="s7">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="42" text-anchor="middle" class="t-label">what to put in a skill?</text>
-
-        <g class="reveal-group" style="--d:0.1s">
-          <text x="192" y="80" text-anchor="middle" class="t-fail-label">principles only</text>
-          <rect x="44" y="90" width="296" height="260" class="box-failure" />
-          <text x="192" y="122" text-anchor="middle" class="t-caption">skills encode what, not how</text>
-          <text x="192" y="145" text-anchor="middle" class="t-caption">agent discovers project IDs at runtime</text>
-          <text x="192" y="168" text-anchor="middle" class="t-caption">enforcement lives in ESLint · hooks</text>
-          <line x1="68" y1="184" x2="316" y2="184" class="grid-line" />
-          <text x="192" y="212" text-anchor="middle" class="t-caption">✓ ages well · survives infra changes</text>
-          <text x="192" y="235" text-anchor="middle" class="t-caption">✓ no hardcoded IDs to break</text>
-          <text x="192" y="258" text-anchor="middle" class="t-caption">⚠ may miss cross-repo context</text>
-          <text x="192" y="281" text-anchor="middle" class="t-caption">⚠ re-discovers the same things</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.35s">
-          <text x="400" y="225" text-anchor="middle" class="t-vs">vs</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.55s">
-          <text x="608" y="80" text-anchor="middle" class="t-tag">encode patterns</text>
-          <rect x="460" y="90" width="296" height="260" class="box-main" />
-          <text x="608" y="122" text-anchor="middle" class="t-caption">document what Claude can't discover</text>
-          <text x="608" y="145" text-anchor="middle" class="t-caption">auth handshakes · DB conventions</text>
-          <text x="608" y="168" text-anchor="middle" class="t-caption">microservice contracts · known patterns</text>
-          <line x1="484" y1="184" x2="732" y2="184" class="grid-line" />
-          <text x="608" y="212" text-anchor="middle" class="t-caption">✓ saves tokens every session</text>
-          <text x="608" y="235" text-anchor="middle" class="t-caption">✓ consistent with your actual stack</text>
-          <text x="608" y="258" text-anchor="middle" class="t-caption">⚠ implementation details rot fast</text>
-          <text x="608" y="281" text-anchor="middle" class="t-caption">⚠ hardcoded env IDs break on deploy</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.8s">
-          <rect x="140" y="380" width="520" height="68" class="box-skill" />
-          <text x="400" y="408" text-anchor="middle" class="t-label" style="font-size:14px">encode operational knowledge · discover implementation details</text>
-          <text x="400" y="430" text-anchor="middle" class="t-caption">GCP project + API paths = stable · which lib version = let Claude decide</text>
-        </g>
-      </svg>
-    </div>
-
-    <!-- ─── SLIDE 8: TRIGGER / ROUTINES ─── -->
+    <!-- ─── SLIDE 6: TRIGGER / ROUTINES ─── -->
     <div class="slide" id="s8">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="38" text-anchor="middle" class="t-label">trigger it — no server needed</text>
@@ -781,22 +688,7 @@
         "Rule: if two tool calls don't depend on each other's results, put them in the same message.",
         "This is the highest-leverage pattern in agentic Claude design.",
       ],
-      // 6 — Skill Anatomy
-      [
-        "Frontmatter: name drives the /trigger, argument-hint tells Claude what to expect, allowed-tools is a security boundary.",
-        "Fixed context: Sentry org slug, GCP project ID, API paths — stable facts Claude would otherwise have to guess every session.",
-        "Timeline rules: domain knowledge encoded once — 'look for ALGORITHM events after Deleting recording…'",
-        "Output format: the contract — every run produces impact · timeline · root cause · fix direction.",
-        "Known patterns: teardown race, IPC empty result, permission loss — Claude matches on first parse instead of re-reasoning from scratch.",
-      ],
-      // 7 — Design Debate
-      [
-        "Stable → encode in the skill: GCP project name, Sentry org slug, API endpoint paths, known crash fingerprints.",
-        "Volatile → discover at runtime: library versions, branch names, PR numbers, current config values.",
-        "Heuristic: if a new engineer needs a 5-min onboarding chat to find it, encode it. If it's in the repo, let Claude read it.",
-        "Implementation details that change fast will rot the skill. Operational constants stable for months are worth encoding.",
-      ],
-      // 8 — Trigger / Routines
+      // 6 — Trigger / Routines
       [
         "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
         "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
@@ -805,7 +697,7 @@
         "Set up at claude.ai/code: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
         "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
       ],
-      // 9 — Routines Anatomy
+      // 7 — Routines Anatomy
       [
         "Routines run on Anthropic's cloud — isolated per-run sessions with a fresh git checkout. No local machine access.",
         "Configure once: prompt + model, git repo (GitHub), MCP connectors, cron schedule or run_once_at timestamp.",
@@ -814,7 +706,7 @@
         "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
         "Create via /schedule · manage and delete at claude.ai/code/routines.",
       ],
-      // 10 — Three Layers
+      // 8 — Three Layers
       [
         "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
         "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
@@ -822,7 +714,7 @@
         "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
         "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
       ],
-      // 11 — Takeaways
+      // 9 — Takeaways
       [
         "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
         "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -835,7 +727,7 @@
 
     const SLIDE_NAMES = [
       'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
-      'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'routines', 'three layers', 'takeaways',
+      'the pipeline', 'parallel dispatch', 'trigger it', 'routines', 'three layers', 'takeaways',
     ];
 
     const slides = document.querySelectorAll('.slide');
