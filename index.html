@@ -27,6 +27,87 @@
       </svg>
     </div>
 
+    <!-- ─── SLIDE PREREQ: PREREQUISITES ─── -->
+    <div class="slide" id="s-prereq">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">prerequisites</text>
+        <line x1="100" y1="52" x2="700" y2="52" class="rule-line" />
+
+        <!-- vertical separator -->
+        <line x1="400" y1="64" x2="400" y2="450" class="grid-line" />
+
+        <!-- ── LEFT: SKILLS (→ slide 3) ── -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="200" y="80" text-anchor="middle" class="t-tag">skills</text>
+          <text x="385" y="80" text-anchor="end" class="t-eyebrow" style="font-size:10px">→ slide 3</text>
+          <line x1="44" y1="90" x2="385" y2="90" class="grid-line" />
+        </g>
+
+        <g class="reveal-group" style="--d:0.15s">
+          <rect x="44" y="106" width="22" height="22" class="box-skill" rx="3" />
+          <text x="55" y="122" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="78" y="116" class="t-label" style="font-size:14px">Claude Code installed</text>
+          <text x="78" y="133" class="t-caption">claude CLI in PATH · <tspan class="t-code">claude --version</tspan></text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.25s">
+          <rect x="44" y="152" width="22" height="22" class="box-skill" rx="3" />
+          <text x="55" y="168" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="78" y="162" class="t-label" style="font-size:14px">basic markdown</text>
+          <text x="78" y="179" class="t-caption">headings · bullet lists · fenced code blocks</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.35s">
+          <rect x="44" y="198" width="22" height="22" class="box-skill" rx="3" />
+          <text x="55" y="214" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="78" y="208" class="t-label" style="font-size:14px">a repeated investigation in mind</text>
+          <text x="78" y="225" class="t-caption">alert triage · CI failure · deploy status · anything manual + recurring</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.45s">
+          <rect x="44" y="244" width="22" height="22" class="box-skill" rx="3" />
+          <text x="55" y="260" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="78" y="254" class="t-label" style="font-size:14px">done it manually at least once</text>
+          <text x="78" y="271" class="t-caption">the skill encodes what you already know · can't automate the unknown</text>
+        </g>
+
+        <!-- ── RIGHT: PARALLEL WORK (→ slides 7, 8, 9) ── -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="596" y="80" text-anchor="middle" class="t-tag">parallel work</text>
+          <text x="415" y="80" text-anchor="start" class="t-eyebrow" style="font-size:10px">→ slides 7, 8, 9</text>
+          <line x1="415" y1="90" x2="756" y2="90" class="grid-line" />
+        </g>
+
+        <g class="reveal-group" style="--d:0.15s">
+          <rect x="415" y="106" width="22" height="22" class="box-skill" rx="3" />
+          <text x="426" y="122" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="449" y="116" class="t-label" style="font-size:14px">≥1 MCP connector active</text>
+          <text x="449" y="133" class="t-caption">Sentry · Slack · GCP · FullStory · any relevant tool</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.25s">
+          <rect x="415" y="152" width="22" height="22" class="box-skill" rx="3" />
+          <text x="426" y="168" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="449" y="162" class="t-label" style="font-size:14px">multiple independent data sources</text>
+          <text x="449" y="179" class="t-caption">steps that don't depend on each other → dispatch in one message</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.35s">
+          <rect x="415" y="198" width="22" height="22" class="box-skill" rx="3" />
+          <text x="426" y="214" text-anchor="middle" class="t-filetab">✓</text>
+          <text x="449" y="208" class="t-label" style="font-size:14px">connectors set up at claude.ai/code</text>
+          <text x="449" y="225" class="t-caption">not configurable during the demo · do this now</text>
+        </g>
+
+        <!-- footer -->
+        <g class="reveal-group" style="--d:0.6s">
+          <line x1="100" y1="310" x2="700" y2="310" class="rule-line" />
+          <text x="400" y="340" text-anchor="middle" class="t-caption">no server · no infra · no code · just a markdown file and connected tools</text>
+          <text x="400" y="368" text-anchor="middle" class="t-eyebrow">check these now — the demo moves fast</text>
+        </g>
+      </svg>
+    </div>
+
     <!-- ─── SLIDE 1: MANUAL VS AUTOMATED ─── -->
     <div class="slide" id="s1">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -474,8 +555,88 @@
       </svg>
     </div>
 
-    <!-- ─── SLIDE 9: THREE LAYERS ─── -->
+    <!-- ─── SLIDE 9: ROUTINES ANATOMY ─── -->
     <div class="slide" id="s9">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">Claude Code Routines — anatomy</text>
+
+        <!-- Config column -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="146" y="62" text-anchor="middle" class="t-caption">configure once</text>
+          <rect x="46" y="70" width="200" height="38" class="box-main" />
+          <text x="146" y="94" text-anchor="middle" class="t-tag">prompt + model</text>
+          <rect x="46" y="114" width="200" height="38" class="box-main" />
+          <text x="146" y="138" text-anchor="middle" class="t-tag">git repo · GitHub</text>
+          <rect x="46" y="158" width="200" height="38" class="box-main" />
+          <text x="146" y="182" text-anchor="middle" class="t-tag">MCP connectors</text>
+          <rect x="46" y="202" width="200" height="38" class="box-main" />
+          <text x="146" y="226" text-anchor="middle" class="t-tag">cron · run_once_at</text>
+        </g>
+
+        <!-- Arrow left → center -->
+        <g class="reveal-group" style="--d:0.25s">
+          <line x1="246" y1="152" x2="292" y2="152" class="split-line-algo" />
+          <polygon points="288,146 300,152 288,158" class="arrowhead" />
+        </g>
+
+        <!-- Cloud session box -->
+        <g class="reveal-group" style="--d:0.42s">
+          <rect x="298" y="62" width="204" height="186" class="box-skill" />
+          <text x="400" y="86" text-anchor="middle" class="t-label" style="font-size:13px">isolated cloud session</text>
+          <line x1="314" y1="97" x2="486" y2="97" class="grid-line" />
+          <text x="400" y="118" text-anchor="middle" class="t-caption">Anthropic's infrastructure</text>
+          <text x="400" y="138" text-anchor="middle" class="t-caption">fresh git checkout per run</text>
+          <text x="400" y="158" text-anchor="middle" class="t-caption">no local machine or files</text>
+          <text x="400" y="178" text-anchor="middle" class="t-caption">no local env vars</text>
+          <text x="400" y="202" text-anchor="middle" class="t-caption">all paid plans</text>
+          <text x="400" y="232" text-anchor="middle" class="t-caption">claude.ai/code/routines</text>
+        </g>
+
+        <!-- Arrow center → right -->
+        <g class="reveal-group" style="--d:0.58s">
+          <line x1="502" y1="152" x2="548" y2="152" class="split-line-algo" />
+          <polygon points="544,146 556,152 544,158" class="arrowhead" />
+        </g>
+
+        <!-- Output column -->
+        <g class="reveal-group" style="--d:0.68s">
+          <text x="654" y="62" text-anchor="middle" class="t-caption">outputs</text>
+          <rect x="554" y="70" width="200" height="38" class="box-main" />
+          <text x="654" y="94" text-anchor="middle" class="t-tag">Slack · Jira · GitHub</text>
+          <rect x="554" y="114" width="200" height="38" class="box-main" />
+          <text x="654" y="138" text-anchor="middle" class="t-tag">file writes · commits</text>
+          <rect x="554" y="158" width="200" height="38" class="box-main" />
+          <text x="654" y="182" text-anchor="middle" class="t-tag">PRs · issues · reports</text>
+        </g>
+
+        <!-- Divider -->
+        <g class="reveal-group" style="--d:0.82s">
+          <line x1="80" y1="272" x2="720" y2="272" class="rule-line" />
+          <text x="400" y="296" text-anchor="middle" class="t-caption">need local access? skip /schedule — use instead:</text>
+        </g>
+
+        <!-- Local alternatives -->
+        <g class="reveal-group" style="--d:0.92s">
+          <rect x="80" y="306" width="272" height="64" class="box-failure" />
+          <text x="216" y="330" text-anchor="middle" class="t-tag">/loop</text>
+          <text x="216" y="348" text-anchor="middle" class="t-caption">in-session · full local access</text>
+          <text x="216" y="364" text-anchor="middle" class="t-caption">runs while session is open</text>
+          <rect x="448" y="306" width="272" height="64" class="box-failure" />
+          <text x="584" y="330" text-anchor="middle" class="t-tag">crontab -e + claude CLI</text>
+          <text x="584" y="348" text-anchor="middle" class="t-caption">system cron · local machine</text>
+          <text x="584" y="364" text-anchor="middle" class="t-caption">full env + file access</text>
+        </g>
+
+        <!-- Footer -->
+        <g class="reveal-group" style="--d:1s">
+          <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
+          <text x="400" y="422" text-anchor="middle" class="t-caption">create via /schedule in Claude Code · no server · no infra needed</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 10: THREE LAYERS ─── -->
+    <div class="slide" id="s10">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="38" text-anchor="middle" class="t-label">gather · analyse · act — three layers, three rules</text>
 
@@ -571,8 +732,8 @@
       </svg>
     </div>
 
-    <!-- ─── SLIDE 10: TAKEAWAYS ─── -->
-    <div class="slide" id="s10">
+    <!-- ─── SLIDE 11: TAKEAWAYS ─── -->
+    <div class="slide" id="s11">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="46" text-anchor="middle" class="t-label">take away</text>
         <line x1="200" y1="62" x2="600" y2="62" class="rule-line" />
@@ -644,6 +805,7 @@
   <script type="module">
     const TTS_TEXTS = [
       "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
+      "Prerequisites are split into two areas. Skills — needed for slide three onward: Claude Code installed and in your PATH, basic markdown syntax, a concrete repeated investigation your team does manually, and having done that investigation yourself at least once. The skill is a distillation of what you already know — you cannot automate what you have never done. Parallel Work — needed for slides seven, eight, and nine: at least one MCP connector active, a workflow that hits multiple independent data sources, and those connectors configured at claude dot ai slash code before we start. You cannot set up connectors mid-demo. If you are missing one, open claude dot ai slash code now. No server, no infrastructure, no code required. Just a markdown file and the right tools connected.",
       "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
       "The demo case is a real crash: TypeError, cannot read properties of undefined, reading set video uploaded. It hit four hundred and forty three users, over seven thousand times, since December twenty twenty four. It was marked resolved and assigned. It is still firing today. The question is not how to fix this one. The question is how to stop spending thirty minutes on the next one.",
       "The story is in the breadcrumbs. The recording starts, screenshots fire every two hundred milliseconds, steps are added. Then the user pauses. Stop is called. The server is closed. The recording object is deleted. But at this point, in-flight screenshot upload callbacks are still in flight. They resolve after the recording object is gone. When they try to call set video uploaded, the object is undefined. The crash happens. The breadcrumb trail makes this visible in under a minute. A human digging through the same two hundred lines takes twenty.",
@@ -652,6 +814,7 @@
       "A triage skill is a markdown file. The frontmatter tells Claude when to trigger it and which tools are allowed. The fixed context section encodes what Claude cannot discover: the Sentry organization slug, the GCP project name, and the API paths. The parallel dispatch section defines the pipeline. The timeline rules section teaches Claude what to look for in Electron breadcrumbs. The output format section defines the contract. The known patterns section encodes recurring crash classes so Claude can match them instantly instead of re-reasoning from scratch.",
       "There are two schools of thought on what belongs in a skill. The first: encode only principles, let the agent discover implementation details at runtime, and keep skills generic so they age well. The second: document what Claude genuinely cannot discover — cross-repo patterns, auth handshakes, database conventions, microservice contracts. The synthesis: encode operational knowledge that is stable and expensive to re-discover. Let Claude figure out implementation details that change. The GCP project name and API paths are stable. Which library version to use is not.",
       "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report. Important: slash schedule creates cloud-only routines. They run on Anthropic's infrastructure with no access to your local machine, files, or environment variables. For local execution, use slash loop within your current Claude Code session, or a system cron job that invokes the claude CLI directly.",
+      "A Claude Code Routine is an isolated session that runs on Anthropic's infrastructure, not on your machine. Each run gets a fresh git checkout of your repo, the MCP connectors you configured, your chosen model, and the tools you allowed — but it cannot access your local machine, local files, or local environment variables. You configure a routine once: the prompt, the git repo, which MCP connectors to attach, and either a recurring cron expression — minimum one hour interval — or a run once at timestamp for a one-time execution. If you need local machine access, do not use slash schedule. Instead, use slash loop for a self-paced recurring task within your current Claude Code session, or set up a system crontab entry that calls the claude CLI directly. Create routines with the slash schedule command. Manage and delete them at claude dot ai slash code slash routines.",
       "Every automation pipeline runs through three distinct layers, each with different design rules. The Gather layer is pure data fetch — Sentry breadcrumbs, G C P logs, FullStory sessions. It makes no judgments. Design it for maximum parallelism and encode only stable parameters. When it fails, it produces wrong data, catchable downstream. The Analyse layer is where judgment lives: timeline reconstruction, root cause identification, pattern matching. Encode known patterns here and always output a confidence level. When it fails, it produces wrong conclusions, often through hallucination when data is sparse. The Act layer takes actions with side effects. It has three authority tiers. Notify — Slack messages, P R comments — is always safe; humans read and correct. Draft — Jira tickets, P R drafts — requires at least medium confidence. Mutate — closing issues, assigning, merging — requires high confidence only. The design rule: authority must match confidence. Never skip from Analyse directly to Mutate. That path leads to automation accidents.",
       "Five things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Five: skills compound. Each run teaches the skill something new. When you discover a crash pattern that wasn't in the known-patterns section, add it. After six months of runs, that section becomes your crash taxonomy — assembled automatically as a side effect of the automation itself. Now build one.",
     ];
@@ -663,20 +826,28 @@
         "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
         "Three-part pattern: Alert fires → Skill triggers → Pipeline fetches + synthesises → Report.",
       ],
-      // 1 — Manual vs Automated
+      // 1 — Prerequisites
+      [
+        "Two sub-sections: Skills (→ slide 3) and Parallel Work (→ slides 7, 8, 9).",
+        "Skills side: Claude Code CLI, basic markdown, a real repeated investigation in mind, and having done it manually at least once — the skill is a distillation of existing knowledge.",
+        "Parallel Work side: at least one MCP connector active, multiple independent data sources in your workflow, and connectors pre-configured at claude.ai/code before the session.",
+        "Critical: connectors cannot be set up mid-demo. Anyone missing one should do it now.",
+        "The bottom line: no server, no infra, no code — just a markdown file and the right tools connected.",
+      ],
+      // 2 — Manual vs Automated
       [
         "Left (dashed border): the same 30-min ritual, repeated by someone on the team every single time.",
         "SKILL.md (the arrow): a markdown file that encodes the workflow once, runs it for everyone forever.",
         "Right: automated path — triggers on alert, fetches Sentry + GCP + FullStory in parallel, outputs a consistent report.",
         "The skill doesn't replace judgment — it distils what you already know how to do.",
       ],
-      // 2 — Demo Case
+      // 3 — Demo Case
       [
         "Real crash from Guidde production: 443 users, 7,041 events since Dec 2024.",
         "'Marked resolved · still firing' — the fix was partial, or the same pattern recurred on a different code path.",
         "The question isn't how to fix this crash. It's how to stop spending 30 min on the next one.",
       ],
-      // 3 — Breadcrumb Timeline
+      // 4 — Breadcrumb Timeline
       [
         "Left branch (ALGORITHM): happy path — recording starts, screenshots fire every ~200 ms, steps accumulate.",
         "Dashed line marks teardown: user stops → server closes → recording object deleted.",
@@ -684,7 +855,7 @@
         "Late 'Step added successfully' fires after teardown → tries to call setVideoUploaded on the deleted object → crash.",
         "Diagnostic signal: any ALGORITHM event appearing after 'Deleting recording…' in the breadcrumb trail.",
       ],
-      // 4 — Pipeline
+      // 5 — Pipeline
       [
         "Three data sources fetched simultaneously from a single Claude message.",
         "Sentry: issue metadata + last 200 breadcrumbs + recent events for the same fingerprint.",
@@ -692,14 +863,14 @@
         "FullStory: session events for the affected user ID around the same timeframe.",
         "Synthesise step merges all three into a unified timeline, names the root cause, suggests fix direction.",
       ],
-      // 5 — Parallel Dispatch
+      // 6 — Parallel Dispatch
       [
         "Sequential (left): each tool call waits for the previous result — 2 s + 3 s + 2 s + round-trip overhead.",
         "Parallel (right): all three calls in one message — wall time = max(2 s, 3 s, 2 s) = 3 s, not the sum.",
         "Rule: if two tool calls don't depend on each other's results, put them in the same message.",
         "This is the highest-leverage pattern in agentic Claude design.",
       ],
-      // 6 — Skill Anatomy
+      // 7 — Skill Anatomy
       [
         "Frontmatter: name drives the /trigger, argument-hint tells Claude what to expect, allowed-tools is a security boundary.",
         "Fixed context: Sentry org slug, GCP project ID, API paths — stable facts Claude would otherwise have to guess every session.",
@@ -707,14 +878,14 @@
         "Output format: the contract — every run produces impact · timeline · root cause · fix direction.",
         "Known patterns: teardown race, IPC empty result, permission loss — Claude matches on first parse instead of re-reasoning from scratch.",
       ],
-      // 7 — Design Debate
+      // 8 — Design Debate
       [
         "Stable → encode in the skill: GCP project name, Sentry org slug, API endpoint paths, known crash fingerprints.",
         "Volatile → discover at runtime: library versions, branch names, PR numbers, current config values.",
         "Heuristic: if a new engineer needs a 5-min onboarding chat to find it, encode it. If it's in the repo, let Claude read it.",
         "Implementation details that change fast will rot the skill. Operational constants stable for months are worth encoding.",
       ],
-      // 8 — Trigger / Routines
+      // 9 — Trigger / Routines
       [
         "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
         "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
@@ -723,7 +894,16 @@
         "Set up at claude.ai/code: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
         "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
       ],
-      // 9 — Three Layers
+      // 10 — Routines Anatomy
+      [
+        "Routines run on Anthropic's cloud — isolated per-run sessions with a fresh git checkout. No local machine access.",
+        "Configure once: prompt + model, git repo (GitHub), MCP connectors, cron schedule or run_once_at timestamp.",
+        "Minimum cron interval: 1 hour. One-time runs use run_once_at (RFC3339 UTC) and auto-disable after firing.",
+        "Need local access? /loop runs a recurring task inside your current Claude Code session with full local access.",
+        "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
+        "Create via /schedule · manage and delete at claude.ai/code/routines.",
+      ],
+      // 11 — Three Layers
       [
         "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
         "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
@@ -731,7 +911,7 @@
         "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
         "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
       ],
-      // 10 — Takeaways
+      // 12 — Takeaways
       [
         "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
         "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -743,8 +923,8 @@
     ];
 
     const SLIDE_NAMES = [
-      'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
-      'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'three layers', 'takeaways',
+      'intro', 'prerequisites', 'manual vs automated', 'the case', 'breadcrumb timeline',
+      'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'routines', 'three layers', 'takeaways',
     ];
 
     const slides = document.querySelectorAll('.slide');
