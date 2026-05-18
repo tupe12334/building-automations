@@ -523,7 +523,7 @@
       <span class="guide-handle-icon" id="guide-icon" aria-hidden="true">▲</span>
     </button>
     <div class="guide-content" id="guide-content">
-      <p class="guide-text" id="guide-text"></p>
+      <ul class="guide-text" id="guide-text"></ul>
     </div>
   </div>
 
@@ -548,6 +548,82 @@
       "There are two schools of thought on what belongs in a skill. The first: encode only principles, let the agent discover implementation details at runtime, and keep skills generic so they age well. The second: document what Claude genuinely cannot discover — cross-repo patterns, auth handshakes, database conventions, microservice contracts. The synthesis: encode operational knowledge that is stable and expensive to re-discover. Let Claude figure out implementation details that change. The GCP project name and API paths are stable. Which library version to use is not.",
       "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report.",
       "Four things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Now build one.",
+    ];
+
+    const GUIDE_TEXTS = [
+      // 0 — Intro
+      [
+        "Navigate with → / ← keys, nav buttons, or swipe. Each slide animates on arrival.",
+        "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
+        "Three-part pattern: Alert fires → Skill triggers → Pipeline fetches + synthesises → Report.",
+      ],
+      // 1 — Manual vs Automated
+      [
+        "Left (dashed border): the same 30-min ritual, repeated by someone on the team every single time.",
+        "SKILL.md (the arrow): a markdown file that encodes the workflow once, runs it for everyone forever.",
+        "Right: automated path — triggers on alert, fetches Sentry + GCP + FullStory in parallel, outputs a consistent report.",
+        "The skill doesn't replace judgment — it distils what you already know how to do.",
+      ],
+      // 2 — Demo Case
+      [
+        "Real crash from Guidde production: 443 users, 7,041 events since Dec 2024.",
+        "'Marked resolved · still firing' — the fix was partial, or the same pattern recurred on a different code path.",
+        "The question isn't how to fix this crash. It's how to stop spending 30 min on the next one.",
+      ],
+      // 3 — Breadcrumb Timeline
+      [
+        "Left branch (ALGORITHM): happy path — recording starts, screenshots fire every ~200 ms, steps accumulate.",
+        "Dashed line marks teardown: user stops → server closes → recording object deleted.",
+        "Right branch (IN-FLIGHT): screenshot-upload callbacks still in flight haven't returned when teardown runs.",
+        "Late 'Step added successfully' fires after teardown → tries to call setVideoUploaded on the deleted object → crash.",
+        "Diagnostic signal: any ALGORITHM event appearing after 'Deleting recording…' in the breadcrumb trail.",
+      ],
+      // 4 — Pipeline
+      [
+        "Three data sources fetched simultaneously from a single Claude message.",
+        "Sentry: issue metadata + last 200 breadcrumbs + recent events for the same fingerprint.",
+        "GCP Logs: cloud_run_revision logs ±5 min around the crash timestamp, filtered to /c/v1/ errors.",
+        "FullStory: session events for the affected user ID around the same timeframe.",
+        "Synthesise step merges all three into a unified timeline, names the root cause, suggests fix direction.",
+      ],
+      // 5 — Parallel Dispatch
+      [
+        "Sequential (left): each tool call waits for the previous result — 2 s + 3 s + 2 s + round-trip overhead.",
+        "Parallel (right): all three calls in one message — wall time = max(2 s, 3 s, 2 s) = 3 s, not the sum.",
+        "Rule: if two tool calls don't depend on each other's results, put them in the same message.",
+        "This is the highest-leverage pattern in agentic Claude design.",
+      ],
+      // 6 — Skill Anatomy
+      [
+        "Frontmatter: name drives the /trigger, argument-hint tells Claude what to expect, allowed-tools is a security boundary.",
+        "Fixed context: Sentry org slug, GCP project ID, API paths — stable facts Claude would otherwise have to guess every session.",
+        "Timeline rules: domain knowledge encoded once — 'look for ALGORITHM events after Deleting recording…'",
+        "Output format: the contract — every run produces impact · timeline · root cause · fix direction.",
+        "Known patterns: teardown race, IPC empty result, permission loss — Claude matches on first parse instead of re-reasoning from scratch.",
+      ],
+      // 7 — Design Debate
+      [
+        "Stable → encode in the skill: GCP project name, Sentry org slug, API endpoint paths, known crash fingerprints.",
+        "Volatile → discover at runtime: library versions, branch names, PR numbers, current config values.",
+        "Heuristic: if a new engineer needs a 5-min onboarding chat to find it, encode it. If it's in the repo, let Claude read it.",
+        "Implementation details that change fast will rot the skill. Operational constants stable for months are worth encoding.",
+      ],
+      // 8 — Trigger / Routines
+      [
+        "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
+        "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
+        "Schedule path: cron expression (e.g. 0 * * * *) → Sentry query for new / regressed issues → same pipeline.",
+        "No GitHub Actions, no Lambda, no self-hosted infrastructure needed.",
+        "Set up at claude.ai/code: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
+      ],
+      // 9 — Takeaways
+      [
+        "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
+        "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
+        "Stable vs volatile: encode operational facts (org slugs, project IDs), discover implementation details at runtime.",
+        "Any repeated investigation qualifies: alert triage, CI failure diagnosis, deploy status, PR impact checks.",
+        "Start small: one alert type, one skill file. Iterate as you learn new patterns.",
+      ],
     ];
 
     const SLIDE_NAMES = [
@@ -584,7 +660,9 @@
     }
 
     function updateGuideText() {
-      document.getElementById('guide-text').textContent = TTS_TEXTS[current] || '';
+      const items = GUIDE_TEXTS[current] || [];
+      document.getElementById('guide-text').innerHTML =
+        items.map(t => `<li>${t}</li>`).join('');
     }
 
     function go(n) {
