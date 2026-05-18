@@ -474,42 +474,146 @@
       </svg>
     </div>
 
-    <!-- ─── SLIDE 9: TAKEAWAYS ─── -->
+    <!-- ─── SLIDE 9: THREE LAYERS ─── -->
     <div class="slide" id="s9">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">gather · analyse · act — three layers, three rules</text>
+
+        <!-- GATHER -->
+        <g class="reveal-group" style="--d:0.05s">
+          <rect x="44" y="56" width="204" height="320" class="box-main" />
+          <text x="146" y="82" text-anchor="middle" class="t-tag">GATHER</text>
+          <line x1="60" y1="94" x2="232" y2="94" class="grid-line" />
+          <text x="146" y="112" text-anchor="middle" class="t-mono-faint">Sentry · breadcrumbs</text>
+          <text x="146" y="128" text-anchor="middle" class="t-mono-faint">GCP logs · cloud_run</text>
+          <text x="146" y="144" text-anchor="middle" class="t-mono-faint">FullStory session</text>
+          <line x1="60" y1="158" x2="232" y2="158" class="grid-line" />
+          <text x="60" y="176" class="t-caption">rule</text>
+          <text x="146" y="194" text-anchor="middle" class="t-caption">dispatch in parallel</text>
+          <text x="146" y="210" text-anchor="middle" class="t-caption">encode only stable params</text>
+          <line x1="60" y1="224" x2="232" y2="224" class="grid-line" />
+          <text x="60" y="242" class="t-caption">failure</text>
+          <text x="146" y="260" text-anchor="middle" class="t-caption">wrong data</text>
+          <text x="146" y="276" text-anchor="middle" class="t-caption">auth · schema change</text>
+          <line x1="60" y1="290" x2="232" y2="290" class="grid-line" />
+          <text x="146" y="312" text-anchor="middle" class="t-caption">no judgment here</text>
+          <text x="146" y="330" text-anchor="middle" class="t-caption">output is raw</text>
+        </g>
+
+        <!-- Arrow GATHER → ANALYSE -->
+        <g class="reveal-group" style="--d:0.2s">
+          <line x1="252" y1="202" x2="294" y2="202" class="split-line-algo" />
+          <polygon points="290,196 302,202 290,208" class="arrowhead" />
+        </g>
+
+        <!-- ANALYSE -->
+        <g class="reveal-group" style="--d:0.35s">
+          <rect x="298" y="56" width="204" height="320" class="box-skill" />
+          <text x="400" y="82" text-anchor="middle" class="t-tag">ANALYSE</text>
+          <line x1="314" y1="94" x2="486" y2="94" class="grid-line" />
+          <text x="400" y="112" text-anchor="middle" class="t-mono-faint">timeline reconstruction</text>
+          <text x="400" y="128" text-anchor="middle" class="t-mono-faint">root cause · pattern match</text>
+          <text x="400" y="144" text-anchor="middle" class="t-mono-faint">confidence scoring</text>
+          <line x1="314" y1="158" x2="486" y2="158" class="grid-line" />
+          <text x="314" y="176" class="t-caption">rule</text>
+          <text x="400" y="194" text-anchor="middle" class="t-caption">encode known patterns</text>
+          <text x="400" y="210" text-anchor="middle" class="t-caption">always output confidence level</text>
+          <line x1="314" y1="224" x2="486" y2="224" class="grid-line" />
+          <text x="314" y="242" class="t-caption">failure</text>
+          <text x="400" y="260" text-anchor="middle" class="t-caption">wrong conclusion</text>
+          <text x="400" y="276" text-anchor="middle" class="t-caption">hallucination on sparse data</text>
+          <line x1="314" y1="290" x2="486" y2="290" class="grid-line" />
+          <text x="400" y="312" text-anchor="middle" class="t-caption">judgment lives here</text>
+          <text x="400" y="330" text-anchor="middle" class="t-caption">output is stochastic</text>
+        </g>
+
+        <!-- Arrow ANALYSE → ACT -->
+        <g class="reveal-group" style="--d:0.52s">
+          <line x1="506" y1="202" x2="548" y2="202" class="split-line-algo" />
+          <polygon points="544,196 556,202 544,208" class="arrowhead" />
+        </g>
+
+        <!-- ACT — header + tiers -->
+        <g class="reveal-group" style="--d:0.65s">
+          <rect x="552" y="56" width="204" height="320" class="box-main" />
+          <text x="654" y="82" text-anchor="middle" class="t-tag">ACT</text>
+          <line x1="568" y1="94" x2="740" y2="94" class="grid-line" />
+          <rect x="568" y="100" width="172" height="56" class="algo-box tag-box" />
+          <text x="654" y="118" text-anchor="middle" class="t-tag" style="font-size:9px">NOTIFY</text>
+          <text x="654" y="133" text-anchor="middle" class="t-mono-faint">Slack · PR comment</text>
+          <text x="654" y="147" text-anchor="middle" class="t-caption">no gate — always safe</text>
+          <rect x="568" y="156" width="172" height="56" class="box-skill" />
+          <text x="654" y="174" text-anchor="middle" class="t-tag" style="font-size:9px">DRAFT</text>
+          <text x="654" y="189" text-anchor="middle" class="t-mono-faint">Jira ticket · PR draft</text>
+          <text x="654" y="203" text-anchor="middle" class="t-caption">confidence ≥ MEDIUM</text>
+          <rect x="568" y="212" width="172" height="56" class="box-failure" />
+          <text x="654" y="230" text-anchor="middle" class="t-tag" style="font-size:9px">MUTATE</text>
+          <text x="654" y="245" text-anchor="middle" class="t-mono-faint">close · assign · merge</text>
+          <text x="654" y="259" text-anchor="middle" class="t-caption">HIGH only · confirm</text>
+        </g>
+
+        <!-- ACT — rule + failure -->
+        <g class="reveal-group" style="--d:0.78s">
+          <line x1="568" y1="270" x2="740" y2="270" class="grid-line" />
+          <text x="568" y="288" class="t-caption">rule</text>
+          <text x="654" y="306" text-anchor="middle" class="t-caption">authority matches confidence</text>
+          <line x1="568" y1="320" x2="740" y2="320" class="grid-line" />
+          <text x="568" y="338" class="t-caption">failure</text>
+          <text x="654" y="355" text-anchor="middle" class="t-caption">wrong action · irreversible</text>
+        </g>
+
+        <!-- Bottom callout -->
+        <g class="reveal-group" style="--d:0.9s">
+          <rect x="130" y="394" width="540" height="52" class="box-skill" />
+          <text x="400" y="416" text-anchor="middle" class="t-label" style="font-size:13px">never skip from analyse to mutate</text>
+          <text x="400" y="434" text-anchor="middle" class="t-caption">confidence gate is not optional · tier 3 without it = automation accidents</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 10: TAKEAWAYS ─── -->
+    <div class="slide" id="s10">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="46" text-anchor="middle" class="t-label">take away</text>
         <line x1="200" y1="62" x2="600" y2="62" class="rule-line" />
 
         <g class="reveal-group" style="--d:0.1s">
-          <circle cx="72" cy="120" r="16" class="num-circle" />
-          <text x="72" y="125" text-anchor="middle" class="t-tag">1</text>
-          <text x="106" y="114" class="t-label" style="font-size:16px">do it manually first</text>
-          <text x="106" y="134" class="t-caption">understand the steps before you automate · the skill is a distillation</text>
+          <circle cx="72" cy="95" r="16" class="num-circle" />
+          <text x="72" y="100" text-anchor="middle" class="t-tag">1</text>
+          <text x="106" y="89" class="t-label" style="font-size:16px">do it manually first</text>
+          <text x="106" y="109" class="t-caption">understand the steps before you automate · the skill is a distillation</text>
         </g>
 
-        <g class="reveal-group" style="--d:0.3s">
-          <circle cx="72" cy="200" r="16" class="num-circle" />
-          <text x="72" y="205" text-anchor="middle" class="t-tag">2</text>
-          <text x="106" y="194" class="t-label" style="font-size:16px">dispatch in parallel</text>
-          <text x="106" y="214" class="t-caption">single message · wall time = slowest task · not the sum</text>
+        <g class="reveal-group" style="--d:0.25s">
+          <circle cx="72" cy="170" r="16" class="num-circle" />
+          <text x="72" y="175" text-anchor="middle" class="t-tag">2</text>
+          <text x="106" y="164" class="t-label" style="font-size:16px">dispatch in parallel</text>
+          <text x="106" y="184" class="t-caption">single message · wall time = slowest task · not the sum</text>
         </g>
 
-        <g class="reveal-group" style="--d:0.5s">
-          <circle cx="72" cy="280" r="16" class="num-circle" />
-          <text x="72" y="285" text-anchor="middle" class="t-tag">3</text>
-          <text x="106" y="274" class="t-label" style="font-size:16px">encode what's stable · discover the rest</text>
-          <text x="106" y="294" class="t-caption">operational knowledge in the skill · implementation details at runtime</text>
+        <g class="reveal-group" style="--d:0.4s">
+          <circle cx="72" cy="245" r="16" class="num-circle" />
+          <text x="72" y="250" text-anchor="middle" class="t-tag">3</text>
+          <text x="106" y="239" class="t-label" style="font-size:16px">encode what's stable · discover the rest</text>
+          <text x="106" y="259" class="t-caption">operational knowledge in the skill · implementation details at runtime</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.55s">
+          <circle cx="72" cy="320" r="16" class="num-circle" />
+          <text x="72" y="325" text-anchor="middle" class="t-tag">4</text>
+          <text x="106" y="314" class="t-label" style="font-size:16px">any repeated investigation is a candidate</text>
+          <text x="106" y="334" class="t-caption">alert triage · PR impact check · CI failure diagnosis · deploy status</text>
         </g>
 
         <g class="reveal-group" style="--d:0.7s">
-          <circle cx="72" cy="360" r="16" class="num-circle" />
-          <text x="72" y="365" text-anchor="middle" class="t-tag">4</text>
-          <text x="106" y="354" class="t-label" style="font-size:16px">any repeated investigation is a candidate</text>
-          <text x="106" y="374" class="t-caption">alert triage · PR impact check · CI failure diagnosis · deploy status</text>
+          <circle cx="72" cy="395" r="16" class="num-circle" />
+          <text x="72" y="400" text-anchor="middle" class="t-tag">5</text>
+          <text x="106" y="389" class="t-label" style="font-size:16px">skills compound — each run teaches the skill</text>
+          <text x="106" y="409" class="t-caption">new patterns → PR to known-patterns section · the skill's knowledge becomes your crash taxonomy</text>
         </g>
 
         <g class="reveal-group" style="--d:0.9s">
-          <line x1="200" y1="432" x2="600" y2="432" class="rule-line" />
+          <line x1="200" y1="438" x2="600" y2="438" class="rule-line" />
           <text x="400" y="462" text-anchor="middle" class="t-eyebrow">now build one</text>
         </g>
       </svg>
@@ -548,7 +652,8 @@
       "A triage skill is a markdown file. The frontmatter tells Claude when to trigger it and which tools are allowed. The fixed context section encodes what Claude cannot discover: the Sentry organization slug, the GCP project name, and the API paths. The parallel dispatch section defines the pipeline. The timeline rules section teaches Claude what to look for in Electron breadcrumbs. The output format section defines the contract. The known patterns section encodes recurring crash classes so Claude can match them instantly instead of re-reasoning from scratch.",
       "There are two schools of thought on what belongs in a skill. The first: encode only principles, let the agent discover implementation details at runtime, and keep skills generic so they age well. The second: document what Claude genuinely cannot discover — cross-repo patterns, auth handshakes, database conventions, microservice contracts. The synthesis: encode operational knowledge that is stable and expensive to re-discover. Let Claude figure out implementation details that change. The GCP project name and API paths are stable. Which library version to use is not.",
       "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report.",
-      "Four things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Now build one.",
+      "Every automation pipeline runs through three distinct layers, each with different design rules. The Gather layer is pure data fetch — Sentry breadcrumbs, G C P logs, FullStory sessions. It makes no judgments. Design it for maximum parallelism and encode only stable parameters. When it fails, it produces wrong data, catchable downstream. The Analyse layer is where judgment lives: timeline reconstruction, root cause identification, pattern matching. Encode known patterns here and always output a confidence level. When it fails, it produces wrong conclusions, often through hallucination when data is sparse. The Act layer takes actions with side effects. It has three authority tiers. Notify — Slack messages, P R comments — is always safe; humans read and correct. Draft — Jira tickets, P R drafts — requires at least medium confidence. Mutate — closing issues, assigning, merging — requires high confidence only. The design rule: authority must match confidence. Never skip from Analyse directly to Mutate. That path leads to automation accidents.",
+      "Five things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Five: skills compound. Each run teaches the skill something new. When you discover a crash pattern that wasn't in the known-patterns section, add it. After six months of runs, that section becomes your crash taxonomy — assembled automatically as a side effect of the automation itself. Now build one.",
     ];
 
     const GUIDE_TEXTS = [
@@ -617,19 +722,28 @@
         "No GitHub Actions, no Lambda, no self-hosted infrastructure needed.",
         "Set up at claude.ai/code: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
       ],
-      // 9 — Takeaways
+      // 9 — Three Layers
+      [
+        "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
+        "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
+        "Analyse: stochastic judgment. Encode known patterns, always output confidence level. Fails with wrong conclusions.",
+        "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
+        "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
+      ],
+      // 10 — Takeaways
       [
         "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
         "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
         "Stable vs volatile: encode operational facts (org slugs, project IDs), discover implementation details at runtime.",
         "Any repeated investigation qualifies: alert triage, CI failure diagnosis, deploy status, PR impact checks.",
+        "Skills compound: new crash patterns → PR to known-patterns section → next run is smarter. The skill learns.",
         "Start small: one alert type, one skill file. Iterate as you learn new patterns.",
       ],
     ];
 
     const SLIDE_NAMES = [
       'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
-      'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'takeaways',
+      'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'three layers', 'takeaways',
     ];
 
     const slides = document.querySelectorAll('.slide');
