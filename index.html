@@ -26,7 +26,49 @@
         <text x="400" y="470" text-anchor="middle" class="t-eyebrow" style="opacity:0.35">press → to begin</text>
       </svg>
     </div>
+    <!-- ─── SLIDE 2: THE DEMO CASE ─── -->
+    <div class="slide" id="s2">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="42" text-anchor="middle" class="t-label">the demo case</text>
 
+        <g class="reveal-group" style="--d:0.1s">
+          <a href="https://guiddeco.sentry.io/issues/DESKTOP-APP-QB" target="_blank" rel="noopener">
+            <rect x="60" y="60" width="680" height="70" class="box-failure" />
+            <text x="400" y="90" text-anchor="middle" class="t-label" style="font-size:14px">TypeError: Cannot read properties of undefined</text>
+            <text x="400" y="114" text-anchor="middle" class="t-mono-faint">(reading 'setVideoUploaded') · src/main/main.ts:1135</text>
+          </a>
+        </g>
+
+        <g class="reveal-group" style="--d:0.35s">
+          <rect x="60"  y="155" width="196" height="90" class="box-main" />
+          <text x="158" y="188" text-anchor="middle" class="t-label" style="font-size:28px">443</text>
+          <text x="158" y="212" text-anchor="middle" class="t-caption">users impacted</text>
+          <text x="158" y="232" text-anchor="middle" class="t-caption">NL · GB · CH · ···</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.5s">
+          <rect x="302" y="155" width="196" height="90" class="box-main" />
+          <text x="400" y="188" text-anchor="middle" class="t-label" style="font-size:28px">7 041</text>
+          <text x="400" y="212" text-anchor="middle" class="t-caption">events · since Dec 2024</text>
+          <text x="400" y="232" text-anchor="middle" class="t-caption">still firing today</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.65s">
+          <rect x="544" y="155" width="196" height="90" class="box-main" />
+          <text x="642" y="185" text-anchor="middle" class="t-caption">status: resolved</text>
+          <text x="642" y="207" text-anchor="middle" class="t-caption">assigned: alex</text>
+          <text x="642" y="227" text-anchor="middle" class="t-caption">v0.2.32 · Electron 31</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.85s">
+          <line x1="80" y1="278" x2="720" y2="278" class="rule-line" />
+          <text x="400" y="316" text-anchor="middle" class="t-caption">marked resolved · still firing on the same day ·</text>
+          <text x="400" y="340" text-anchor="middle" class="t-caption">the fix was merged but the pattern is still alive</text>
+          <text x="400" y="390" text-anchor="middle" class="t-label" style="font-size:15px">the question is not how to fix this one</text>
+          <text x="400" y="418" text-anchor="middle" class="t-label" style="font-size:15px">it is how to stop spending 30 min on the next one</text>
+        </g>
+      </svg>
+    </div>
     <!-- ─── SLIDE 2: MANUAL VS AUTOMATED ─── -->
     <div class="slide" id="s1">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -76,115 +118,6 @@
         </g>
       </svg>
     </div>
-
-    <!-- ─── SLIDE 5: PARALLEL DISPATCH ─── -->
-    <div class="slide" id="s5">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="42" text-anchor="middle" class="t-label">Sub-Agents</text>
-
-        <!-- Sequential -->
-        <g class="reveal-group" style="--d:0.1s">
-          <text x="192" y="80" text-anchor="middle" class="t-fail-label">sequential (3 messages)</text>
-          <rect x="44"  y="96" width="296" height="280" class="box-failure" />
-
-          <rect x="68" y="114" width="248" height="40" class="tag-box algo-box" />
-          <text x="192" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
-          <text x="192" y="150" text-anchor="middle" class="t-caption">~2 s</text>
-
-          <line x1="192" y1="154" x2="192" y2="170" class="spine" />
-
-          <rect x="68" y="170" width="248" height="40" class="tag-box algo-box" />
-          <text x="192" y="192" text-anchor="middle" class="t-tag">GCP query</text>
-          <text x="192" y="206" text-anchor="middle" class="t-caption">~3 s</text>
-
-          <line x1="192" y1="210" x2="192" y2="226" class="spine" />
-
-          <rect x="68" y="226" width="248" height="40" class="tag-box algo-box" />
-          <text x="192" y="248" text-anchor="middle" class="t-tag">FullStory fetch</text>
-          <text x="192" y="262" text-anchor="middle" class="t-caption">~2 s</text>
-
-          <line x1="68"  y1="275" x2="316" y2="275" class="rule-line" />
-          <text x="192" y="310" text-anchor="middle" class="t-label" style="font-size:26px">~7 s</text>
-          <text x="192" y="340" text-anchor="middle" class="t-caption">+ 3× round-trip overhead</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.4s">
-          <text x="400" y="213" text-anchor="middle" class="t-vs">vs</text>
-        </g>
-
-        <!-- Parallel -->
-        <g class="reveal-group" style="--d:0.6s">
-          <text x="608" y="80" text-anchor="middle" class="t-tag">parallel (1 message)</text>
-          <rect x="460" y="96" width="296" height="280" class="box-main" />
-
-          <rect x="484" y="114" width="248" height="40" class="tag-box algo-box" />
-          <text x="608" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
-          <text x="608" y="150" text-anchor="middle" class="t-caption">~2 s</text>
-
-          <rect x="484" y="160" width="248" height="40" class="tag-box algo-box" />
-          <text x="608" y="182" text-anchor="middle" class="t-tag">GCP query</text>
-          <text x="608" y="196" text-anchor="middle" class="t-caption">~3 s</text>
-
-          <rect x="484" y="206" width="248" height="40" class="tag-box algo-box" />
-          <text x="608" y="228" text-anchor="middle" class="t-tag">FullStory fetch</text>
-          <text x="608" y="242" text-anchor="middle" class="t-caption">~2 s</text>
-
-          <line x1="484" y1="255" x2="732" y2="255" class="rule-line" />
-          <text x="608" y="295" text-anchor="middle" class="t-label" style="font-size:26px">~3 s</text>
-          <text x="608" y="325" text-anchor="middle" class="t-caption">= slowest task · not the sum</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.9s">
-          <line x1="80" y1="432" x2="720" y2="432" class="rule-line" />
-          <text x="400" y="460" text-anchor="middle" class="t-caption">dispatch all tool calls in one message · the model waits for all results before continuing</text>
-        </g>
-      </svg>
-    </div>
-
-    <!-- ─── SLIDE 2: THE DEMO CASE ─── -->
-    <div class="slide" id="s2">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="42" text-anchor="middle" class="t-label">the demo case</text>
-
-        <g class="reveal-group" style="--d:0.1s">
-          <a href="https://guiddeco.sentry.io/issues/DESKTOP-APP-QB" target="_blank" rel="noopener">
-            <rect x="60" y="60" width="680" height="70" class="box-failure" />
-            <text x="400" y="90" text-anchor="middle" class="t-label" style="font-size:14px">TypeError: Cannot read properties of undefined</text>
-            <text x="400" y="114" text-anchor="middle" class="t-mono-faint">(reading 'setVideoUploaded') · src/main/main.ts:1135</text>
-          </a>
-        </g>
-
-        <g class="reveal-group" style="--d:0.35s">
-          <rect x="60"  y="155" width="196" height="90" class="box-main" />
-          <text x="158" y="188" text-anchor="middle" class="t-label" style="font-size:28px">443</text>
-          <text x="158" y="212" text-anchor="middle" class="t-caption">users impacted</text>
-          <text x="158" y="232" text-anchor="middle" class="t-caption">NL · GB · CH · ···</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.5s">
-          <rect x="302" y="155" width="196" height="90" class="box-main" />
-          <text x="400" y="188" text-anchor="middle" class="t-label" style="font-size:28px">7 041</text>
-          <text x="400" y="212" text-anchor="middle" class="t-caption">events · since Dec 2024</text>
-          <text x="400" y="232" text-anchor="middle" class="t-caption">still firing today</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.65s">
-          <rect x="544" y="155" width="196" height="90" class="box-main" />
-          <text x="642" y="185" text-anchor="middle" class="t-caption">status: resolved</text>
-          <text x="642" y="207" text-anchor="middle" class="t-caption">assigned: alex</text>
-          <text x="642" y="227" text-anchor="middle" class="t-caption">v0.2.32 · Electron 31</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.85s">
-          <line x1="80" y1="278" x2="720" y2="278" class="rule-line" />
-          <text x="400" y="316" text-anchor="middle" class="t-caption">marked resolved · still firing on the same day ·</text>
-          <text x="400" y="340" text-anchor="middle" class="t-caption">the fix was merged but the pattern is still alive</text>
-          <text x="400" y="390" text-anchor="middle" class="t-label" style="font-size:15px">the question is not how to fix this one</text>
-          <text x="400" y="418" text-anchor="middle" class="t-label" style="font-size:15px">it is how to stop spending 30 min on the next one</text>
-        </g>
-      </svg>
-    </div>
-
     <!-- ─── SLIDE 3: BREADCRUMB TIMELINE ─── -->
     <div class="slide" id="s3">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -252,7 +185,6 @@
         </g>
       </svg>
     </div>
-
     <!-- ─── SLIDE 4: THE PIPELINE ─── -->
     <div class="slide" id="s4">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -314,157 +246,69 @@
         </g>
       </svg>
     </div>
-
-
-    <!-- ─── SLIDE 6: TRIGGER / ROUTINES ─── -->
-    <div class="slide" id="s8">
+    <!-- ─── SLIDE 5: PARALLEL DISPATCH ─── -->
+    <div class="slide" id="s5">
       <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="38" text-anchor="middle" class="t-label">trigger it — no server needed</text>
+        <text x="400" y="42" text-anchor="middle" class="t-label">Sub-Agents</text>
 
-        <!-- Left column header -->
-        <g class="reveal-group" style="--d:0.05s">
-          <text x="192" y="68" text-anchor="middle" class="t-fail-label">webhook</text>
-          <rect x="92" y="78" width="200" height="48" class="box-main" />
-          <text x="192" y="97" text-anchor="middle" class="t-tag">Sentry alert fires</text>
-          <text x="192" y="113" text-anchor="middle" class="t-caption">issue · breadcrumbs · user</text>
+        <!-- Sequential -->
+        <g class="reveal-group" style="--d:0.1s">
+          <text x="192" y="80" text-anchor="middle" class="t-fail-label">sequential (3 messages)</text>
+          <rect x="44"  y="96" width="296" height="280" class="box-failure" />
+
+          <rect x="68" y="114" width="248" height="40" class="tag-box algo-box" />
+          <text x="192" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
+          <text x="192" y="150" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <line x1="192" y1="154" x2="192" y2="170" class="spine" />
+
+          <rect x="68" y="170" width="248" height="40" class="tag-box algo-box" />
+          <text x="192" y="192" text-anchor="middle" class="t-tag">GCP query</text>
+          <text x="192" y="206" text-anchor="middle" class="t-caption">~3 s</text>
+
+          <line x1="192" y1="210" x2="192" y2="226" class="spine" />
+
+          <rect x="68" y="226" width="248" height="40" class="tag-box algo-box" />
+          <text x="192" y="248" text-anchor="middle" class="t-tag">FullStory fetch</text>
+          <text x="192" y="262" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <line x1="68"  y1="275" x2="316" y2="275" class="rule-line" />
+          <text x="192" y="310" text-anchor="middle" class="t-label" style="font-size:26px">~7 s</text>
+          <text x="192" y="340" text-anchor="middle" class="t-caption">+ 3× round-trip overhead</text>
         </g>
 
-        <!-- Right column header -->
-        <g class="reveal-group" style="--d:0.05s">
-          <text x="608" y="68" text-anchor="middle" class="t-tag">schedule</text>
-          <rect x="508" y="78" width="200" height="48" class="box-main" />
-          <text x="608" y="97" text-anchor="middle" class="t-tag">cron: 0 * * * *</text>
-          <text x="608" y="113" text-anchor="middle" class="t-caption">every hour</text>
+        <g class="reveal-group" style="--d:0.4s">
+          <text x="400" y="213" text-anchor="middle" class="t-vs">vs</text>
         </g>
 
-        <!-- Left col connector line -->
-        <g class="reveal-group" style="--d:0.2s">
-          <line x1="192" y1="126" x2="192" y2="146" class="split-line-algo" />
-          <rect x="92" y="146" width="200" height="48" class="box-main" />
-          <text x="192" y="166" text-anchor="middle" class="t-tag">POST /routines/id/fire</text>
-          <text x="192" y="182" text-anchor="middle" class="t-caption">Authorization: Bearer ···</text>
+        <!-- Parallel -->
+        <g class="reveal-group" style="--d:0.6s">
+          <text x="608" y="80" text-anchor="middle" class="t-tag">parallel (1 message)</text>
+          <rect x="460" y="96" width="296" height="280" class="box-main" />
+
+          <rect x="484" y="114" width="248" height="40" class="tag-box algo-box" />
+          <text x="608" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
+          <text x="608" y="150" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <rect x="484" y="160" width="248" height="40" class="tag-box algo-box" />
+          <text x="608" y="182" text-anchor="middle" class="t-tag">GCP query</text>
+          <text x="608" y="196" text-anchor="middle" class="t-caption">~3 s</text>
+
+          <rect x="484" y="206" width="248" height="40" class="tag-box algo-box" />
+          <text x="608" y="228" text-anchor="middle" class="t-tag">FullStory fetch</text>
+          <text x="608" y="242" text-anchor="middle" class="t-caption">~2 s</text>
+
+          <line x1="484" y1="255" x2="732" y2="255" class="rule-line" />
+          <text x="608" y="295" text-anchor="middle" class="t-label" style="font-size:26px">~3 s</text>
+          <text x="608" y="325" text-anchor="middle" class="t-caption">= slowest task · not the sum</text>
         </g>
 
-        <!-- Right col connector line -->
-        <g class="reveal-group" style="--d:0.2s">
-          <line x1="608" y1="126" x2="608" y2="146" class="split-line-algo" />
-          <rect x="508" y="146" width="200" height="48" class="box-main" />
-          <text x="608" y="166" text-anchor="middle" class="t-tag">Sentry query</text>
-          <text x="608" y="182" text-anchor="middle" class="t-caption">new · regressed issues</text>
-        </g>
-
-        <!-- Converging lines -->
-        <g class="reveal-group" style="--d:0.38s">
-          <line x1="192" y1="194" x2="370" y2="258" class="split-line-algo" />
-          <line x1="608" y1="194" x2="430" y2="258" class="split-line-algo" />
-        </g>
-
-        <!-- Claude Code Routine box -->
-        <g class="reveal-group" style="--d:0.52s">
-          <rect x="230" y="258" width="340" height="84" class="box-skill" />
-          <text x="400" y="283" text-anchor="middle" class="t-label" style="font-size:15px">Claude Code Routine</text>
-          <line x1="250" y1="292" x2="550" y2="292" class="grid-line" />
-          <text x="400" y="310" text-anchor="middle" class="t-caption">prompt · Sentry · GCP · FullStory connectors</text>
-          <text x="400" y="328" text-anchor="middle" class="t-caption">runs on Anthropic's cloud · no local machine needed</text>
-        </g>
-
-        <!-- Arrow + output -->
-        <g class="reveal-group" style="--d:0.68s">
-          <line x1="400" y1="342" x2="400" y2="360" class="split-line-algo" />
-          <polygon points="394,356 406,356 400,368" class="arrowhead" />
-          <rect x="270" y="368" width="260" height="48" class="box-main" />
-          <text x="400" y="388" text-anchor="middle" class="t-tag">Slack · Jira · GitHub Issue</text>
-          <text x="400" y="404" text-anchor="middle" class="t-caption">triage report · automatic · every alert</text>
-        </g>
-
-        <!-- Footnote -->
-        <g class="reveal-group" style="--d:0.85s">
-          <line x1="200" y1="440" x2="600" y2="440" class="rule-line" />
-          <text x="400" y="462" text-anchor="middle" class="t-caption">Claude Code Routines · shipped April 2026 · all paid plans</text>
+        <g class="reveal-group" style="--d:0.9s">
+          <line x1="80" y1="432" x2="720" y2="432" class="rule-line" />
+          <text x="400" y="460" text-anchor="middle" class="t-caption">dispatch all tool calls in one message · the model waits for all results before continuing</text>
         </g>
       </svg>
     </div>
-
-    <!-- ─── SLIDE 9: ROUTINES ANATOMY ─── -->
-    <div class="slide" id="s9">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="38" text-anchor="middle" class="t-label">Claude Code Routines — anatomy</text>
-
-        <!-- Config column -->
-        <g class="reveal-group" style="--d:0.05s">
-          <text x="146" y="62" text-anchor="middle" class="t-caption">configure once</text>
-          <rect x="46" y="70" width="200" height="38" class="box-main" />
-          <text x="146" y="94" text-anchor="middle" class="t-tag">prompt + model</text>
-          <rect x="46" y="114" width="200" height="38" class="box-main" />
-          <text x="146" y="138" text-anchor="middle" class="t-tag">git repo · GitHub</text>
-          <rect x="46" y="158" width="200" height="38" class="box-main" />
-          <text x="146" y="182" text-anchor="middle" class="t-tag">MCP connectors</text>
-          <rect x="46" y="202" width="200" height="38" class="box-main" />
-          <text x="146" y="226" text-anchor="middle" class="t-tag">cron · run_once_at</text>
-        </g>
-
-        <!-- Arrow left → center -->
-        <g class="reveal-group" style="--d:0.25s">
-          <line x1="246" y1="152" x2="292" y2="152" class="split-line-algo" />
-          <polygon points="288,146 300,152 288,158" class="arrowhead" />
-        </g>
-
-        <!-- Cloud session box -->
-        <g class="reveal-group" style="--d:0.42s">
-          <rect x="298" y="62" width="204" height="186" class="box-skill" />
-          <text x="400" y="86" text-anchor="middle" class="t-label" style="font-size:13px">isolated cloud session</text>
-          <line x1="314" y1="97" x2="486" y2="97" class="grid-line" />
-          <text x="400" y="118" text-anchor="middle" class="t-caption">Anthropic's infrastructure</text>
-          <text x="400" y="138" text-anchor="middle" class="t-caption">fresh git checkout per run</text>
-          <text x="400" y="158" text-anchor="middle" class="t-caption">no local machine or files</text>
-          <text x="400" y="178" text-anchor="middle" class="t-caption">no local env vars</text>
-          <text x="400" y="202" text-anchor="middle" class="t-caption">all paid plans</text>
-          <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><text x="400" y="232" text-anchor="middle" class="t-caption">claude.ai/code/routines</text></a>
-        </g>
-
-        <!-- Arrow center → right -->
-        <g class="reveal-group" style="--d:0.58s">
-          <line x1="502" y1="152" x2="548" y2="152" class="split-line-algo" />
-          <polygon points="544,146 556,152 544,158" class="arrowhead" />
-        </g>
-
-        <!-- Output column -->
-        <g class="reveal-group" style="--d:0.68s">
-          <text x="654" y="62" text-anchor="middle" class="t-caption">outputs</text>
-          <rect x="554" y="70" width="200" height="38" class="box-main" />
-          <text x="654" y="94" text-anchor="middle" class="t-tag">Slack · Jira · GitHub</text>
-          <rect x="554" y="114" width="200" height="38" class="box-main" />
-          <text x="654" y="138" text-anchor="middle" class="t-tag">file writes · commits</text>
-          <rect x="554" y="158" width="200" height="38" class="box-main" />
-          <text x="654" y="182" text-anchor="middle" class="t-tag">PRs · issues · reports</text>
-        </g>
-
-        <!-- Divider -->
-        <g class="reveal-group" style="--d:0.82s">
-          <line x1="80" y1="272" x2="720" y2="272" class="rule-line" />
-          <text x="400" y="296" text-anchor="middle" class="t-caption">need local access? skip /schedule — use instead:</text>
-        </g>
-
-        <!-- Local alternatives -->
-        <g class="reveal-group" style="--d:0.92s">
-          <rect x="80" y="306" width="272" height="64" class="box-failure" />
-          <text x="216" y="330" text-anchor="middle" class="t-tag">/loop</text>
-          <text x="216" y="348" text-anchor="middle" class="t-caption">in-session · full local access</text>
-          <text x="216" y="364" text-anchor="middle" class="t-caption">runs while session is open</text>
-          <rect x="448" y="306" width="272" height="64" class="box-failure" />
-          <text x="584" y="330" text-anchor="middle" class="t-tag">crontab -e + claude CLI</text>
-          <text x="584" y="348" text-anchor="middle" class="t-caption">system cron · local machine</text>
-          <text x="584" y="364" text-anchor="middle" class="t-caption">full env + file access</text>
-        </g>
-
-        <!-- Footer -->
-        <g class="reveal-group" style="--d:1s">
-          <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
-          <text x="400" y="422" text-anchor="middle" class="t-caption">create via /schedule in Claude Code · no server · no infra needed</text>
-        </g>
-      </svg>
-    </div>
-
     <!-- ─── SLIDE 10: THREE LAYERS ─── -->
     <div class="slide" id="s10">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -561,7 +405,153 @@
         </g>
       </svg>
     </div>
+    <!-- ─── SLIDE 6: TRIGGER / ROUTINES ─── -->
+    <div class="slide" id="s8">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">trigger it — no server needed</text>
 
+        <!-- Left column header -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="192" y="68" text-anchor="middle" class="t-fail-label">webhook</text>
+          <rect x="92" y="78" width="200" height="48" class="box-main" />
+          <text x="192" y="97" text-anchor="middle" class="t-tag">Sentry alert fires</text>
+          <text x="192" y="113" text-anchor="middle" class="t-caption">issue · breadcrumbs · user</text>
+        </g>
+
+        <!-- Right column header -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="608" y="68" text-anchor="middle" class="t-tag">schedule</text>
+          <rect x="508" y="78" width="200" height="48" class="box-main" />
+          <text x="608" y="97" text-anchor="middle" class="t-tag">cron: 0 * * * *</text>
+          <text x="608" y="113" text-anchor="middle" class="t-caption">every hour</text>
+        </g>
+
+        <!-- Left col connector line -->
+        <g class="reveal-group" style="--d:0.2s">
+          <line x1="192" y1="126" x2="192" y2="146" class="split-line-algo" />
+          <rect x="92" y="146" width="200" height="48" class="box-main" />
+          <text x="192" y="166" text-anchor="middle" class="t-tag">POST /routines/id/fire</text>
+          <text x="192" y="182" text-anchor="middle" class="t-caption">Authorization: Bearer ···</text>
+        </g>
+
+        <!-- Right col connector line -->
+        <g class="reveal-group" style="--d:0.2s">
+          <line x1="608" y1="126" x2="608" y2="146" class="split-line-algo" />
+          <rect x="508" y="146" width="200" height="48" class="box-main" />
+          <text x="608" y="166" text-anchor="middle" class="t-tag">Sentry query</text>
+          <text x="608" y="182" text-anchor="middle" class="t-caption">new · regressed issues</text>
+        </g>
+
+        <!-- Converging lines -->
+        <g class="reveal-group" style="--d:0.38s">
+          <line x1="192" y1="194" x2="370" y2="258" class="split-line-algo" />
+          <line x1="608" y1="194" x2="430" y2="258" class="split-line-algo" />
+        </g>
+
+        <!-- Claude Code Routine box -->
+        <g class="reveal-group" style="--d:0.52s">
+          <rect x="230" y="258" width="340" height="84" class="box-skill" />
+          <text x="400" y="283" text-anchor="middle" class="t-label" style="font-size:15px">Claude Code Routine</text>
+          <line x1="250" y1="292" x2="550" y2="292" class="grid-line" />
+          <text x="400" y="310" text-anchor="middle" class="t-caption">prompt · Sentry · GCP · FullStory connectors</text>
+          <text x="400" y="328" text-anchor="middle" class="t-caption">runs on Anthropic's cloud · no local machine needed</text>
+        </g>
+
+        <!-- Arrow + output -->
+        <g class="reveal-group" style="--d:0.68s">
+          <line x1="400" y1="342" x2="400" y2="360" class="split-line-algo" />
+          <polygon points="394,356 406,356 400,368" class="arrowhead" />
+          <rect x="270" y="368" width="260" height="48" class="box-main" />
+          <text x="400" y="388" text-anchor="middle" class="t-tag">Slack · Jira · GitHub Issue</text>
+          <text x="400" y="404" text-anchor="middle" class="t-caption">triage report · automatic · every alert</text>
+        </g>
+
+        <!-- Footnote -->
+        <g class="reveal-group" style="--d:0.85s">
+          <line x1="200" y1="440" x2="600" y2="440" class="rule-line" />
+          <text x="400" y="462" text-anchor="middle" class="t-caption">Claude Code Routines · shipped April 2026 · all paid plans</text>
+        </g>
+      </svg>
+    </div>
+    <!-- ─── SLIDE 9: ROUTINES ANATOMY ─── -->
+    <div class="slide" id="s9">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">Claude Code Routines — anatomy</text>
+
+        <!-- Config column -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="146" y="62" text-anchor="middle" class="t-caption">configure once</text>
+          <rect x="46" y="70" width="200" height="38" class="box-main" />
+          <text x="146" y="94" text-anchor="middle" class="t-tag">prompt + model</text>
+          <rect x="46" y="114" width="200" height="38" class="box-main" />
+          <text x="146" y="138" text-anchor="middle" class="t-tag">git repo · GitHub</text>
+          <rect x="46" y="158" width="200" height="38" class="box-main" />
+          <text x="146" y="182" text-anchor="middle" class="t-tag">MCP connectors</text>
+          <rect x="46" y="202" width="200" height="38" class="box-main" />
+          <text x="146" y="226" text-anchor="middle" class="t-tag">cron · run_once_at</text>
+        </g>
+
+        <!-- Arrow left → center -->
+        <g class="reveal-group" style="--d:0.25s">
+          <line x1="246" y1="152" x2="292" y2="152" class="split-line-algo" />
+          <polygon points="288,146 300,152 288,158" class="arrowhead" />
+        </g>
+
+        <!-- Cloud session box -->
+        <g class="reveal-group" style="--d:0.42s">
+          <rect x="298" y="62" width="204" height="186" class="box-skill" />
+          <text x="400" y="86" text-anchor="middle" class="t-label" style="font-size:13px">isolated cloud session</text>
+          <line x1="314" y1="97" x2="486" y2="97" class="grid-line" />
+          <text x="400" y="118" text-anchor="middle" class="t-caption">Anthropic's infrastructure</text>
+          <text x="400" y="138" text-anchor="middle" class="t-caption">fresh git checkout per run</text>
+          <text x="400" y="158" text-anchor="middle" class="t-caption">no local machine or files</text>
+          <text x="400" y="178" text-anchor="middle" class="t-caption">no local env vars</text>
+          <text x="400" y="202" text-anchor="middle" class="t-caption">all paid plans</text>
+          <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><text x="400" y="232" text-anchor="middle" class="t-caption">claude.ai/code/routines</text></a>
+        </g>
+
+        <!-- Arrow center → right -->
+        <g class="reveal-group" style="--d:0.58s">
+          <line x1="502" y1="152" x2="548" y2="152" class="split-line-algo" />
+          <polygon points="544,146 556,152 544,158" class="arrowhead" />
+        </g>
+
+        <!-- Output column -->
+        <g class="reveal-group" style="--d:0.68s">
+          <text x="654" y="62" text-anchor="middle" class="t-caption">outputs</text>
+          <rect x="554" y="70" width="200" height="38" class="box-main" />
+          <text x="654" y="94" text-anchor="middle" class="t-tag">Slack · Jira · GitHub</text>
+          <rect x="554" y="114" width="200" height="38" class="box-main" />
+          <text x="654" y="138" text-anchor="middle" class="t-tag">file writes · commits</text>
+          <rect x="554" y="158" width="200" height="38" class="box-main" />
+          <text x="654" y="182" text-anchor="middle" class="t-tag">PRs · issues · reports</text>
+        </g>
+
+        <!-- Divider -->
+        <g class="reveal-group" style="--d:0.82s">
+          <line x1="80" y1="272" x2="720" y2="272" class="rule-line" />
+          <text x="400" y="296" text-anchor="middle" class="t-caption">need local access? skip /schedule — use instead:</text>
+        </g>
+
+        <!-- Local alternatives -->
+        <g class="reveal-group" style="--d:0.92s">
+          <rect x="80" y="306" width="272" height="64" class="box-failure" />
+          <text x="216" y="330" text-anchor="middle" class="t-tag">/loop</text>
+          <text x="216" y="348" text-anchor="middle" class="t-caption">in-session · full local access</text>
+          <text x="216" y="364" text-anchor="middle" class="t-caption">runs while session is open</text>
+          <rect x="448" y="306" width="272" height="64" class="box-failure" />
+          <text x="584" y="330" text-anchor="middle" class="t-tag">crontab -e + claude CLI</text>
+          <text x="584" y="348" text-anchor="middle" class="t-caption">system cron · local machine</text>
+          <text x="584" y="364" text-anchor="middle" class="t-caption">full env + file access</text>
+        </g>
+
+        <!-- Footer -->
+        <g class="reveal-group" style="--d:1s">
+          <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
+          <text x="400" y="422" text-anchor="middle" class="t-caption">create via /schedule in Claude Code · no server · no infra needed</text>
+        </g>
+      </svg>
+    </div>
     <!-- ─── SLIDE 11: TAKEAWAYS ─── -->
     <div class="slide" id="s11">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -636,16 +626,14 @@
   <script type="module">
     const TTS_TEXTS = [
       "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
-      "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
       "The demo case is a real crash: TypeError, cannot read properties of undefined, reading set video uploaded. It hit four hundred and forty three users, over seven thousand times, since December twenty twenty four. It was marked resolved and assigned. It is still firing today. The question is not how to fix this one. The question is how to stop spending thirty minutes on the next one.",
+      "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
       "The story is in the breadcrumbs. The recording starts, screenshots fire every two hundred milliseconds, steps are added. Then the user pauses. Stop is called. The server is closed. The recording object is deleted. But at this point, in-flight screenshot upload callbacks are still in flight. They resolve after the recording object is gone. When they try to call set video uploaded, the object is undefined. The crash happens. The breadcrumb trail makes this visible in under a minute. A human digging through the same two hundred lines takes twenty.",
       "The pipeline: an alert arrives with a Sentry issue ID. The skill dispatches three things simultaneously: fetch the Sentry issue details, breadcrumbs, and recent events; query GCP Cloud Run logs for the five minutes around the crash; and retrieve the FullStory session transcript. All three run in parallel. When they all return, the skill synthesizes a timeline, identifies the root cause, and suggests a fix direction.",
       "The key pattern: dispatch everything in a single message. When you send multiple tool calls in one message, the model runs them in parallel. The wall time equals the slowest single task, not the sum of all tasks. Three sequential messages at two, three, and two seconds costs seven seconds plus three round trips. One message with three parallel calls costs three seconds, period. This is the most important pattern in agentic design.",
-      "A triage skill is a markdown file. The frontmatter tells Claude when to trigger it and which tools are allowed. The fixed context section encodes what Claude cannot discover: the Sentry organization slug, the GCP project name, and the API paths. The parallel dispatch section defines the pipeline. The timeline rules section teaches Claude what to look for in Electron breadcrumbs. The output format section defines the contract. The known patterns section encodes recurring crash classes so Claude can match them instantly instead of re-reasoning from scratch.",
-      "There are two schools of thought on what belongs in a skill. The first: encode only principles, let the agent discover implementation details at runtime, and keep skills generic so they age well. The second: document what Claude genuinely cannot discover — cross-repo patterns, auth handshakes, database conventions, microservice contracts. The synthesis: encode operational knowledge that is stable and expensive to re-discover. Let Claude figure out implementation details that change. The GCP project name and API paths are stable. Which library version to use is not.",
+      "Every automation pipeline runs through three distinct layers, each with different design rules. The Gather layer is pure data fetch — Sentry breadcrumbs, G C P logs, FullStory sessions. It makes no judgments. Design it for maximum parallelism and encode only stable parameters. When it fails, it produces wrong data, catchable downstream. The Analyse layer is where judgment lives: timeline reconstruction, root cause identification, pattern matching. Encode known patterns here and always output a confidence level. When it fails, it produces wrong conclusions, often through hallucination when data is sparse. The Act layer takes actions with side effects. It has three authority tiers. Notify — Slack messages, P R comments — is always safe; humans read and correct. Draft — Jira tickets, P R drafts — requires at least medium confidence. Mutate — closing issues, assigning, merging — requires high confidence only. The design rule: authority must match confidence. Never skip from Analyse directly to Mutate. That path leads to automation accidents.",
       "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report. Important: slash schedule creates cloud-only routines. They run on Anthropic's infrastructure with no access to your local machine, files, or environment variables. For local execution, use slash loop within your current Claude Code session, or a system cron job that invokes the claude CLI directly.",
       "A Claude Code Routine is an isolated session that runs on Anthropic's infrastructure, not on your machine. Each run gets a fresh git checkout of your repo, the MCP connectors you configured, your chosen model, and the tools you allowed — but it cannot access your local machine, local files, or local environment variables. You configure a routine once: the prompt, the git repo, which MCP connectors to attach, and either a recurring cron expression — minimum one hour interval — or a run once at timestamp for a one-time execution. If you need local machine access, do not use slash schedule. Instead, use slash loop for a self-paced recurring task within your current Claude Code session, or set up a system crontab entry that calls the claude CLI directly. Create routines with the slash schedule command. Manage and delete them at claude dot ai slash code slash routines.",
-      "Every automation pipeline runs through three distinct layers, each with different design rules. The Gather layer is pure data fetch — Sentry breadcrumbs, G C P logs, FullStory sessions. It makes no judgments. Design it for maximum parallelism and encode only stable parameters. When it fails, it produces wrong data, catchable downstream. The Analyse layer is where judgment lives: timeline reconstruction, root cause identification, pattern matching. Encode known patterns here and always output a confidence level. When it fails, it produces wrong conclusions, often through hallucination when data is sparse. The Act layer takes actions with side effects. It has three authority tiers. Notify — Slack messages, P R comments — is always safe; humans read and correct. Draft — Jira tickets, P R drafts — requires at least medium confidence. Mutate — closing issues, assigning, merging — requires high confidence only. The design rule: authority must match confidence. Never skip from Analyse directly to Mutate. That path leads to automation accidents.",
       "Five things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Five: skills compound. Each run teaches the skill something new. When you discover a crash pattern that wasn't in the known-patterns section, add it. After six months of runs, that section becomes your crash taxonomy — assembled automatically as a side effect of the automation itself. Now build one.",
     ];
 
@@ -656,18 +644,18 @@
         "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
         "Three-part pattern: Alert fires → Skill triggers → Pipeline fetches + synthesises → Report.",
       ],
-      // 1 — Manual vs Automated
+      // 1 — Demo Case
+      [
+        "Real crash from Guidde production: <a href=\"https://guiddeco.sentry.io/issues/DESKTOP-APP-QB\" target=\"_blank\" rel=\"noopener\">DESKTOP-APP-QB</a> — 443 users, 7,041 events since Dec 2024.",
+        "'Marked resolved · still firing' — the fix was partial, or the same pattern recurred on a different code path.",
+        "The question isn't how to fix this crash. It's how to stop spending 30 min on the next one.",
+      ],
+      // 2 — Manual vs Automated
       [
         "Left (dashed border): the same 30-min ritual, repeated by someone on the team every single time.",
         "SKILL.md (the arrow): a markdown file that encodes the workflow once, runs it for everyone forever.",
         "Right: automated path — triggers on alert, fetches Sentry + GCP + FullStory in parallel, outputs a consistent report.",
         "The skill doesn't replace judgment — it distils what you already know how to do.",
-      ],
-      // 2 — Demo Case
-      [
-        "Real crash from Guidde production: <a href=\"https://guiddeco.sentry.io/issues/DESKTOP-APP-QB\" target=\"_blank\" rel=\"noopener\">DESKTOP-APP-QB</a> — 443 users, 7,041 events since Dec 2024.",
-        "'Marked resolved · still firing' — the fix was partial, or the same pattern recurred on a different code path.",
-        "The question isn't how to fix this crash. It's how to stop spending 30 min on the next one.",
       ],
       // 3 — Breadcrumb Timeline
       [
@@ -692,7 +680,15 @@
         "Rule: if two tool calls don't depend on each other's results, put them in the same message.",
         "This is the highest-leverage pattern in agentic Claude design.",
       ],
-      // 6 — Trigger / Routines
+      // 6 — Three Layers
+      [
+        "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
+        "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
+        "Analyse: stochastic judgment. Encode known patterns, always output confidence level. Fails with wrong conclusions.",
+        "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
+        "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
+      ],
+      // 7 — Trigger / Routines
       [
         "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
         "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
@@ -701,7 +697,7 @@
         "Set up at <a href=\"https://claude.ai/code\" target=\"_blank\" rel=\"noopener\">claude.ai/code</a>: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
         "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
       ],
-      // 7 — Routines Anatomy
+      // 8 — Routines Anatomy
       [
         "Routines run on Anthropic's cloud — isolated per-run sessions with a fresh git checkout. No local machine access.",
         "Configure once: prompt + model, git repo (GitHub), MCP connectors, cron schedule or run_once_at timestamp.",
@@ -709,14 +705,6 @@
         "Need local access? /loop runs a recurring task inside your current Claude Code session with full local access.",
         "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
         "Create via /schedule · manage and delete at <a href=\"https://claude.ai/code/routines\" target=\"_blank\" rel=\"noopener\">claude.ai/code/routines</a>.",
-      ],
-      // 8 — Three Layers
-      [
-        "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
-        "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
-        "Analyse: stochastic judgment. Encode known patterns, always output confidence level. Fails with wrong conclusions.",
-        "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
-        "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
       ],
       // 9 — Takeaways
       [
@@ -730,8 +718,8 @@
     ];
 
     const SLIDE_NAMES = [
-      'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
-      'the pipeline', 'parallel dispatch', 'trigger it', 'routines', 'three layers', 'takeaways',
+      'intro', 'the case', 'manual vs automated', 'breadcrumb timeline',
+      'the pipeline', 'parallel dispatch', 'three layers', 'trigger it', 'routines', 'takeaways',
     ];
 
     const slides = document.querySelectorAll('.slide');
