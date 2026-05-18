@@ -745,20 +745,20 @@
         "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
         "Three-part pattern: Alert fires → Skill triggers → Pipeline fetches + synthesises → Report.",
       ],
-      // 2 — Manual vs Automated
+      // 1 — Manual vs Automated
       [
         "Left (dashed border): the same 30-min ritual, repeated by someone on the team every single time.",
         "SKILL.md (the arrow): a markdown file that encodes the workflow once, runs it for everyone forever.",
         "Right: automated path — triggers on alert, fetches Sentry + GCP + FullStory in parallel, outputs a consistent report.",
         "The skill doesn't replace judgment — it distils what you already know how to do.",
       ],
-      // 3 — Demo Case
+      // 2 — Demo Case
       [
         "Real crash from Guidde production: 443 users, 7,041 events since Dec 2024.",
         "'Marked resolved · still firing' — the fix was partial, or the same pattern recurred on a different code path.",
         "The question isn't how to fix this crash. It's how to stop spending 30 min on the next one.",
       ],
-      // 4 — Breadcrumb Timeline
+      // 3 — Breadcrumb Timeline
       [
         "Left branch (ALGORITHM): happy path — recording starts, screenshots fire every ~200 ms, steps accumulate.",
         "Dashed line marks teardown: user stops → server closes → recording object deleted.",
@@ -766,7 +766,7 @@
         "Late 'Step added successfully' fires after teardown → tries to call setVideoUploaded on the deleted object → crash.",
         "Diagnostic signal: any ALGORITHM event appearing after 'Deleting recording…' in the breadcrumb trail.",
       ],
-      // 5 — Pipeline
+      // 4 — Pipeline
       [
         "Three data sources fetched simultaneously from a single Claude message.",
         "Sentry: issue metadata + last 200 breadcrumbs + recent events for the same fingerprint.",
@@ -774,14 +774,14 @@
         "FullStory: session events for the affected user ID around the same timeframe.",
         "Synthesise step merges all three into a unified timeline, names the root cause, suggests fix direction.",
       ],
-      // 6 — Parallel Dispatch
+      // 5 — Parallel Dispatch
       [
         "Sequential (left): each tool call waits for the previous result — 2 s + 3 s + 2 s + round-trip overhead.",
         "Parallel (right): all three calls in one message — wall time = max(2 s, 3 s, 2 s) = 3 s, not the sum.",
         "Rule: if two tool calls don't depend on each other's results, put them in the same message.",
         "This is the highest-leverage pattern in agentic Claude design.",
       ],
-      // 7 — Skill Anatomy
+      // 6 — Skill Anatomy
       [
         "Frontmatter: name drives the /trigger, argument-hint tells Claude what to expect, allowed-tools is a security boundary.",
         "Fixed context: Sentry org slug, GCP project ID, API paths — stable facts Claude would otherwise have to guess every session.",
@@ -789,14 +789,14 @@
         "Output format: the contract — every run produces impact · timeline · root cause · fix direction.",
         "Known patterns: teardown race, IPC empty result, permission loss — Claude matches on first parse instead of re-reasoning from scratch.",
       ],
-      // 8 — Design Debate
+      // 7 — Design Debate
       [
         "Stable → encode in the skill: GCP project name, Sentry org slug, API endpoint paths, known crash fingerprints.",
         "Volatile → discover at runtime: library versions, branch names, PR numbers, current config values.",
         "Heuristic: if a new engineer needs a 5-min onboarding chat to find it, encode it. If it's in the repo, let Claude read it.",
         "Implementation details that change fast will rot the skill. Operational constants stable for months are worth encoding.",
       ],
-      // 9 — Trigger / Routines
+      // 8 — Trigger / Routines
       [
         "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
         "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
@@ -805,7 +805,7 @@
         "Set up at claude.ai/code: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
         "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
       ],
-      // 10 — Routines Anatomy
+      // 9 — Routines Anatomy
       [
         "Routines run on Anthropic's cloud — isolated per-run sessions with a fresh git checkout. No local machine access.",
         "Configure once: prompt + model, git repo (GitHub), MCP connectors, cron schedule or run_once_at timestamp.",
@@ -814,7 +814,7 @@
         "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
         "Create via /schedule · manage and delete at claude.ai/code/routines.",
       ],
-      // 11 — Three Layers
+      // 10 — Three Layers
       [
         "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
         "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
@@ -822,7 +822,7 @@
         "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
         "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
       ],
-      // 12 — Takeaways
+      // 11 — Takeaways
       [
         "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
         "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -894,6 +894,8 @@
 
       document.getElementById('prev').disabled = current === 0;
       document.getElementById('next').disabled = current === slides.length - 1;
+
+      history.replaceState(null, '', '#s' + current);
     }
 
     const guidePanel = document.getElementById('guide-panel');
@@ -1004,7 +1006,13 @@
     }, { passive: true });
 
     buildDots();
-    go(0);
+    const initHash = location.hash.match(/^#s(\d+)$/);
+    go(initHash ? Math.min(parseInt(initHash[1], 10), slides.length - 1) : 0);
+
+    window.addEventListener('hashchange', () => {
+      const m = location.hash.match(/^#s(\d+)$/);
+      if (m) go(Math.min(parseInt(m[1], 10), slides.length - 1));
+    });
   </script>
 </body>
 </html>
