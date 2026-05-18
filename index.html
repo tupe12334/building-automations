@@ -14,89 +14,8 @@
 
   <div class="deck">
 
-    <!-- ─── SLIDE 0: PREREQUISITES ─── -->
-    <div class="slide active" id="s-prereq">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="38" text-anchor="middle" class="t-label">prerequisites</text>
-        <line x1="100" y1="52" x2="700" y2="52" class="rule-line" />
-
-        <!-- vertical separator -->
-        <line x1="400" y1="64" x2="400" y2="450" class="grid-line" />
-
-        <!-- ── LEFT: SKILLS (→ slide 3) ── -->
-        <g class="reveal-group" style="--d:0.05s">
-          <text x="200" y="80" text-anchor="middle" class="t-tag">skills</text>
-          <text x="385" y="80" text-anchor="end" class="t-eyebrow" style="font-size:10px">→ slide 3</text>
-          <line x1="44" y1="90" x2="385" y2="90" class="grid-line" />
-        </g>
-
-        <g class="reveal-group" style="--d:0.15s">
-          <rect x="44" y="106" width="22" height="22" class="box-skill" rx="3" />
-          <text x="55" y="122" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="78" y="116" class="t-label" style="font-size:14px">Claude Code installed</text>
-          <text x="78" y="133" class="t-caption">claude CLI in PATH · <tspan class="t-code">claude --version</tspan></text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.25s">
-          <rect x="44" y="152" width="22" height="22" class="box-skill" rx="3" />
-          <text x="55" y="168" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="78" y="162" class="t-label" style="font-size:14px">basic markdown</text>
-          <text x="78" y="179" class="t-caption">headings · bullet lists · fenced code blocks</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.35s">
-          <rect x="44" y="198" width="22" height="22" class="box-skill" rx="3" />
-          <text x="55" y="214" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="78" y="208" class="t-label" style="font-size:14px">a repeated investigation in mind</text>
-          <text x="78" y="225" class="t-caption">alert triage · CI failure · deploy status · anything manual + recurring</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.45s">
-          <rect x="44" y="244" width="22" height="22" class="box-skill" rx="3" />
-          <text x="55" y="260" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="78" y="254" class="t-label" style="font-size:14px">done it manually at least once</text>
-          <text x="78" y="271" class="t-caption">the skill encodes what you already know · can't automate the unknown</text>
-        </g>
-
-        <!-- ── RIGHT: PARALLEL WORK (→ slides 7, 8, 9) ── -->
-        <g class="reveal-group" style="--d:0.05s">
-          <text x="596" y="80" text-anchor="middle" class="t-tag">parallel work</text>
-          <text x="415" y="80" text-anchor="start" class="t-eyebrow" style="font-size:10px">→ slides 7, 8, 9</text>
-          <line x1="415" y1="90" x2="756" y2="90" class="grid-line" />
-        </g>
-
-        <g class="reveal-group" style="--d:0.15s">
-          <rect x="415" y="106" width="22" height="22" class="box-skill" rx="3" />
-          <text x="426" y="122" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="449" y="116" class="t-label" style="font-size:14px">≥1 MCP connector active</text>
-          <text x="449" y="133" class="t-caption">Sentry · Slack · GCP · FullStory · any relevant tool</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.25s">
-          <rect x="415" y="152" width="22" height="22" class="box-skill" rx="3" />
-          <text x="426" y="168" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="449" y="162" class="t-label" style="font-size:14px">multiple independent data sources</text>
-          <text x="449" y="179" class="t-caption">steps that don't depend on each other → dispatch in one message</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.35s">
-          <rect x="415" y="198" width="22" height="22" class="box-skill" rx="3" />
-          <text x="426" y="214" text-anchor="middle" class="t-filetab">✓</text>
-          <text x="449" y="208" class="t-label" style="font-size:14px">connectors set up at claude.ai/code</text>
-          <text x="449" y="225" class="t-caption">not configurable during the demo · do this now</text>
-        </g>
-
-        <!-- footer -->
-        <g class="reveal-group" style="--d:0.6s">
-          <line x1="100" y1="310" x2="700" y2="310" class="rule-line" />
-          <text x="400" y="340" text-anchor="middle" class="t-caption">no server · no infra · no code · just a markdown file and connected tools</text>
-          <text x="400" y="368" text-anchor="middle" class="t-eyebrow">check these now — the demo moves fast</text>
-        </g>
-      </svg>
-    </div>
-
-    <!-- ─── SLIDE 1: HERO ─── -->
-    <div class="slide" id="s0">
+    <!-- ─── SLIDE 0: HERO ─── -->
+    <div class="slide active" id="s0">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <rect class="flicker" x="0" y="0" width="800" height="500" fill="none" />
         <text x="400" y="185" text-anchor="middle" class="t-hero">Building Automations</text>
@@ -805,7 +724,6 @@
 
   <script type="module">
     const TTS_TEXTS = [
-      "Prerequisites are split into two areas. Skills — needed for slide three onward: Claude Code installed and in your PATH, basic markdown syntax, a concrete repeated investigation your team does manually, and having done that investigation yourself at least once. The skill is a distillation of what you already know — you cannot automate what you have never done. Parallel Work — needed for slides seven, eight, and nine: at least one MCP connector active, a workflow that hits multiple independent data sources, and those connectors configured at claude dot ai slash code before we start. You cannot set up connectors mid-demo. If you are missing one, open claude dot ai slash code now. No server, no infrastructure, no code required. Just a markdown file and the right tools connected.",
       "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
       "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
       "The demo case is a real crash: TypeError, cannot read properties of undefined, reading set video uploaded. It hit four hundred and forty three users, over seven thousand times, since December twenty twenty four. It was marked resolved and assigned. It is still firing today. The question is not how to fix this one. The question is how to stop spending thirty minutes on the next one.",
@@ -821,15 +739,7 @@
     ];
 
     const GUIDE_TEXTS = [
-      // 0 — Prerequisites
-      [
-        "Two sub-sections: Skills (→ slide 3) and Parallel Work (→ slides 7, 8, 9).",
-        "Skills side: Claude Code CLI, basic markdown, a real repeated investigation in mind, and having done it manually at least once — the skill is a distillation of existing knowledge.",
-        "Parallel Work side: at least one MCP connector active, multiple independent data sources in your workflow, and connectors pre-configured at claude.ai/code before the session.",
-        "Critical: connectors cannot be set up mid-demo. Anyone missing one should do it now.",
-        "The bottom line: no server, no infra, no code — just a markdown file and the right tools connected.",
-      ],
-      // 1 — Intro
+      // 0 — Intro
       [
         "Navigate with → / ← keys, nav buttons, or swipe. Each slide animates on arrival.",
         "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
@@ -924,7 +834,7 @@
     ];
 
     const SLIDE_NAMES = [
-      'prerequisites', 'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
+      'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
       'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'routines', 'three layers', 'takeaways',
     ];
 
