@@ -14,21 +14,8 @@
 
   <div class="deck">
 
-    <!-- ─── SLIDE 0: HERO ─── -->
-    <div class="slide active" id="s0">
-      <svg class="slide-svg" viewBox="0 0 800 500">
-        <rect class="flicker" x="0" y="0" width="800" height="500" fill="none" />
-        <text x="400" y="185" text-anchor="middle" class="t-hero">Building Automations</text>
-        <text x="400" y="242" text-anchor="middle" class="t-sub">Alert · Skill · Pipeline</text>
-        <line x1="200" y1="265" x2="600" y2="265" class="rule-line" />
-        <text x="400" y="297" text-anchor="middle" class="t-eyebrow">AI Week · 2026</text>
-        <rect x="395" y="308" width="10" height="2" class="cursor-blink" />
-        <text x="400" y="470" text-anchor="middle" class="t-eyebrow" style="opacity:0.35">press → to begin</text>
-      </svg>
-    </div>
-
-    <!-- ─── SLIDE PREREQ: PREREQUISITES ─── -->
-    <div class="slide" id="s-prereq">
+    <!-- ─── SLIDE 0: PREREQUISITES ─── -->
+    <div class="slide active" id="s-prereq">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="38" text-anchor="middle" class="t-label">prerequisites</text>
         <line x1="100" y1="52" x2="700" y2="52" class="rule-line" />
@@ -108,7 +95,20 @@
       </svg>
     </div>
 
-    <!-- ─── SLIDE 1: MANUAL VS AUTOMATED ─── -->
+    <!-- ─── SLIDE 1: HERO ─── -->
+    <div class="slide" id="s0">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <rect class="flicker" x="0" y="0" width="800" height="500" fill="none" />
+        <text x="400" y="185" text-anchor="middle" class="t-hero">Building Automations</text>
+        <text x="400" y="242" text-anchor="middle" class="t-sub">Alert · Skill · Pipeline</text>
+        <line x1="200" y1="265" x2="600" y2="265" class="rule-line" />
+        <text x="400" y="297" text-anchor="middle" class="t-eyebrow">AI Week · 2026</text>
+        <rect x="395" y="308" width="10" height="2" class="cursor-blink" />
+        <text x="400" y="470" text-anchor="middle" class="t-eyebrow" style="opacity:0.35">press → to begin</text>
+      </svg>
+    </div>
+
+    <!-- ─── SLIDE 2: MANUAL VS AUTOMATED ─── -->
     <div class="slide" id="s1">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="42" text-anchor="middle" class="t-label">the same 30 minutes, every time</text>
@@ -785,9 +785,10 @@
   <!-- Guide panel -->
   <div class="guide-panel" id="guide-panel">
     <button class="guide-handle" id="guide-handle" aria-expanded="false">
-      <span class="guide-handle-label">tutorial guide</span>
-      <span class="guide-handle-icon" id="guide-icon" aria-hidden="true">▲</span>
+      <span class="guide-handle-icon" id="guide-icon" aria-hidden="true">◀</span>
+      <span class="guide-handle-label">guide</span>
     </button>
+    <div class="guide-panel-title">tutorial guide</div>
     <div class="guide-content" id="guide-content">
       <ul class="guide-text" id="guide-text"></ul>
     </div>
@@ -804,8 +805,8 @@
 
   <script type="module">
     const TTS_TEXTS = [
-      "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
       "Prerequisites are split into two areas. Skills — needed for slide three onward: Claude Code installed and in your PATH, basic markdown syntax, a concrete repeated investigation your team does manually, and having done that investigation yourself at least once. The skill is a distillation of what you already know — you cannot automate what you have never done. Parallel Work — needed for slides seven, eight, and nine: at least one MCP connector active, a workflow that hits multiple independent data sources, and those connectors configured at claude dot ai slash code before we start. You cannot set up connectors mid-demo. If you are missing one, open claude dot ai slash code now. No server, no infrastructure, no code required. Just a markdown file and the right tools connected.",
+      "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
       "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
       "The demo case is a real crash: TypeError, cannot read properties of undefined, reading set video uploaded. It hit four hundred and forty three users, over seven thousand times, since December twenty twenty four. It was marked resolved and assigned. It is still firing today. The question is not how to fix this one. The question is how to stop spending thirty minutes on the next one.",
       "The story is in the breadcrumbs. The recording starts, screenshots fire every two hundred milliseconds, steps are added. Then the user pauses. Stop is called. The server is closed. The recording object is deleted. But at this point, in-flight screenshot upload callbacks are still in flight. They resolve after the recording object is gone. When they try to call set video uploaded, the object is undefined. The crash happens. The breadcrumb trail makes this visible in under a minute. A human digging through the same two hundred lines takes twenty.",
@@ -820,19 +821,19 @@
     ];
 
     const GUIDE_TEXTS = [
-      // 0 — Intro
-      [
-        "Navigate with → / ← keys, nav buttons, or swipe. Each slide animates on arrival.",
-        "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
-        "Three-part pattern: Alert fires → Skill triggers → Pipeline fetches + synthesises → Report.",
-      ],
-      // 1 — Prerequisites
+      // 0 — Prerequisites
       [
         "Two sub-sections: Skills (→ slide 3) and Parallel Work (→ slides 7, 8, 9).",
         "Skills side: Claude Code CLI, basic markdown, a real repeated investigation in mind, and having done it manually at least once — the skill is a distillation of existing knowledge.",
         "Parallel Work side: at least one MCP connector active, multiple independent data sources in your workflow, and connectors pre-configured at claude.ai/code before the session.",
         "Critical: connectors cannot be set up mid-demo. Anyone missing one should do it now.",
         "The bottom line: no server, no infra, no code — just a markdown file and the right tools connected.",
+      ],
+      // 1 — Intro
+      [
+        "Navigate with → / ← keys, nav buttons, or swipe. Each slide animates on arrival.",
+        "▶ reads the slide aloud via Kokoro TTS — runs in-browser, ~50 MB first load, fully private.",
+        "Three-part pattern: Alert fires → Skill triggers → Pipeline fetches + synthesises → Report.",
       ],
       // 2 — Manual vs Automated
       [
@@ -923,7 +924,7 @@
     ];
 
     const SLIDE_NAMES = [
-      'intro', 'prerequisites', 'manual vs automated', 'the case', 'breadcrumb timeline',
+      'prerequisites', 'intro', 'manual vs automated', 'the case', 'breadcrumb timeline',
       'the pipeline', 'parallel dispatch', 'skill anatomy', 'design debate', 'trigger it', 'routines', 'three layers', 'takeaways',
     ];
 
@@ -989,7 +990,7 @@
     document.getElementById('guide-handle').addEventListener('click', () => {
       const open = guidePanel.classList.toggle('guide-open');
       document.getElementById('guide-handle').setAttribute('aria-expanded', String(open));
-      document.getElementById('guide-icon').textContent = open ? '▼' : '▲';
+      document.getElementById('guide-icon').textContent = open ? '▶' : '◀';
     });
 
     function setTTSState(state) {

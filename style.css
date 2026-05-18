@@ -572,7 +572,7 @@ html, body {
 .step-indicator {
   position: fixed;
   top: 1rem;
-  right: 1.5rem;
+  left: 1.5rem;
   z-index: 200;
   font-family: "SF Mono", monospace;
   font-size: 11px;
@@ -586,47 +586,57 @@ html, body {
 
 .guide-panel {
   position: fixed;
-  bottom: 4.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(90vw, 860px);
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
   background: var(--paper);
-  border: 1px solid var(--border);
-  box-shadow: 2px 2px 0 var(--border);
+  border-left: 1px solid var(--border);
+  box-shadow: -3px 0 8px rgba(0,0,0,0.06);
   z-index: 90;
-  overflow: hidden;
-  max-height: 1.75rem;
-  transition: max-height 0.35s ease;
+  overflow: visible;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .guide-panel.guide-open {
-  max-height: 18rem;
+  transform: translateX(0);
 }
 
 .guide-handle {
+  position: absolute;
+  left: -2.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.25rem;
+  height: 5.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0.35rem 1rem;
-  background: none;
-  border: none;
-  border-bottom: 1px solid transparent;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-right: none;
+  box-shadow: -2px 2px 0 var(--border);
   cursor: pointer;
-  font-family: inherit;
-  color: inherit;
+  padding: 0.5rem 0;
 }
 
 .guide-panel.guide-open .guide-handle {
-  border-bottom-color: var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .guide-handle-label {
   font-family: "SF Mono", monospace;
-  font-size: 10px;
+  font-size: 8px;
   color: var(--ink-f);
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 .guide-handle-icon {
@@ -639,10 +649,21 @@ html, body {
   color: var(--ink);
 }
 
+.guide-panel-title {
+  padding: 1rem 1rem 0.65rem;
+  font-family: "SF Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-f);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
 .guide-content {
   padding: 0.85rem 1.1rem 1rem;
   overflow-y: auto;
-  max-height: 15rem;
+  flex: 1;
 }
 
 .guide-text {
