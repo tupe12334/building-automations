@@ -147,9 +147,11 @@
         <text x="400" y="42" text-anchor="middle" class="t-label">the demo case</text>
 
         <g class="reveal-group" style="--d:0.1s">
-          <rect x="60" y="60" width="680" height="70" class="box-failure" />
-          <text x="400" y="90" text-anchor="middle" class="t-label" style="font-size:14px">TypeError: Cannot read properties of undefined</text>
-          <text x="400" y="114" text-anchor="middle" class="t-mono-faint">(reading 'setVideoUploaded') · src/main/main.ts:1135</text>
+          <a href="https://guiddeco.sentry.io/issues/DESKTOP-APP-QB" target="_blank" rel="noopener">
+            <rect x="60" y="60" width="680" height="70" class="box-failure" />
+            <text x="400" y="90" text-anchor="middle" class="t-label" style="font-size:14px">TypeError: Cannot read properties of undefined</text>
+            <text x="400" y="114" text-anchor="middle" class="t-mono-faint">(reading 'setVideoUploaded') · src/main/main.ts:1135</text>
+          </a>
         </g>
 
         <g class="reveal-group" style="--d:0.35s">
@@ -258,9 +260,11 @@
 
         <!-- Input -->
         <g class="reveal-group" style="--d:0s">
-          <circle cx="80" cy="250" r="45" class="data-blob" />
-          <text x="80" y="244" text-anchor="middle" class="t-caption">Sentry</text>
-          <text x="80" y="260" text-anchor="middle" class="t-caption">alert</text>
+          <a href="https://guiddeco.sentry.io/issues/DESKTOP-APP-QB" target="_blank" rel="noopener">
+            <circle cx="80" cy="250" r="45" class="data-blob" />
+            <text x="80" y="244" text-anchor="middle" class="t-caption">Sentry</text>
+            <text x="80" y="260" text-anchor="middle" class="t-caption">alert</text>
+          </a>
         </g>
 
         <!-- Fork lines -->
@@ -415,7 +419,7 @@
           <text x="400" y="158" text-anchor="middle" class="t-caption">no local machine or files</text>
           <text x="400" y="178" text-anchor="middle" class="t-caption">no local env vars</text>
           <text x="400" y="202" text-anchor="middle" class="t-caption">all paid plans</text>
-          <text x="400" y="232" text-anchor="middle" class="t-caption">claude.ai/code/routines</text>
+          <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><text x="400" y="232" text-anchor="middle" class="t-caption">claude.ai/code/routines</text></a>
         </g>
 
         <!-- Arrow center → right -->
@@ -661,7 +665,7 @@
       ],
       // 2 — Demo Case
       [
-        "Real crash from Guidde production: 443 users, 7,041 events since Dec 2024.",
+        "Real crash from Guidde production: <a href=\"https://guiddeco.sentry.io/issues/DESKTOP-APP-QB\" target=\"_blank\" rel=\"noopener\">DESKTOP-APP-QB</a> — 443 users, 7,041 events since Dec 2024.",
         "'Marked resolved · still firing' — the fix was partial, or the same pattern recurred on a different code path.",
         "The question isn't how to fix this crash. It's how to stop spending 30 min on the next one.",
       ],
@@ -676,7 +680,7 @@
       // 4 — Pipeline
       [
         "Three data sources fetched simultaneously from a single Claude message.",
-        "Sentry: issue metadata + last 200 breadcrumbs + recent events for the same fingerprint.",
+        "<a href=\"https://guiddeco.sentry.io/issues/DESKTOP-APP-QB\" target=\"_blank\" rel=\"noopener\">Sentry DESKTOP-APP-QB</a>: issue metadata + last 200 breadcrumbs + recent events for the same fingerprint.",
         "GCP Logs: cloud_run_revision logs ±5 min around the crash timestamp, filtered to /c/v1/ errors.",
         "FullStory: session events for the affected user ID around the same timeframe.",
         "Synthesise step merges all three into a unified timeline, names the root cause, suggests fix direction.",
@@ -694,7 +698,7 @@
         "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
         "Schedule path: cron expression (e.g. 0 * * * *) → Sentry query for new / regressed issues → same pipeline.",
         "No GitHub Actions, no Lambda, no self-hosted infrastructure needed.",
-        "Set up at claude.ai/code: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
+        "Set up at <a href=\"https://claude.ai/code\" target=\"_blank\" rel=\"noopener\">claude.ai/code</a>: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
         "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
       ],
       // 7 — Routines Anatomy
@@ -704,7 +708,7 @@
         "Minimum cron interval: 1 hour. One-time runs use run_once_at (RFC3339 UTC) and auto-disable after firing.",
         "Need local access? /loop runs a recurring task inside your current Claude Code session with full local access.",
         "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
-        "Create via /schedule · manage and delete at claude.ai/code/routines.",
+        "Create via /schedule · manage and delete at <a href=\"https://claude.ai/code/routines\" target=\"_blank\" rel=\"noopener\">claude.ai/code/routines</a>.",
       ],
       // 8 — Three Layers
       [

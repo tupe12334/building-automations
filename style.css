@@ -690,6 +690,25 @@ html, body {
   line-height: 1.4;
 }
 
+.guide-text a {
+  color: var(--ink-l);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.guide-text a:hover {
+  color: var(--ink);
+}
+
+.slide-svg a {
+  cursor: pointer;
+}
+
+.slide-svg a text {
+  text-decoration: underline;
+  text-decoration-color: var(--ink-f);
+}
+
 /* ── NAV ADDITIONS ── */
 
 .nav-separator {
