@@ -6,7 +6,9 @@ const TTS_TEXTS = [
   "The pipeline: an alert arrives with a Sentry issue ID. The skill dispatches three things simultaneously: fetch the Sentry issue details, breadcrumbs, and recent events; query GCP Cloud Run logs for the five minutes around the crash; and retrieve the FullStory session transcript. All three run in parallel. When they all return, the skill synthesizes a timeline, identifies the root cause, and suggests a fix direction.",
   "The key pattern: dispatch everything in a single message. When you send multiple tool calls in one message, the model runs them in parallel. The wall time equals the slowest single task, not the sum of all tasks. Three sequential messages at two, three, and two seconds costs seven seconds plus three round trips. One message with three parallel calls costs three seconds, period. This is the most important pattern in agentic design.",
   "Every automation pipeline runs through three distinct layers, each with different design rules. The Gather layer is pure data fetch — Sentry breadcrumbs, G C P logs, FullStory sessions. It makes no judgments. Design it for maximum parallelism and encode only stable parameters. When it fails, it produces wrong data, catchable downstream. The Analyse layer is where judgment lives: timeline reconstruction, root cause identification, pattern matching. Encode known patterns here and always output a confidence level. When it fails, it produces wrong conclusions, often through hallucination when data is sparse. The Act layer takes actions with side effects. It has three authority tiers. Notify — Slack messages, P R comments — is always safe; humans read and correct. Draft — Jira tickets, P R drafts — requires at least medium confidence. Mutate — closing issues, assigning, merging — requires high confidence only. The design rule: authority must match confidence. Never skip from Analyse directly to Mutate. That path leads to automation accidents.",
+  "Hooks. Shell scripts that fire at specific points in every Claude Code session — local, event-driven, full environment access.",
   "Hooks are local lifecycle interceptors — shell scripts that fire at specific points in every Claude Code session. Unlike Routines, which run in Anthropic's cloud with no local access, hooks run on your machine with full environment access. Four events matter most for this automation. SessionStart fires when a session opens: inject your Sentry token, GCP project, and current git branch — every session starts informed. UserPromptSubmit fires before each message: this very session is running one right now. The terse communication style here is produced by a UserPromptSubmit hook that injects instructions before every message you send. PreToolUse on Bash fires before any shell command executes — this is the confidence gate from the ACT layer, in code. When the automation tries to run a MUTATE command, the hook reads the confidence level and exits with code two to block if it is not HIGH. The command never runs. PostToolUse on Edit and Write fires after every file change: run the linter, run the tests, validate output before the model's next call. Configure all of this once in tilde-slash-dot-claude-slash-settings-dot-json. Use hooks for in-session invariants. Use Routines for async pipelines. They are designed to work together.",
+  "Routines. Cloud-hosted automated pipelines that run on Anthropic's infrastructure. Triggered by webhook or cron schedule. No server required.",
   "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report. Important: slash schedule creates cloud-only routines. They run on Anthropic's infrastructure with no access to your local machine, files, or environment variables. For local execution, use slash loop within your current Claude Code session, or a system cron job that invokes the claude CLI directly.",
   "A Claude Code Routine is an isolated session that runs on Anthropic's infrastructure, not on your machine. Each run gets a fresh git checkout of your repo, the MCP connectors you configured, your chosen model, and the tools you allowed — but it cannot access your local machine, local files, or local environment variables. You configure a routine once: the prompt, the git repo, which MCP connectors to attach, and either a recurring cron expression — minimum one hour interval — or a run once at timestamp for a one-time execution. If you need local machine access, do not use slash schedule. Instead, use slash loop for a self-paced recurring task within your current Claude Code session, or set up a system crontab entry that calls the claude CLI directly. Create routines with the slash schedule command. Manage and delete them at claude dot ai slash code slash routines.",
   "Five things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Five: skills compound. Each run teaches the skill something new. When you discover a crash pattern that wasn't in the known-patterns section, add it. After six months of runs, that section becomes your crash taxonomy — assembled automatically as a side effect of the automation itself. Now build one.",
@@ -65,7 +67,12 @@ const GUIDE_TEXTS = [
     "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
     "PreToolUse(Bash) hook implements the gate: shell script checks confidence level, exit 2 blocks the command before it runs.",
   ],
-  // 7 — Hooks
+  // 7 — Hooks title
+  [
+    "Section: Hooks — the local, event-driven automation layer.",
+    "Hooks run inside every Claude Code session on your machine — full local env, no cloud involved.",
+  ],
+  // 8 — Hooks detail
   [
     "Hooks are local shell scripts (or HTTP / MCP calls) that intercept Claude's lifecycle events. Configured in ~/.claude/settings.json.",
     "SessionStart: inject Sentry / GCP credentials, current git branch, open issues — every session starts with context.",
@@ -75,7 +82,12 @@ const GUIDE_TEXTS = [
     "Hooks vs Routines: Hooks = local, full env, event-driven, per-session. Routines = cloud, no local, scheduled / webhook.",
     "20+ hook events: PreToolUse · PostToolUse · SessionStart · UserPromptSubmit · Stop · PermissionRequest · FileChanged · ···",
   ],
-  // 8 — Trigger / Routines
+  // 9 — Routines title
+  [
+    "Section: Routines — the cloud automation layer.",
+    "Routines run on Anthropic's infrastructure, triggered by webhook or cron. No local machine, no server to manage.",
+  ],
+  // 10 — Trigger / Routines
   [
     "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
     "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
@@ -85,7 +97,7 @@ const GUIDE_TEXTS = [
     "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
     "hooks are the in-session complement: PreToolUse · PostToolUse · SessionStart — local, full env, ~/.claude/settings.json (see Hooks slide).",
   ],
-  // 9 — Routines Anatomy
+  // 11 — Routines Anatomy
   [
     "Routines run on Anthropic's cloud — isolated per-run sessions with a fresh git checkout. No local machine access.",
     "Configure once: prompt + model, git repo (GitHub), MCP connectors, cron schedule or run_once_at timestamp.",
@@ -94,7 +106,7 @@ const GUIDE_TEXTS = [
     "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
     "Create via /schedule · manage and delete at <a href=\"https://claude.ai/code/routines\" target=\"_blank\" rel=\"noopener\">claude.ai/code/routines</a>.",
   ],
-  // 10 — Takeaways
+  // 12 — Takeaways
   [
     "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
     "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -107,7 +119,7 @@ const GUIDE_TEXTS = [
 
 const SLIDE_NAMES = [
   'intro', 'the case', 'manual vs automated', 'the output',
-  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'trigger it', 'routines', 'takeaways',
+  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'hooks: events', 'routines', 'trigger it', 'routines: anatomy', 'takeaways',
 ];
 
 const slides = document.querySelectorAll('.slide');
