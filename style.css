@@ -796,23 +796,4 @@ html, body {
   text-decoration-color: var(--ink-f);
 }
 
-/* ── NAV ADDITIONS ── */
 
-.nav-separator {
-  width: 1px;
-  height: 1.1rem;
-  background: var(--border);
-  flex-shrink: 0;
-}
-
-.tts-btn {
-  font-family: "SF Mono", monospace;
-  font-size: 0.75rem;
-  min-width: 2rem;
-  letter-spacing: 0;
-}
-
-.tts-btn.tts-playing {
-  background: var(--paper-d);
-  border-color: var(--ink);
-}

@@ -656,55 +656,71 @@
 
         <!-- /loop box -->
         <g class="reveal-group" style="--d:0.2s">
-          <rect x="27" y="108" width="230" height="250" class="box-main" />
-          <text x="142" y="140" text-anchor="middle" class="t-tag">/loop</text>
-          <line x1="43" y1="152" x2="241" y2="152" class="grid-line" />
-          <text x="142" y="176" text-anchor="middle" class="t-caption">in-session · full local access</text>
-          <text x="142" y="196" text-anchor="middle" class="t-caption">runs while session is open</text>
-          <line x1="43" y1="214" x2="241" y2="214" class="grid-line" />
-          <text x="142" y="236" text-anchor="middle" class="t-caption">best for</text>
-          <text x="142" y="256" text-anchor="middle" class="t-mono-faint">polling · iterative dev</text>
-          <text x="142" y="276" text-anchor="middle" class="t-mono-faint">in-session automation</text>
-          <line x1="43" y1="296" x2="241" y2="296" class="grid-line" />
-          <text x="142" y="320" text-anchor="middle" class="t-mono-faint">/loop 5m /check-prs</text>
+          <rect x="15" y="108" width="183" height="255" class="box-main" />
+          <text x="107" y="138" text-anchor="middle" class="t-tag">/loop</text>
+          <line x1="31" y1="150" x2="182" y2="150" class="grid-line" />
+          <text x="107" y="170" text-anchor="middle" class="t-caption">in-session · local access</text>
+          <text x="107" y="188" text-anchor="middle" class="t-caption">runs while session open</text>
+          <line x1="31" y1="203" x2="182" y2="203" class="grid-line" />
+          <text x="107" y="221" text-anchor="middle" class="t-caption">best for</text>
+          <text x="107" y="239" text-anchor="middle" class="t-mono-faint">polling · iterative dev</text>
+          <text x="107" y="257" text-anchor="middle" class="t-mono-faint">in-session automation</text>
+          <line x1="31" y1="272" x2="182" y2="272" class="grid-line" />
+          <text x="107" y="293" text-anchor="middle" class="t-mono-faint">/loop 5m /check-prs</text>
         </g>
 
         <!-- ralph-loop box -->
-        <g class="reveal-group" style="--d:0.45s">
-          <rect x="285" y="108" width="230" height="250" class="box-skill" />
-          <text x="400" y="140" text-anchor="middle" class="t-tag">ralph-loop</text>
-          <line x1="301" y1="152" x2="499" y2="152" class="grid-line" />
-          <text x="400" y="176" text-anchor="middle" class="t-caption">plugin · in-session loop</text>
-          <text x="400" y="196" text-anchor="middle" class="t-caption">session-aware scheduling</text>
-          <line x1="301" y1="214" x2="499" y2="214" class="grid-line" />
-          <text x="400" y="236" text-anchor="middle" class="t-caption">best for</text>
-          <text x="400" y="256" text-anchor="middle" class="t-mono-faint">recurring in-session tasks</text>
-          <text x="400" y="276" text-anchor="middle" class="t-mono-faint">plugin-driven automation</text>
-          <line x1="301" y1="296" x2="499" y2="296" class="grid-line" />
+        <g class="reveal-group" style="--d:0.38s">
+          <rect x="210" y="108" width="183" height="255" class="box-skill" />
+          <text x="302" y="138" text-anchor="middle" class="t-tag">ralph-loop</text>
+          <line x1="226" y1="150" x2="377" y2="150" class="grid-line" />
+          <text x="302" y="168" text-anchor="middle" class="t-caption">about</text>
+          <text x="302" y="184" text-anchor="middle" class="t-mono-faint">Claude plugin · loop runner</text>
+          <text x="302" y="200" text-anchor="middle" class="t-mono-faint">runs inside active session</text>
+          <line x1="226" y1="214" x2="377" y2="214" class="grid-line" />
+          <text x="302" y="232" text-anchor="middle" class="t-caption">goal</text>
+          <text x="302" y="248" text-anchor="middle" class="t-mono-faint">persistent loops · local access</text>
+          <text x="302" y="264" text-anchor="middle" class="t-mono-faint">without leaving Claude Code</text>
+          <line x1="226" y1="278" x2="377" y2="278" class="grid-line" />
           <a href="https://claude.com/plugins/ralph-loop" target="_blank">
-            <text x="400" y="320" text-anchor="middle" class="t-mono-faint" style="text-decoration:underline">claude.com/plugins/ralph-loop</text>
+            <text x="302" y="299" text-anchor="middle" class="t-mono-faint" style="font-size:0.85em;text-decoration:underline">claude.com/plugins/ralph-loop</text>
           </a>
         </g>
 
+        <!-- /goal box -->
+        <g class="reveal-group" style="--d:0.56s">
+          <rect x="405" y="108" width="183" height="255" class="box-main" />
+          <text x="497" y="138" text-anchor="middle" class="t-tag">/goal</text>
+          <line x1="421" y1="150" x2="572" y2="150" class="grid-line" />
+          <text x="497" y="170" text-anchor="middle" class="t-caption">autonomous · multi-turn</text>
+          <text x="497" y="188" text-anchor="middle" class="t-caption">runs until condition met</text>
+          <line x1="421" y1="203" x2="572" y2="203" class="grid-line" />
+          <text x="497" y="221" text-anchor="middle" class="t-caption">how</text>
+          <text x="497" y="239" text-anchor="middle" class="t-mono-faint">Haiku checks condition</text>
+          <text x="497" y="257" text-anchor="middle" class="t-mono-faint">each turn · loops if not met</text>
+          <line x1="421" y1="272" x2="572" y2="272" class="grid-line" />
+          <text x="497" y="293" text-anchor="middle" class="t-mono-faint">/goal "all tests pass"</text>
+        </g>
+
         <!-- crontab box -->
-        <g class="reveal-group" style="--d:0.7s">
-          <rect x="543" y="108" width="230" height="250" class="box-main" />
-          <text x="658" y="140" text-anchor="middle" class="t-tag">crontab + claude -p</text>
-          <line x1="559" y1="152" x2="757" y2="152" class="grid-line" />
-          <text x="658" y="176" text-anchor="middle" class="t-caption">system cron · local machine</text>
-          <text x="658" y="196" text-anchor="middle" class="t-caption">full env + file access</text>
-          <line x1="559" y1="214" x2="757" y2="214" class="grid-line" />
-          <text x="658" y="236" text-anchor="middle" class="t-caption">best for</text>
-          <text x="658" y="256" text-anchor="middle" class="t-mono-faint">scheduled background jobs</text>
-          <text x="658" y="276" text-anchor="middle" class="t-mono-faint">daily summaries · always-on</text>
-          <line x1="559" y1="296" x2="757" y2="296" class="grid-line" />
-          <text x="658" y="320" text-anchor="middle" class="t-mono-faint">0 9 * * 1-5 claude -p '...'</text>
+        <g class="reveal-group" style="--d:0.74s">
+          <rect x="600" y="108" width="183" height="255" class="box-main" />
+          <text x="692" y="138" text-anchor="middle" class="t-tag">crontab + claude -p</text>
+          <line x1="616" y1="150" x2="767" y2="150" class="grid-line" />
+          <text x="692" y="170" text-anchor="middle" class="t-caption">system cron · local machine</text>
+          <text x="692" y="188" text-anchor="middle" class="t-caption">full env + file access</text>
+          <line x1="616" y1="203" x2="767" y2="203" class="grid-line" />
+          <text x="692" y="221" text-anchor="middle" class="t-caption">best for</text>
+          <text x="692" y="239" text-anchor="middle" class="t-mono-faint">scheduled background jobs</text>
+          <text x="692" y="257" text-anchor="middle" class="t-mono-faint">daily summaries · always-on</text>
+          <line x1="616" y1="272" x2="767" y2="272" class="grid-line" />
+          <text x="692" y="293" text-anchor="middle" class="t-mono-faint">0 9 * * 1-5 claude -p '...'</text>
         </g>
 
         <!-- Footer -->
-        <g class="reveal-group" style="--d:0.95s">
+        <g class="reveal-group" style="--d:0.92s">
           <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
-          <text x="400" y="422" text-anchor="middle" class="t-caption">/loop and ralph-loop stay in-session · crontab -p runs headless anytime</text>
+          <text x="400" y="422" text-anchor="middle" class="t-caption">/loop · ralph-loop · /goal stay in-session · crontab runs headless anytime</text>
         </g>
       </svg>
     </div>
@@ -873,8 +889,6 @@
     <button class="nav-btn" id="prev" aria-label="Previous step">←</button>
     <div class="progress-dots" id="dots"></div>
     <button class="nav-btn" id="next" aria-label="Next step">→</button>
-    <div class="nav-separator" aria-hidden="true"></div>
-    <button class="nav-btn tts-btn" id="speak-btn" title="Read aloud (Kokoro TTS)" aria-label="Read slide aloud">▶</button>
   </nav>
 
   <script src="main.js"></script>
