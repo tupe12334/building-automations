@@ -464,21 +464,6 @@
           <text x="400" y="281" text-anchor="middle" class="t-caption">20+ events · per-session · per-turn · per-tool-call</text>
         </g>
 
-        <g class="reveal-group" style="--d:0.80s">
-          <line x1="80" y1="310" x2="720" y2="310" class="rule-line" />
-          <rect x="44" y="322" width="340" height="82" class="box-skill" />
-          <text x="214" y="347" text-anchor="middle" class="t-tag">Hooks</text>
-          <text x="214" y="367" text-anchor="middle" class="t-caption">local · full env · event-driven</text>
-          <text x="214" y="384" text-anchor="middle" class="t-caption">~/.claude/settings.json · every session</text>
-          <rect x="416" y="322" width="340" height="82" class="box-main" />
-          <text x="586" y="347" text-anchor="middle" class="t-tag">Routines</text>
-          <text x="586" y="367" text-anchor="middle" class="t-caption">cloud · no local env · scheduled / webhook</text>
-          <text x="586" y="384" text-anchor="middle" class="t-caption">claude.ai/code/routines · isolated per run</text>
-        </g>
-
-        <g class="reveal-group" style="--d:0.95s">
-          <text x="400" y="460" text-anchor="middle" class="t-caption">use both · hooks handle in-session invariants · routines handle async pipelines</text>
-        </g>
       </svg>
     </div>
     <!-- ─── SLIDE: ROUTINES TITLE ─── -->
@@ -636,6 +621,50 @@
         <g class="reveal-group" style="--d:1s">
           <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
           <text x="400" y="422" text-anchor="middle" class="t-caption">create via /schedule in Claude Code · no server · no infra needed</text>
+        </g>
+      </svg>
+    </div>
+    <!-- ─── SLIDE: HOOKS VS ROUTINES ─── -->
+    <div class="slide" id="s13">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">hooks vs routines</text>
+
+        <g class="reveal-group" style="--d:0.1s">
+          <rect x="44" y="86" width="346" height="260" class="box-skill" />
+          <text x="217" y="110" text-anchor="middle" class="t-tag">Hooks</text>
+          <line x1="60" y1="122" x2="374" y2="122" class="grid-line" />
+          <text x="60" y="146" class="t-caption">trigger</text>
+          <text x="217" y="162" text-anchor="middle" class="t-mono-faint">events inside session</text>
+          <text x="60" y="186" class="t-caption">runtime</text>
+          <text x="217" y="202" text-anchor="middle" class="t-mono-faint">your machine · full local env</text>
+          <text x="60" y="226" class="t-caption">config</text>
+          <text x="217" y="242" text-anchor="middle" class="t-mono-faint">~/.claude/settings.json</text>
+          <line x1="60" y1="258" x2="374" y2="258" class="grid-line" />
+          <text x="60" y="278" class="t-caption">best for</text>
+          <text x="217" y="296" text-anchor="middle" class="t-mono-faint">safety gates · context injection</text>
+          <text x="217" y="314" text-anchor="middle" class="t-mono-faint">linting · audit · invariants</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.3s">
+          <rect x="410" y="86" width="346" height="260" class="box-main" />
+          <text x="583" y="110" text-anchor="middle" class="t-tag">Routines</text>
+          <line x1="426" y1="122" x2="740" y2="122" class="grid-line" />
+          <text x="426" y="146" class="t-caption">trigger</text>
+          <text x="583" y="162" text-anchor="middle" class="t-mono-faint">webhook · cron schedule</text>
+          <text x="426" y="186" class="t-caption">runtime</text>
+          <text x="583" y="202" text-anchor="middle" class="t-mono-faint">Anthropic's cloud · no local env</text>
+          <text x="426" y="226" class="t-caption">config</text>
+          <text x="583" y="242" text-anchor="middle" class="t-mono-faint">claude.ai/code/routines</text>
+          <line x1="426" y1="258" x2="740" y2="258" class="grid-line" />
+          <text x="426" y="278" class="t-caption">best for</text>
+          <text x="583" y="296" text-anchor="middle" class="t-mono-faint">alert triage · nightly scans</text>
+          <text x="583" y="314" text-anchor="middle" class="t-mono-faint">async pipelines · no machine needed</text>
+        </g>
+
+        <g class="reveal-group" style="--d:0.55s">
+          <line x1="80" y1="374" x2="720" y2="374" class="rule-line" />
+          <text x="400" y="400" text-anchor="middle" class="t-caption">use both · hooks for invariants and gates · routines for pipelines and async work</text>
+          <text x="400" y="420" text-anchor="middle" class="t-caption">orthogonal, not competing — each solves a different problem</text>
         </g>
       </svg>
     </div>

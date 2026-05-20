@@ -11,6 +11,7 @@ const TTS_TEXTS = [
   "Routines. Cloud-hosted automated pipelines that run on Anthropic's infrastructure. Triggered by webhook or cron schedule. No server required.",
   "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report. Important: slash schedule creates cloud-only routines. They run on Anthropic's infrastructure with no access to your local machine, files, or environment variables. For local execution, use slash loop within your current Claude Code session, or a system cron job that invokes the claude CLI directly.",
   "A Claude Code Routine is an isolated session that runs on Anthropic's infrastructure, not on your machine. Each run gets a fresh git checkout of your repo, the MCP connectors you configured, your chosen model, and the tools you allowed — but it cannot access your local machine, local files, or local environment variables. You configure a routine once: the prompt, the git repo, which MCP connectors to attach, and either a recurring cron expression — minimum one hour interval — or a run once at timestamp for a one-time execution. If you need local machine access, do not use slash schedule. Instead, use slash loop for a self-paced recurring task within your current Claude Code session, or set up a system crontab entry that calls the claude CLI directly. Create routines with the slash schedule command. Manage and delete them at claude dot ai slash code slash routines.",
+  "Hooks versus Routines. Both automate Claude Code workflows — but they solve different problems. Hooks are local. They run on your machine inside every session, triggered by events: before a tool call, after a file write, when a prompt is submitted. Full environment access, configured in settings dot json. Best for safety gates, context injection, linting, and invariants that apply to every session. Routines are cloud-hosted. They run on Anthropic's infrastructure, triggered by webhook or cron schedule, with no access to your local machine or environment. Best for alert triage, nightly scans, and async pipelines that run without you. These are orthogonal, not competing. A webhook fires a Routine to fetch Sentry data and post to Slack. A PreToolUse hook enforces the confidence gate before any MUTATE action in any session. Both can be part of the same automation. Use both.",
   "Five things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Five: skills compound. Each run teaches the skill something new. When you discover a crash pattern that wasn't in the known-patterns section, add it. After six months of runs, that section becomes your crash taxonomy — assembled automatically as a side effect of the automation itself. Now build one.",
 ];
 
@@ -106,7 +107,16 @@ const GUIDE_TEXTS = [
     "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
     "Create via /schedule · manage and delete at <a href=\"https://claude.ai/code/routines\" target=\"_blank\" rel=\"noopener\">claude.ai/code/routines</a>.",
   ],
-  // 12 — Takeaways
+  // 12 — Hooks vs Routines
+  [
+    "Full comparison: trigger, runtime, config, and best-for for each.",
+    "Hooks: trigger = events inside session · runtime = your machine · config = ~/.claude/settings.json.",
+    "Routines: trigger = webhook / cron · runtime = Anthropic's cloud · config = claude.ai/code/routines.",
+    "Hooks best for: safety gates · context injection · linting · audit · invariants (every session).",
+    "Routines best for: alert triage · nightly scans · async pipelines · runs without your machine.",
+    "Orthogonal, not competing — the same automation can use both.",
+  ],
+  // 13 — Takeaways
   [
     "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
     "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -119,7 +129,7 @@ const GUIDE_TEXTS = [
 
 const SLIDE_NAMES = [
   'intro', 'the case', 'manual vs automated', 'the output',
-  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'hooks: events', 'routines', 'trigger it', 'routines: anatomy', 'takeaways',
+  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'hooks: events', 'routines', 'trigger it', 'routines: anatomy', 'hooks vs routines', 'takeaways',
 ];
 
 const slides = document.querySelectorAll('.slide');
