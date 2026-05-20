@@ -263,18 +263,21 @@
           <rect x="68" y="114" width="248" height="40" class="tag-box algo-box" />
           <text x="192" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
           <text x="192" y="150" text-anchor="middle" class="t-caption">~2 s</text>
+          <rect x="68" y="149" width="71" height="4" class="time-bar" style="--bar-delay:0.9s;--bar-dur:0.3s"/>
 
           <line x1="192" y1="154" x2="192" y2="170" class="spine" />
 
           <rect x="68" y="170" width="248" height="40" class="tag-box algo-box" />
           <text x="192" y="192" text-anchor="middle" class="t-tag">GCP query</text>
           <text x="192" y="206" text-anchor="middle" class="t-caption">~3 s</text>
+          <rect x="68" y="205" width="106" height="4" class="time-bar" style="--bar-delay:1.2s;--bar-dur:0.45s"/>
 
           <line x1="192" y1="210" x2="192" y2="226" class="spine" />
 
           <rect x="68" y="226" width="248" height="40" class="tag-box algo-box" />
           <text x="192" y="248" text-anchor="middle" class="t-tag">FullStory fetch</text>
           <text x="192" y="262" text-anchor="middle" class="t-caption">~2 s</text>
+          <rect x="68" y="261" width="71" height="4" class="time-bar" style="--bar-delay:1.65s;--bar-dur:0.3s"/>
 
           <line x1="68"  y1="275" x2="316" y2="275" class="rule-line" />
           <text x="192" y="310" text-anchor="middle" class="t-label" style="font-size:26px">~7 s</text>
@@ -293,14 +296,17 @@
           <rect x="484" y="114" width="248" height="40" class="tag-box algo-box" />
           <text x="608" y="136" text-anchor="middle" class="t-tag">Sentry fetch</text>
           <text x="608" y="150" text-anchor="middle" class="t-caption">~2 s</text>
+          <rect x="484" y="149" width="165" height="4" class="time-bar" style="--bar-delay:1.5s;--bar-dur:0.3s"/>
 
           <rect x="484" y="160" width="248" height="40" class="tag-box algo-box" />
           <text x="608" y="182" text-anchor="middle" class="t-tag">GCP query</text>
           <text x="608" y="196" text-anchor="middle" class="t-caption">~3 s</text>
+          <rect x="484" y="195" width="248" height="4" class="time-bar" style="--bar-delay:1.5s;--bar-dur:0.45s"/>
 
           <rect x="484" y="206" width="248" height="40" class="tag-box algo-box" />
           <text x="608" y="228" text-anchor="middle" class="t-tag">FullStory fetch</text>
           <text x="608" y="242" text-anchor="middle" class="t-caption">~2 s</text>
+          <rect x="484" y="241" width="165" height="4" class="time-bar" style="--bar-delay:1.5s;--bar-dur:0.3s"/>
 
           <line x1="484" y1="255" x2="732" y2="255" class="rule-line" />
           <text x="608" y="295" text-anchor="middle" class="t-label" style="font-size:26px">~3 s</text>
@@ -486,7 +492,7 @@
 
         <!-- Left column header -->
         <g class="reveal-group" style="--d:0.05s">
-          <text x="192" y="68" text-anchor="middle" class="t-fail-label">webhook</text>
+          <text x="192" y="68" text-anchor="middle" class="t-tag">webhook</text>
           <rect x="92" y="78" width="200" height="48" class="box-main" />
           <text x="192" y="97" text-anchor="middle" class="t-tag">Sentry alert fires</text>
           <text x="192" y="113" text-anchor="middle" class="t-caption">issue · breadcrumbs · user</text>
@@ -627,6 +633,9 @@
           <text x="215" y="276" text-anchor="middle" class="t-mono-faint">in-session automation</text>
           <line x1="76" y1="296" x2="354" y2="296" class="grid-line" />
           <text x="215" y="320" text-anchor="middle" class="t-mono-faint">/loop 5m /check-prs</text>
+          <a href="https://claude.com/plugins/ralph-loop" target="_blank">
+            <text x="215" y="344" text-anchor="middle" class="t-mono-faint" style="font-size:0.7em;text-decoration:underline;fill:#6b7280;">claude.com/plugins/ralph-loop</text>
+          </a>
         </g>
 
         <!-- crontab box -->
