@@ -431,45 +431,74 @@
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="38" text-anchor="middle" class="t-label">hooks — local lifecycle interceptors</text>
 
+        <!-- Column headers -->
+        <g class="reveal-group" style="--d:0.02s">
+          <text x="217" y="57" text-anchor="middle" class="t-fail-label">inject context</text>
+          <text x="583" y="57" text-anchor="middle" class="t-tag">gate · validate</text>
+        </g>
+
+        <!-- SessionStart (left top) -->
         <g class="reveal-group" style="--d:0.08s">
-          <rect x="44" y="56" width="346" height="80" class="box-main" />
-          <text x="217" y="78" text-anchor="middle" class="t-tag">SessionStart</text>
-          <line x1="60" y1="86" x2="374" y2="86" class="grid-line" />
-          <text x="217" y="104" text-anchor="middle" class="t-mono-faint">inject Sentry token · GCP project</text>
-          <text x="217" y="122" text-anchor="middle" class="t-caption">current branch · open issues · every session</text>
+          <rect x="44" y="65" width="346" height="96" class="box-main" />
+          <text x="217" y="85" text-anchor="middle" class="t-tag">SessionStart</text>
+          <line x1="60" y1="93" x2="374" y2="93" class="grid-line" />
+          <text x="217" y="111" text-anchor="middle" class="t-mono-faint">fires once when session opens</text>
+          <text x="217" y="127" text-anchor="middle" class="t-caption">inject Sentry token · GCP project · current branch</text>
+          <text x="217" y="143" text-anchor="middle" class="t-caption">every session starts with full context</text>
         </g>
 
+        <!-- UserPromptSubmit (left bottom) -->
         <g class="reveal-group" style="--d:0.22s">
-          <rect x="410" y="56" width="346" height="80" class="box-main" />
-          <text x="583" y="78" text-anchor="middle" class="t-tag">UserPromptSubmit</text>
-          <line x1="426" y1="86" x2="740" y2="86" class="grid-line" />
-          <text x="583" y="104" text-anchor="middle" class="t-mono-faint">enrich every message before Claude sees it</text>
-          <text x="583" y="122" text-anchor="middle" class="t-caption">← this session runs one now (caveman mode)</text>
+          <rect x="44" y="177" width="346" height="96" class="box-main" />
+          <text x="217" y="197" text-anchor="middle" class="t-tag">UserPromptSubmit</text>
+          <line x1="60" y1="205" x2="374" y2="205" class="grid-line" />
+          <text x="217" y="223" text-anchor="middle" class="t-mono-faint">fires before each message Claude receives</text>
+          <text x="217" y="239" text-anchor="middle" class="t-caption">append live context: git status · date · open alerts</text>
+          <text x="217" y="255" text-anchor="middle" class="t-caption">stdout injected into user message automatically</text>
         </g>
 
+        <!-- PreToolUse (right top) -->
         <g class="reveal-group" style="--d:0.38s">
-          <rect x="44" y="148" width="346" height="80" class="box-skill" />
-          <text x="217" y="167" text-anchor="middle" class="t-tag">PreToolUse(Bash)</text>
-          <line x1="60" y1="175" x2="374" y2="175" class="grid-line" />
-          <text x="217" y="191" text-anchor="middle" class="t-mono-faint">fires before every shell command executes</text>
-          <text x="217" y="206" text-anchor="middle" class="t-caption">exit 2 = block · the confidence gate in code</text>
+          <rect x="410" y="65" width="346" height="96" class="box-skill" />
+          <text x="583" y="85" text-anchor="middle" class="t-tag">PreToolUse(Bash)</text>
+          <line x1="426" y1="93" x2="740" y2="93" class="grid-line" />
+          <text x="583" y="111" text-anchor="middle" class="t-mono-faint">fires before every shell command executes</text>
+          <text x="583" y="127" text-anchor="middle" class="t-caption">exit 2 = block · the confidence gate in code</text>
           <a href="https://www.npmjs.com/package/block-no-verify" target="_blank" rel="noopener">
-            <text x="217" y="221" text-anchor="middle" class="t-caption">↗ npm: block-no-verify</text>
+            <text x="583" y="143" text-anchor="middle" class="t-caption">↗ npm: block-no-verify</text>
           </a>
         </g>
 
+        <!-- PostToolUse (right bottom) -->
         <g class="reveal-group" style="--d:0.52s">
-          <rect x="410" y="148" width="346" height="80" class="box-main" />
-          <text x="583" y="170" text-anchor="middle" class="t-tag">PostToolUse(Edit · Write)</text>
-          <line x1="426" y1="178" x2="740" y2="178" class="grid-line" />
-          <text x="583" y="196" text-anchor="middle" class="t-mono-faint">fires after every file change</text>
-          <text x="583" y="214" text-anchor="middle" class="t-caption">auto-lint · auto-test · validate output</text>
+          <rect x="410" y="177" width="346" height="96" class="box-skill" />
+          <text x="583" y="197" text-anchor="middle" class="t-tag">PostToolUse(Edit · Write)</text>
+          <line x1="426" y1="205" x2="740" y2="205" class="grid-line" />
+          <text x="583" y="223" text-anchor="middle" class="t-mono-faint">fires after every file change</text>
+          <text x="583" y="239" text-anchor="middle" class="t-caption">auto-lint · auto-test · validate output</text>
+          <text x="583" y="255" text-anchor="middle" class="t-caption">runs before the model's next turn</text>
         </g>
 
+        <!-- Mechanic strip -->
         <g class="reveal-group" style="--d:0.65s">
-          <rect x="44" y="242" width="712" height="50" class="box-mono" />
-          <text x="400" y="263" text-anchor="middle" class="t-mono-faint">shell script · JSON on stdin · exit 0 proceeds · exit 2 blocks · ~/.claude/settings.json</text>
-          <text x="400" y="281" text-anchor="middle" class="t-caption">20+ events · per-session · per-turn · per-tool-call</text>
+          <rect x="44" y="291" width="712" height="72" class="box-mono" />
+          <line x1="296" y1="299" x2="296" y2="355" class="grid-line" />
+          <line x1="538" y1="299" x2="538" y2="355" class="grid-line" />
+          <text x="170" y="311" text-anchor="middle" class="t-tag" style="font-size:9px">STDIN</text>
+          <text x="170" y="327" text-anchor="middle" class="t-mono-faint">JSON payload</text>
+          <text x="170" y="343" text-anchor="middle" class="t-caption">tool name · args · session</text>
+          <text x="417" y="311" text-anchor="middle" class="t-tag" style="font-size:9px">HOOK SCRIPT</text>
+          <text x="417" y="327" text-anchor="middle" class="t-mono-faint">shell · HTTP · MCP · full local env</text>
+          <text x="417" y="343" text-anchor="middle" class="t-caption">~/.claude/settings.json · 20+ events</text>
+          <text x="647" y="311" text-anchor="middle" class="t-tag" style="font-size:9px">EXIT CODE</text>
+          <text x="647" y="327" text-anchor="middle" class="t-mono-faint">0 → proceed · stdout to model</text>
+          <text x="647" y="343" text-anchor="middle" class="t-caption">2 → block · reason to model</text>
+        </g>
+
+        <!-- Footer -->
+        <g class="reveal-group" style="--d:0.78s">
+          <line x1="80" y1="383" x2="720" y2="383" class="rule-line" />
+          <text x="400" y="404" text-anchor="middle" class="t-caption">hooks run on your machine · full local env · not on Anthropic's cloud</text>
         </g>
 
       </svg>
@@ -561,50 +590,56 @@
         <!-- Config column -->
         <g class="reveal-group" style="--d:0.05s">
           <text x="146" y="62" text-anchor="middle" class="t-caption">configure once</text>
-          <rect x="46" y="70" width="200" height="38" class="box-main" />
-          <text x="146" y="94" text-anchor="middle" class="t-tag">prompt + model</text>
-          <rect x="46" y="114" width="200" height="38" class="box-main" />
-          <text x="146" y="138" text-anchor="middle" class="t-tag">git repo · GitHub</text>
-          <rect x="46" y="158" width="200" height="38" class="box-main" />
-          <text x="146" y="182" text-anchor="middle" class="t-tag">MCP connectors</text>
-          <rect x="46" y="202" width="200" height="38" class="box-main" />
-          <text x="146" y="226" text-anchor="middle" class="t-tag">cron · run_once_at</text>
+          <rect x="46" y="70" width="200" height="54" class="box-main" />
+          <text x="146" y="103" text-anchor="middle" class="t-tag">prompt + model</text>
+          <rect x="46" y="130" width="200" height="54" class="box-main" />
+          <text x="146" y="163" text-anchor="middle" class="t-tag">git repo · GitHub</text>
+          <rect x="46" y="190" width="200" height="54" class="box-main" />
+          <text x="146" y="223" text-anchor="middle" class="t-tag">MCP connectors</text>
+          <rect x="46" y="250" width="200" height="54" class="box-main" />
+          <text x="146" y="283" text-anchor="middle" class="t-tag">cron · run_once_at</text>
         </g>
 
         <!-- Arrow left → center -->
         <g class="reveal-group" style="--d:0.25s">
-          <line x1="246" y1="152" x2="292" y2="152" class="split-line-algo" />
-          <polygon points="288,146 300,152 288,158" class="arrowhead" />
+          <line x1="246" y1="187" x2="292" y2="187" class="split-line-algo" />
+          <polygon points="288,181 300,187 288,193" class="arrowhead" />
         </g>
 
         <!-- Cloud session box -->
         <g class="reveal-group" style="--d:0.42s">
-          <rect x="298" y="62" width="204" height="186" class="box-skill" />
-          <text x="400" y="86" text-anchor="middle" class="t-label" style="font-size:13px">isolated cloud session</text>
-          <line x1="314" y1="97" x2="486" y2="97" class="grid-line" />
-          <text x="400" y="118" text-anchor="middle" class="t-caption">Anthropic's infrastructure</text>
-          <text x="400" y="138" text-anchor="middle" class="t-caption">fresh git checkout per run</text>
-          <text x="400" y="158" text-anchor="middle" class="t-caption">no local machine or files</text>
-          <text x="400" y="178" text-anchor="middle" class="t-caption">no local env vars</text>
-          <text x="400" y="202" text-anchor="middle" class="t-caption">all paid plans</text>
-          <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><text x="400" y="232" text-anchor="middle" class="t-caption">claude.ai/code/routines</text></a>
+          <rect x="298" y="62" width="204" height="242" class="box-skill" />
+          <text x="400" y="88" text-anchor="middle" class="t-label" style="font-size:13px">isolated cloud session</text>
+          <line x1="314" y1="100" x2="486" y2="100" class="grid-line" />
+          <text x="400" y="124" text-anchor="middle" class="t-caption">Anthropic's infrastructure</text>
+          <text x="400" y="148" text-anchor="middle" class="t-caption">fresh git checkout per run</text>
+          <text x="400" y="172" text-anchor="middle" class="t-caption">no local machine or files</text>
+          <text x="400" y="196" text-anchor="middle" class="t-caption">no local env vars</text>
+          <text x="400" y="220" text-anchor="middle" class="t-caption">all paid plans</text>
+          <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><text x="400" y="248" text-anchor="middle" class="t-caption">claude.ai/code/routines</text></a>
         </g>
 
         <!-- Arrow center → right -->
         <g class="reveal-group" style="--d:0.58s">
-          <line x1="502" y1="152" x2="548" y2="152" class="split-line-algo" />
-          <polygon points="544,146 556,152 544,158" class="arrowhead" />
+          <line x1="502" y1="187" x2="548" y2="187" class="split-line-algo" />
+          <polygon points="544,181 556,187 544,193" class="arrowhead" />
         </g>
 
         <!-- Output column -->
         <g class="reveal-group" style="--d:0.68s">
           <text x="654" y="62" text-anchor="middle" class="t-caption">outputs</text>
-          <rect x="554" y="70" width="200" height="38" class="box-main" />
-          <text x="654" y="94" text-anchor="middle" class="t-tag">Slack · Jira · GitHub</text>
-          <rect x="554" y="114" width="200" height="38" class="box-main" />
-          <text x="654" y="138" text-anchor="middle" class="t-tag">file writes · commits</text>
-          <rect x="554" y="158" width="200" height="38" class="box-main" />
-          <text x="654" y="182" text-anchor="middle" class="t-tag">PRs · issues · reports</text>
+          <rect x="554" y="70" width="200" height="54" class="box-main" />
+          <text x="654" y="103" text-anchor="middle" class="t-tag">Slack · Jira · GitHub</text>
+          <rect x="554" y="130" width="200" height="54" class="box-main" />
+          <text x="654" y="163" text-anchor="middle" class="t-tag">file writes · commits</text>
+          <rect x="554" y="190" width="200" height="54" class="box-main" />
+          <text x="654" y="223" text-anchor="middle" class="t-tag">PRs · issues · reports</text>
+        </g>
+
+        <!-- Bridge note -->
+        <g class="reveal-group" style="--d:0.85s">
+          <line x1="80" y1="336" x2="720" y2="336" class="rule-line" />
+          <text x="400" y="360" text-anchor="middle" class="t-caption">cloud-only · need local machine or env vars? see local alternatives</text>
         </g>
 
       </svg>
@@ -612,55 +647,68 @@
     <!-- ─── SLIDE: NEED LOCAL ACCESS ─── -->
     <div class="slide" id="s14">
       <svg class="slide-svg" viewBox="0 0 800 500">
-        <text x="400" y="38" text-anchor="middle" class="t-label">need local access? skip /schedule</text>
+        <text x="400" y="38" text-anchor="middle" class="t-label">local alternatives to Routines</text>
 
         <!-- Intro -->
         <g class="reveal-group" style="--d:0.05s">
-          <text x="400" y="68" text-anchor="middle" class="t-caption">routines run on Anthropic's cloud — no local machine, no local files, no env vars</text>
-          <text x="400" y="88" text-anchor="middle" class="t-caption">use these instead:</text>
+          <text x="400" y="70" text-anchor="middle" class="t-caption">Routines run cloud-only — use these when local machine or env access is needed</text>
         </g>
 
         <!-- /loop box -->
         <g class="reveal-group" style="--d:0.2s">
-          <rect x="60" y="108" width="310" height="250" class="box-failure" />
-          <text x="215" y="140" text-anchor="middle" class="t-tag">/loop</text>
-          <line x1="76" y1="152" x2="354" y2="152" class="grid-line" />
-          <text x="215" y="176" text-anchor="middle" class="t-caption">in-session · full local access</text>
-          <text x="215" y="196" text-anchor="middle" class="t-caption">runs while session is open</text>
-          <line x1="76" y1="214" x2="354" y2="214" class="grid-line" />
-          <text x="215" y="236" text-anchor="middle" class="t-caption">best for</text>
-          <text x="215" y="256" text-anchor="middle" class="t-mono-faint">polling · iterative dev tasks</text>
-          <text x="215" y="276" text-anchor="middle" class="t-mono-faint">in-session automation</text>
-          <line x1="76" y1="296" x2="354" y2="296" class="grid-line" />
-          <text x="215" y="320" text-anchor="middle" class="t-mono-faint">/loop 5m /check-prs</text>
+          <rect x="27" y="108" width="230" height="250" class="box-main" />
+          <text x="142" y="140" text-anchor="middle" class="t-tag">/loop</text>
+          <line x1="43" y1="152" x2="241" y2="152" class="grid-line" />
+          <text x="142" y="176" text-anchor="middle" class="t-caption">in-session · full local access</text>
+          <text x="142" y="196" text-anchor="middle" class="t-caption">runs while session is open</text>
+          <line x1="43" y1="214" x2="241" y2="214" class="grid-line" />
+          <text x="142" y="236" text-anchor="middle" class="t-caption">best for</text>
+          <text x="142" y="256" text-anchor="middle" class="t-mono-faint">polling · iterative dev</text>
+          <text x="142" y="276" text-anchor="middle" class="t-mono-faint">in-session automation</text>
+          <line x1="43" y1="296" x2="241" y2="296" class="grid-line" />
+          <text x="142" y="320" text-anchor="middle" class="t-mono-faint">/loop 5m /check-prs</text>
+        </g>
+
+        <!-- ralph-loop box -->
+        <g class="reveal-group" style="--d:0.45s">
+          <rect x="285" y="108" width="230" height="250" class="box-skill" />
+          <text x="400" y="140" text-anchor="middle" class="t-tag">ralph-loop</text>
+          <line x1="301" y1="152" x2="499" y2="152" class="grid-line" />
+          <text x="400" y="176" text-anchor="middle" class="t-caption">plugin · in-session loop</text>
+          <text x="400" y="196" text-anchor="middle" class="t-caption">session-aware scheduling</text>
+          <line x1="301" y1="214" x2="499" y2="214" class="grid-line" />
+          <text x="400" y="236" text-anchor="middle" class="t-caption">best for</text>
+          <text x="400" y="256" text-anchor="middle" class="t-mono-faint">recurring in-session tasks</text>
+          <text x="400" y="276" text-anchor="middle" class="t-mono-faint">plugin-driven automation</text>
+          <line x1="301" y1="296" x2="499" y2="296" class="grid-line" />
           <a href="https://claude.com/plugins/ralph-loop" target="_blank">
-            <text x="215" y="344" text-anchor="middle" class="t-mono-faint" style="font-size:0.7em;text-decoration:underline;fill:#6b7280;">claude.com/plugins/ralph-loop</text>
+            <text x="400" y="320" text-anchor="middle" class="t-mono-faint" style="text-decoration:underline">claude.com/plugins/ralph-loop</text>
           </a>
         </g>
 
         <!-- crontab box -->
-        <g class="reveal-group" style="--d:0.45s">
-          <rect x="430" y="108" width="310" height="250" class="box-failure" />
-          <text x="585" y="140" text-anchor="middle" class="t-tag">crontab -e + claude CLI</text>
-          <line x1="446" y1="152" x2="724" y2="152" class="grid-line" />
-          <text x="585" y="176" text-anchor="middle" class="t-caption">system cron · local machine</text>
-          <text x="585" y="196" text-anchor="middle" class="t-caption">full env + file access</text>
-          <line x1="446" y1="214" x2="724" y2="214" class="grid-line" />
-          <text x="585" y="236" text-anchor="middle" class="t-caption">best for</text>
-          <text x="585" y="256" text-anchor="middle" class="t-mono-faint">scheduled background jobs</text>
-          <text x="585" y="276" text-anchor="middle" class="t-mono-faint">daily summaries · always-on</text>
-          <line x1="446" y1="296" x2="724" y2="296" class="grid-line" />
-          <text x="585" y="320" text-anchor="middle" class="t-mono-faint">0 9 * * 1-5 claude -p 'standup'</text>
+        <g class="reveal-group" style="--d:0.7s">
+          <rect x="543" y="108" width="230" height="250" class="box-main" />
+          <text x="658" y="140" text-anchor="middle" class="t-tag">crontab + claude -p</text>
+          <line x1="559" y1="152" x2="757" y2="152" class="grid-line" />
+          <text x="658" y="176" text-anchor="middle" class="t-caption">system cron · local machine</text>
+          <text x="658" y="196" text-anchor="middle" class="t-caption">full env + file access</text>
+          <line x1="559" y1="214" x2="757" y2="214" class="grid-line" />
+          <text x="658" y="236" text-anchor="middle" class="t-caption">best for</text>
+          <text x="658" y="256" text-anchor="middle" class="t-mono-faint">scheduled background jobs</text>
+          <text x="658" y="276" text-anchor="middle" class="t-mono-faint">daily summaries · always-on</text>
+          <line x1="559" y1="296" x2="757" y2="296" class="grid-line" />
+          <text x="658" y="320" text-anchor="middle" class="t-mono-faint">0 9 * * 1-5 claude -p '...'</text>
         </g>
 
         <!-- Footer -->
-        <g class="reveal-group" style="--d:0.7s">
+        <g class="reveal-group" style="--d:0.95s">
           <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
-          <text x="400" y="422" text-anchor="middle" class="t-caption">create via /schedule in Claude Code · no server · no infra needed</text>
+          <text x="400" y="422" text-anchor="middle" class="t-caption">/loop and ralph-loop stay in-session · crontab -p runs headless anytime</text>
         </g>
       </svg>
     </div>
-    <!-- ─── SLIDE: CLAUDE VS CLAUDE -P ─── -->
+        <!-- ─── SLIDE: CLAUDE VS CLAUDE -P ─── -->
     <div class="slide" id="s15">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="38" text-anchor="middle" class="t-label">claude vs claude -p</text>
