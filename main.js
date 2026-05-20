@@ -2,10 +2,11 @@ const TTS_TEXTS = [
   "Welcome to Building Automations — an interactive guide to the Wednesday AI Week session. In this session you will learn how to turn a repeated manual investigation into a skill that runs automatically, fetches evidence from multiple systems in parallel, and produces a consistent triage report in seconds instead of minutes. Press the right arrow to begin.",
   "The demo case is a real crash: TypeError, cannot read properties of undefined, reading set video uploaded. It hit four hundred and forty three users, over seven thousand times, since December twenty twenty four. It was marked resolved and assigned. It is still firing today. The question is not how to fix this one. The question is how to stop spending thirty minutes on the next one.",
   "The problem: every time a desktop-app crash alert lands, someone spends twenty to thirty minutes on the same steps. Open Sentry. Scroll two hundred breadcrumbs. Query GCP logs for the affected user. Find the FullStory session. Form a hypothesis. Write it up. Then do it all again tomorrow for the next alert. A skill collapses this to ten seconds. It triggers automatically, dispatches Sentry, GCP, and FullStory in parallel, reconstructs the timeline, and outputs a root-cause report. Once. For everyone. Every time.",
-  "The story is in the breadcrumbs. The recording starts, screenshots fire every two hundred milliseconds, steps are added. Then the user pauses. Stop is called. The server is closed. The recording object is deleted. But at this point, in-flight screenshot upload callbacks are still in flight. They resolve after the recording object is gone. When they try to call set video uploaded, the object is undefined. The crash happens. The breadcrumb trail makes this visible in under a minute. A human digging through the same two hundred lines takes twenty.",
+  "What does ten seconds actually look like? This is the triage report the skill produces automatically. Root cause: race condition. An in-flight upload callback resolves after the recording object has already been deleted. Evidence comes from three sources, fetched in parallel. Sentry breadcrumbs show an ALGORITHM event appearing three hundred and forty milliseconds after the recording was deleted. GCP logs confirm no server error — the crash is entirely client-side. FullStory shows the user clicked stop mid-upload, confirming the timing. Fix direction: cancel pending upload callbacks before calling recording dot delete, and guard set video uploaded against a deleted object. Confidence: high. Wall time: eight seconds. The same report. Every time. For everyone.",
   "The pipeline: an alert arrives with a Sentry issue ID. The skill dispatches three things simultaneously: fetch the Sentry issue details, breadcrumbs, and recent events; query GCP Cloud Run logs for the five minutes around the crash; and retrieve the FullStory session transcript. All three run in parallel. When they all return, the skill synthesizes a timeline, identifies the root cause, and suggests a fix direction.",
   "The key pattern: dispatch everything in a single message. When you send multiple tool calls in one message, the model runs them in parallel. The wall time equals the slowest single task, not the sum of all tasks. Three sequential messages at two, three, and two seconds costs seven seconds plus three round trips. One message with three parallel calls costs three seconds, period. This is the most important pattern in agentic design.",
   "Every automation pipeline runs through three distinct layers, each with different design rules. The Gather layer is pure data fetch — Sentry breadcrumbs, G C P logs, FullStory sessions. It makes no judgments. Design it for maximum parallelism and encode only stable parameters. When it fails, it produces wrong data, catchable downstream. The Analyse layer is where judgment lives: timeline reconstruction, root cause identification, pattern matching. Encode known patterns here and always output a confidence level. When it fails, it produces wrong conclusions, often through hallucination when data is sparse. The Act layer takes actions with side effects. It has three authority tiers. Notify — Slack messages, P R comments — is always safe; humans read and correct. Draft — Jira tickets, P R drafts — requires at least medium confidence. Mutate — closing issues, assigning, merging — requires high confidence only. The design rule: authority must match confidence. Never skip from Analyse directly to Mutate. That path leads to automation accidents.",
+  "Hooks are local lifecycle interceptors — shell scripts that fire at specific points in every Claude Code session. Unlike Routines, which run in Anthropic's cloud with no local access, hooks run on your machine with full environment access. Four events matter most for this automation. SessionStart fires when a session opens: inject your Sentry token, GCP project, and current git branch — every session starts informed. UserPromptSubmit fires before each message: this very session is running one right now. The terse communication style here is produced by a UserPromptSubmit hook that injects instructions before every message you send. PreToolUse on Bash fires before any shell command executes — this is the confidence gate from the ACT layer, in code. When the automation tries to run a MUTATE command, the hook reads the confidence level and exits with code two to block if it is not HIGH. The command never runs. PostToolUse on Edit and Write fires after every file change: run the linter, run the tests, validate output before the model's next call. Configure all of this once in tilde-slash-dot-claude-slash-settings-dot-json. Use hooks for in-session invariants. Use Routines for async pipelines. They are designed to work together.",
   "Triggering the skill requires no server and no GitHub Actions. Claude Code Routines, shipped in April twenty twenty six, give every saved routine a slash fire endpoint — a unique HTTPS URL with a bearer token. Configure a Sentry webhook to POST to that URL and the routine runs automatically whenever an alert fires. No middleware. No pipeline. No extra infrastructure. The same routine can also run on a schedule — a cron expression like zero star star star star runs it every hour, querying Sentry for new or regressed issues. Set it up once in claude dot ai slash code: write the prompt, connect your Sentry and Slack connectors, and copy the endpoint. From that point, every alert produces a triage report. Important: slash schedule creates cloud-only routines. They run on Anthropic's infrastructure with no access to your local machine, files, or environment variables. For local execution, use slash loop within your current Claude Code session, or a system cron job that invokes the claude CLI directly.",
   "A Claude Code Routine is an isolated session that runs on Anthropic's infrastructure, not on your machine. Each run gets a fresh git checkout of your repo, the MCP connectors you configured, your chosen model, and the tools you allowed — but it cannot access your local machine, local files, or local environment variables. You configure a routine once: the prompt, the git repo, which MCP connectors to attach, and either a recurring cron expression — minimum one hour interval — or a run once at timestamp for a one-time execution. If you need local machine access, do not use slash schedule. Instead, use slash loop for a self-paced recurring task within your current Claude Code session, or set up a system crontab entry that calls the claude CLI directly. Create routines with the slash schedule command. Manage and delete them at claude dot ai slash code slash routines.",
   "Five things to remember. One: do it manually first. Understand the steps before you automate them. The skill is a distillation of what you already know. Two: dispatch in parallel. One message, all tool calls, wall time equals the slowest task. Three: encode what's stable, discover the rest. Operational knowledge in the skill, implementation details at runtime. Four: any repeated investigation is a candidate. Alert triage, PR impact checks, CI failure diagnosis, deploy status. Five: skills compound. Each run teaches the skill something new. When you discover a crash pattern that wasn't in the known-patterns section, add it. After six months of runs, that section becomes your crash taxonomy — assembled automatically as a side effect of the automation itself. Now build one.",
@@ -31,13 +32,14 @@ const GUIDE_TEXTS = [
     "Right: automated path — triggers on alert, fetches Sentry + GCP + FullStory in parallel, outputs a consistent report.",
     "The skill doesn't replace judgment — it distils what you already know how to do.",
   ],
-  // 3 — Breadcrumb Timeline
+  // 3 — Skill Output
   [
-    "Left branch (ALGORITHM): happy path — recording starts, screenshots fire every ~200 ms, steps accumulate.",
-    "Dashed line marks teardown: user stops → server closes → recording object deleted.",
-    "Right branch (IN-FLIGHT): screenshot-upload callbacks still in flight haven't returned when teardown runs.",
-    "Late 'Step added successfully' fires after teardown → tries to call setVideoUploaded on the deleted object → crash.",
-    "Diagnostic signal: any ALGORITHM event appearing after 'Deleting recording…' in the breadcrumb trail.",
+    "This is the output — what the skill actually produces when an alert fires.",
+    "Root cause stated plainly: race condition — in-flight callback fires after teardown. No 200-line breadcrumb scroll.",
+    "Evidence triangulated from 3 sources: Sentry (event timing), GCP (rules out server-side), FullStory (confirms user action).",
+    "Fix direction names two specific callsites — enough for a developer to act without re-investigating.",
+    "CONFIDENCE: HIGH means the skill recommends progressing to DRAFT tier (Jira ticket) without extra review.",
+    "8 s wall time = max(Sentry 2s, GCP 3s, FullStory 2s) — all three fetched in parallel.",
   ],
   // 4 — Pipeline
   [
@@ -59,10 +61,21 @@ const GUIDE_TEXTS = [
     "Three layers, three failure modes — design each independently, not as one monolithic pipeline.",
     "Gather: pure fetch, no judgment. Maximise parallelism, encode stable params. Fails with wrong data (recoverable).",
     "Analyse: stochastic judgment. Encode known patterns, always output confidence level. Fails with wrong conclusions.",
-    "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · confirm).",
+    "Act: three authority tiers — NOTIFY (always safe) · DRAFT (≥ MEDIUM) · MUTATE (HIGH only · PreToolUse gate).",
     "Never skip from Analyse to MUTATE without a confidence gate — the single most common automation design mistake.",
+    "PreToolUse(Bash) hook implements the gate: shell script checks confidence level, exit 2 blocks the command before it runs.",
   ],
-  // 7 — Trigger / Routines
+  // 7 — Hooks
+  [
+    "Hooks are local shell scripts (or HTTP / MCP calls) that intercept Claude's lifecycle events. Configured in ~/.claude/settings.json.",
+    "SessionStart: inject Sentry / GCP credentials, current git branch, open issues — every session starts with context.",
+    "UserPromptSubmit: fires before each message — enrich prompts with live context. This session runs one now (caveman mode).",
+    "PreToolUse(Bash): fires before any Bash command. The confidence gate from the ACT layer — exit 2 blocks the command.",
+    "PostToolUse(Edit · Write): fires after every file change — auto-lint, auto-test, validate before the next model turn.",
+    "Hooks vs Routines: Hooks = local, full env, event-driven, per-session. Routines = cloud, no local, scheduled / webhook.",
+    "20+ hook events: PreToolUse · PostToolUse · SessionStart · UserPromptSubmit · Stop · PermissionRequest · FileChanged · ···",
+  ],
+  // 8 — Trigger / Routines
   [
     "Claude Code Routines (Apr 2026): every saved routine gets a unique HTTPS fire endpoint with a bearer token.",
     "Webhook path: Sentry alert → POST /routines/{id}/fire → runs on Anthropic's cloud → Slack / Jira report.",
@@ -70,8 +83,9 @@ const GUIDE_TEXTS = [
     "No GitHub Actions, no Lambda, no self-hosted infrastructure needed.",
     "Set up at <a href=\"https://claude.ai/code\" target=\"_blank\" rel=\"noopener\">claude.ai/code</a>: write the prompt, connect Sentry + Slack connectors, copy the fire URL.",
     "/schedule creates cloud-only (CCR) routines — no access to local machine, files, or env vars. For local execution: /loop (current session) or crontab -e calling the claude CLI directly.",
+    "hooks are the in-session complement: PreToolUse · PostToolUse · SessionStart — local, full env, ~/.claude/settings.json (see Hooks slide).",
   ],
-  // 8 — Routines Anatomy
+  // 9 — Routines Anatomy
   [
     "Routines run on Anthropic's cloud — isolated per-run sessions with a fresh git checkout. No local machine access.",
     "Configure once: prompt + model, git repo (GitHub), MCP connectors, cron schedule or run_once_at timestamp.",
@@ -80,7 +94,7 @@ const GUIDE_TEXTS = [
     "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
     "Create via /schedule · manage and delete at <a href=\"https://claude.ai/code/routines\" target=\"_blank\" rel=\"noopener\">claude.ai/code/routines</a>.",
   ],
-  // 9 — Takeaways
+  // 10 — Takeaways
   [
     "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
     "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -92,8 +106,8 @@ const GUIDE_TEXTS = [
 ];
 
 const SLIDE_NAMES = [
-  'intro', 'the case', 'manual vs automated', 'breadcrumb timeline',
-  'the pipeline', 'parallel dispatch', 'three layers', 'trigger it', 'routines', 'takeaways',
+  'intro', 'the case', 'manual vs automated', 'the output',
+  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'trigger it', 'routines', 'takeaways',
 ];
 
 const slides = document.querySelectorAll('.slide');
