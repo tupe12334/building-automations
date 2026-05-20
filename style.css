@@ -385,6 +385,93 @@ html, body {
   50%       { r: 48; }
 }
 
+/* ── DIRECTIONAL SLIDE TRANSITIONS ── */
+
+@keyframes slide-enter-from-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-enter-from-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-exit-to-left {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-32px); }
+}
+@keyframes slide-exit-to-right {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(32px); }
+}
+.slide.slide-exit-left  { animation: slide-exit-to-left  0.3s ease forwards; pointer-events: none; }
+.slide.slide-exit-right { animation: slide-exit-to-right 0.3s ease forwards; pointer-events: none; }
+.slide.slide-enter-right { animation: slide-enter-from-right 0.35s ease forwards; }
+.slide.slide-enter-left  { animation: slide-enter-from-left  0.35s ease forwards; }
+
+/* ── DRAW-ON LINES ── */
+
+.draw-line {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+}
+.slide.active .draw-line {
+  animation: draw-line 0.5s ease forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── POP-IN (number circles) ── */
+
+.pop-in {
+  transform-box: fill-box;
+  transform-origin: center center;
+  opacity: 0;
+}
+.slide.active .pop-in {
+  animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.3); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── SCAN LINE ── */
+
+.scan-line {
+  fill: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+}
+.slide.active .scan-line {
+  animation: scan-down 1.5s ease forwards;
+  animation-delay: 0.05s;
+}
+@keyframes scan-down {
+  0%   { opacity: 0.10; transform: translateY(0); }
+  85%  { opacity: 0.10; transform: translateY(370px); }
+  100% { opacity: 0;    transform: translateY(370px); }
+}
+
+/* ── TIME BARS ── */
+
+.time-bar {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  fill: var(--ink);
+  opacity: 0.35;
+}
+.slide.active .time-bar {
+  animation: bar-grow var(--bar-dur, 0.4s) ease forwards;
+  animation-delay: var(--bar-delay, 0s);
+}
+@keyframes bar-grow {
+  to { transform: scaleX(1); }
+}
+
 /* ── FAILURE MODE BOXES ── */
 
 .box-failure {

@@ -41,14 +41,14 @@
 
         <g class="reveal-group" style="--d:0.35s">
           <rect x="60"  y="155" width="196" height="90" class="box-main" />
-          <text x="158" y="188" text-anchor="middle" class="t-label" style="font-size:28px">443</text>
+          <text x="158" y="188" text-anchor="middle" class="t-label" style="font-size:28px" data-count-to="443" data-count-delay="0.55">443</text>
           <text x="158" y="212" text-anchor="middle" class="t-caption">users impacted</text>
           <text x="158" y="232" text-anchor="middle" class="t-caption">NL · GB · CH · ···</text>
         </g>
 
         <g class="reveal-group" style="--d:0.5s">
           <rect x="302" y="155" width="196" height="90" class="box-main" />
-          <text x="400" y="188" text-anchor="middle" class="t-label" style="font-size:28px">7 041</text>
+          <text x="400" y="188" text-anchor="middle" class="t-label" style="font-size:28px" data-count-to="7041" data-count-delay="0.70">7 041</text>
           <text x="400" y="212" text-anchor="middle" class="t-caption">events · since Dec 2024</text>
           <text x="400" y="232" text-anchor="middle" class="t-caption">still firing today</text>
         </g>
@@ -122,6 +122,8 @@
     <div class="slide" id="s3">
       <svg class="slide-svg" viewBox="0 0 800 500">
         <text x="400" y="38" text-anchor="middle" class="t-label">what ten seconds looks like</text>
+
+        <rect class="scan-line" x="61" y="55" width="678" height="2" />
 
         <!-- Panel -->
         <g class="reveal-group" style="--d:0s">
@@ -203,9 +205,9 @@
 
         <!-- Fork lines -->
         <g class="reveal-group" style="--d:0.2s">
-          <line x1="125" y1="250" x2="230" y2="130" class="split-line-algo" />
-          <line x1="125" y1="250" x2="230" y2="250" class="split-line-algo" />
-          <line x1="125" y1="250" x2="230" y2="370" class="split-line-algo" />
+          <line x1="125" y1="250" x2="230" y2="130" class="split-line-algo draw-line" />
+          <line x1="125" y1="250" x2="230" y2="250" class="split-line-algo draw-line" />
+          <line x1="125" y1="250" x2="230" y2="370" class="split-line-algo draw-line" />
         </g>
 
         <!-- Three parallel boxes -->
@@ -229,9 +231,9 @@
 
         <!-- Join lines -->
         <g class="reveal-group" style="--d:0.75s">
-          <line x1="430" y1="130" x2="550" y2="250" class="split-line-algo" />
-          <line x1="430" y1="250" x2="550" y2="250" class="split-line-algo" />
-          <line x1="430" y1="370" x2="550" y2="250" class="split-line-algo" />
+          <line x1="430" y1="130" x2="550" y2="250" class="split-line-algo draw-line" />
+          <line x1="430" y1="250" x2="550" y2="250" class="split-line-algo draw-line" />
+          <line x1="430" y1="370" x2="550" y2="250" class="split-line-algo draw-line" />
         </g>
 
         <!-- Synthesize -->
@@ -649,6 +651,60 @@
         </g>
       </svg>
     </div>
+    <!-- ─── SLIDE: CLAUDE VS CLAUDE -P ─── -->
+    <div class="slide" id="s15">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">claude vs claude -p</text>
+
+        <!-- Left: interactive -->
+        <g class="reveal-group" style="--d:0.1s">
+          <rect x="44" y="56" width="346" height="240" class="box-main" />
+          <text x="217" y="80" text-anchor="middle" class="t-tag">claude</text>
+          <line x1="60" y1="90" x2="374" y2="90" class="grid-line" />
+          <text x="217" y="114" text-anchor="middle" class="t-caption">interactive TUI session</text>
+          <text x="217" y="138" text-anchor="middle" class="t-mono-faint">multi-turn · stays open</text>
+          <text x="217" y="160" text-anchor="middle" class="t-mono-faint">daily dev · exploration</text>
+          <line x1="60" y1="178" x2="374" y2="178" class="grid-line" />
+          <text x="60" y="198" class="t-caption">quota</text>
+          <text x="217" y="198" text-anchor="middle" class="t-mono-faint">interactive usage limit</text>
+          <text x="60" y="222" class="t-caption">output</text>
+          <text x="217" y="222" text-anchor="middle" class="t-mono-faint">TUI only · not pipeable</text>
+          <text x="60" y="246" class="t-caption">best for</text>
+          <text x="217" y="268" text-anchor="middle" class="t-mono-faint">human-in-the-loop work</text>
+        </g>
+
+        <!-- Right: claude -p -->
+        <g class="reveal-group" style="--d:0.3s">
+          <rect x="410" y="56" width="346" height="240" class="box-skill" />
+          <text x="583" y="80" text-anchor="middle" class="t-tag">claude -p "prompt"</text>
+          <line x1="426" y1="90" x2="740" y2="90" class="grid-line" />
+          <text x="583" y="114" text-anchor="middle" class="t-caption">non-interactive · one-shot</text>
+          <text x="583" y="138" text-anchor="middle" class="t-mono-faint">exits after output · pipe-friendly</text>
+          <text x="583" y="160" text-anchor="middle" class="t-mono-faint">CI/CD · cron · scripts</text>
+          <line x1="426" y1="178" x2="740" y2="178" class="grid-line" />
+          <text x="426" y="198" class="t-caption">quota — new Jun 15 2026</text>
+          <text x="583" y="218" text-anchor="middle" class="t-mono-faint">separate Agent SDK credit</text>
+          <text x="426" y="242" class="t-caption">output</text>
+          <text x="583" y="242" text-anchor="middle" class="t-mono-faint">stdout · JSON · stream-JSON</text>
+          <text x="426" y="266" class="t-caption">best for</text>
+          <text x="583" y="286" text-anchor="middle" class="t-mono-faint">automation · Agent SDK</text>
+        </g>
+
+        <!-- Agent SDK note -->
+        <g class="reveal-group" style="--d:0.55s">
+          <rect x="44" y="316" width="712" height="50" class="box-mono" />
+          <text x="400" y="337" text-anchor="middle" class="t-mono-faint">from claude_agent_sdk import query  # wraps claude -p programmatically</text>
+          <text x="400" y="355" text-anchor="middle" class="t-caption">same tools · agent loop · context management as Claude Code — but in Python / TypeScript</text>
+        </g>
+
+        <!-- Footer -->
+        <g class="reveal-group" style="--d:0.75s">
+          <line x1="200" y1="388" x2="600" y2="388" class="rule-line" />
+          <text x="400" y="412" text-anchor="middle" class="t-caption">from Jun 15 2026 · claude -p and Agent SDK draw from a new monthly Agent SDK credit</text>
+          <text x="400" y="432" text-anchor="middle" class="t-caption">separate from the interactive usage limit on subscription plans</text>
+        </g>
+      </svg>
+    </div>
     <!-- ─── SLIDE: HOOKS VS ROUTINES ─── -->
     <div class="slide" id="s13">
       <svg class="slide-svg" viewBox="0 0 800 500">
@@ -700,35 +756,35 @@
         <line x1="200" y1="62" x2="600" y2="62" class="rule-line" />
 
         <g class="reveal-group" style="--d:0.1s">
-          <circle cx="72" cy="95" r="16" class="num-circle" />
+          <circle cx="72" cy="95" r="16" class="num-circle pop-in" />
           <text x="72" y="100" text-anchor="middle" class="t-tag">1</text>
           <text x="106" y="89" class="t-label" style="font-size:16px">do it manually first</text>
           <text x="106" y="109" class="t-caption">understand the steps before you automate · the skill is a distillation</text>
         </g>
 
         <g class="reveal-group" style="--d:0.25s">
-          <circle cx="72" cy="170" r="16" class="num-circle" />
+          <circle cx="72" cy="170" r="16" class="num-circle pop-in" />
           <text x="72" y="175" text-anchor="middle" class="t-tag">2</text>
           <text x="106" y="164" class="t-label" style="font-size:16px">dispatch in parallel</text>
           <text x="106" y="184" class="t-caption">single message · wall time = slowest task · not the sum</text>
         </g>
 
         <g class="reveal-group" style="--d:0.4s">
-          <circle cx="72" cy="245" r="16" class="num-circle" />
+          <circle cx="72" cy="245" r="16" class="num-circle pop-in" />
           <text x="72" y="250" text-anchor="middle" class="t-tag">3</text>
           <text x="106" y="239" class="t-label" style="font-size:16px">encode what's stable · discover the rest</text>
           <text x="106" y="259" class="t-caption">operational knowledge in the skill · implementation details at runtime</text>
         </g>
 
         <g class="reveal-group" style="--d:0.55s">
-          <circle cx="72" cy="320" r="16" class="num-circle" />
+          <circle cx="72" cy="320" r="16" class="num-circle pop-in" />
           <text x="72" y="325" text-anchor="middle" class="t-tag">4</text>
           <text x="106" y="314" class="t-label" style="font-size:16px">any repeated investigation is a candidate</text>
           <text x="106" y="334" class="t-caption">alert triage · PR impact check · CI failure diagnosis · deploy status</text>
         </g>
 
         <g class="reveal-group" style="--d:0.7s">
-          <circle cx="72" cy="395" r="16" class="num-circle" />
+          <circle cx="72" cy="395" r="16" class="num-circle pop-in" />
           <text x="72" y="400" text-anchor="middle" class="t-tag">5</text>
           <text x="106" y="389" class="t-label" style="font-size:16px">skills compound — each run teaches the skill</text>
           <text x="106" y="409" class="t-caption">new patterns → PR to known-patterns section · the skill's knowledge becomes your crash taxonomy</text>

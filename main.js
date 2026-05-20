@@ -129,7 +129,7 @@ const GUIDE_TEXTS = [
 
 const SLIDE_NAMES = [
   'intro', 'the case', 'manual vs automated', 'the output',
-  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'hooks: events', 'routines', 'trigger it', 'routines: anatomy', 'hooks vs routines', 'takeaways',
+  'the pipeline', 'parallel dispatch', 'three layers', 'hooks', 'hooks: events', 'routines', 'trigger it', 'routines: anatomy', 'need local access?', 'claude vs claude -p', 'hooks vs routines', 'takeaways',
 ];
 
 const slides = document.querySelectorAll('.slide');
@@ -166,16 +166,57 @@ function updateGuideText() {
     items.map(t => `<li>${t}</li>`).join('');
 }
 
+function animateCounters(slideEl) {
+  slideEl.querySelectorAll('[data-count-to]').forEach(el => {
+    const target = parseInt(el.getAttribute('data-count-to'), 10);
+    const delay = parseFloat(el.getAttribute('data-count-delay') || '0') * 1000;
+    const duration = 700;
+    function fmt(n) {
+      return n >= 1000 ? Math.floor(n/1000) + ' ' + String(n%1000).padStart(3,'0') : String(n);
+    }
+    setTimeout(() => {
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = fmt(Math.round(eased * target));
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = fmt(target);
+      }
+      requestAnimationFrame(step);
+    }, delay);
+  });
+}
+
 function go(n) {
   if (currentSource) { try { currentSource.stop(); } catch (_) {} currentSource = null; }
   if (ttsState === 'playing' || ttsState === 'generating') {
     setTTSState(tts ? 'ready' : 'idle');
   }
 
-  slides[current].classList.remove('active');
+  const isFirstLoad = !slides[current].classList.contains('active');
+  const prevIndex = current;
+  const dir = n > current ? 1 : -1;
+
   current = Math.max(0, Math.min(n, slides.length - 1));
 
-  slides[current].querySelectorAll('.reveal-group').forEach(g => {
+  if (!isFirstLoad && prevIndex !== current) {
+    const exitClass = dir > 0 ? 'slide-exit-left' : 'slide-exit-right';
+    const enterClass = dir > 0 ? 'slide-enter-right' : 'slide-enter-left';
+    const oldSlide = slides[prevIndex];
+    oldSlide.classList.add(exitClass);
+    setTimeout(() => {
+      oldSlide.classList.remove('active', exitClass);
+    }, 320);
+    slides[current].classList.add(enterClass);
+    setTimeout(() => {
+      slides[current].classList.remove(enterClass);
+    }, 350);
+  } else {
+    slides[prevIndex].classList.remove('active');
+  }
+
+  slides[current].querySelectorAll('.reveal-group, .scan-line, .time-bar, .pop-in, .draw-line').forEach(g => {
     g.style.animation = 'none';
     void g.offsetWidth;
     g.style.animation = '';
@@ -185,6 +226,7 @@ function go(n) {
   updateDots();
   updateStepIndicator();
   updateGuideText();
+  animateCounters(slides[current]);
 
   document.getElementById('prev').disabled = current === 0;
   document.getElementById('next').disabled = current === slides.length - 1;
