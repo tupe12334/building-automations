@@ -7,6 +7,7 @@
   --paper: #f0ede6;
   --paper-d: #e4e0d8;
   --border: #c8c4bc;
+  --paper-dd: #d8d4cc;
 }
 
 html, body {
@@ -81,6 +82,14 @@ html, body {
   fill: var(--ink);
 }
 
+.t-slide-title {
+  font-family: "Georgia", serif;
+  font-size: 20px;
+  font-weight: 700;
+  fill: var(--ink);
+  letter-spacing: -0.3px;
+}
+
 .t-skill {
   font-family: "Georgia", serif;
   font-size: 22px;
@@ -90,7 +99,7 @@ html, body {
 
 .t-caption {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--ink-f);
   letter-spacing: 0.5px;
 }
@@ -111,21 +120,21 @@ html, body {
 
 .t-filetab {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--ink-f);
   letter-spacing: 0.3px;
 }
 
 .t-ann {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--ink-f);
   letter-spacing: 0.5px;
 }
 
 .t-tag {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   fill: var(--ink);
   letter-spacing: 1px;
@@ -134,7 +143,7 @@ html, body {
 
 .t-tag-llm {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   fill: var(--ink-f);
   letter-spacing: 1px;
@@ -149,7 +158,7 @@ html, body {
 
 .t-example {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--ink-f);
 }
 
@@ -168,7 +177,7 @@ html, body {
 }
 
 .box-skill {
-  fill: var(--paper-d);
+  fill: var(--paper);
   stroke: var(--ink);
   stroke-width: 2;
   filter: drop-shadow(2px 2px 0 var(--border));
@@ -404,6 +413,11 @@ html, body {
   from { opacity: 1; transform: translateX(0); }
   to   { opacity: 0; transform: translateX(32px); }
 }
+.slide.slide-exit-left,
+.slide.slide-exit-right,
+.slide.slide-enter-right,
+.slide.slide-enter-left { transition: none; }
+
 .slide.slide-exit-left  { animation: slide-exit-to-left  0.3s ease forwards; pointer-events: none; }
 .slide.slide-exit-right { animation: slide-exit-to-right 0.3s ease forwards; pointer-events: none; }
 .slide.slide-enter-right { animation: slide-enter-from-right 0.35s ease forwards; }
@@ -476,7 +490,7 @@ html, body {
 /* ── FAILURE MODE BOXES ── */
 
 .box-failure {
-  fill: var(--paper);
+  fill: var(--paper-dd);
   stroke: var(--border);
   stroke-width: 1.5;
   stroke-dasharray: 6 3;
@@ -506,7 +520,7 @@ html, body {
 
 .t-fail-label {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   fill: var(--ink-f);
   letter-spacing: 1px;
@@ -521,7 +535,7 @@ html, body {
 
 .t-mono-faint {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--ink-f);
 }
 
@@ -546,14 +560,14 @@ html, body {
 
 .t-axis {
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--ink-f);
   letter-spacing: 0.5px;
 }
 
 .t-connector {
   font-family: "SF Mono", monospace;
-  font-size: 10px;
+  font-size: 11px;
   fill: var(--ink-f);
 }
 
@@ -632,8 +646,8 @@ html, body {
 }
 
 .dot {
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--border);
   transition: background 0.2s, transform 0.2s;
@@ -642,7 +656,7 @@ html, body {
 
 .dot-active {
   background: var(--ink);
-  transform: scale(1.4);
+  transform: scale(1.6);
 }
 
 /* ── NUMBER CIRCLES (takeaways slide) ── */
@@ -672,7 +686,7 @@ html, body {
   left: 1.5rem;
   z-index: 200;
   font-family: "SF Mono", monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-f);
   letter-spacing: 1px;
   pointer-events: none;
@@ -728,7 +742,7 @@ html, body {
 
 .guide-handle-label {
   font-family: "SF Mono", monospace;
-  font-size: 8px;
+  font-size: 9px;
   color: var(--ink-f);
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -737,7 +751,7 @@ html, body {
 }
 
 .guide-handle-icon {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--ink-f);
   transition: color 0.15s;
 }
@@ -749,7 +763,7 @@ html, body {
 .guide-panel-title {
   padding: 1rem 1rem 0.65rem;
   font-family: "SF Mono", monospace;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--ink-f);
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -806,4 +820,17 @@ html, body {
   text-decoration-color: var(--ink-f);
 }
 
+/* ── DARK MODE ── */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e6e3db;
+    --ink-l: #b5b2aa;
+    --ink-f: #787570;
+    --paper: #252319;
+    --paper-d: #1c1b13;
+    --paper-dd: #161510;
+    --border: #3c3930;
+  }
+}
 
