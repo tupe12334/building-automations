@@ -150,7 +150,9 @@
           <text x="190" y="202" class="t-caption">ALGORITHM event after "Deleting recording" · 340ms gap</text>
         </g>
         <g class="reveal-group" style="--d:0.46s">
-          <text x="80" y="220" class="t-mono-faint">GCP</text>
+          <a href="https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22core-api%22%0AhttpRequest.requestUrl%3D~%22%2Fc%2Fv1%2F%22?project=guidde-production" target="_blank" rel="noopener">
+            <text x="80" y="220" class="t-mono-faint">GCP</text>
+          </a>
           <text x="190" y="220" class="t-caption">no server-side error · crash is client-side only</text>
         </g>
         <g class="reveal-group" style="--d:0.54s">
