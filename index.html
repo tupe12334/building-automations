@@ -599,26 +599,51 @@
           <text x="654" y="182" text-anchor="middle" class="t-tag">PRs · issues · reports</text>
         </g>
 
-        <!-- Divider -->
-        <g class="reveal-group" style="--d:0.82s">
-          <line x1="80" y1="272" x2="720" y2="272" class="rule-line" />
-          <text x="400" y="296" text-anchor="middle" class="t-caption">need local access? skip /schedule — use instead:</text>
+      </svg>
+    </div>
+    <!-- ─── SLIDE: NEED LOCAL ACCESS ─── -->
+    <div class="slide" id="s14">
+      <svg class="slide-svg" viewBox="0 0 800 500">
+        <text x="400" y="38" text-anchor="middle" class="t-label">need local access? skip /schedule</text>
+
+        <!-- Intro -->
+        <g class="reveal-group" style="--d:0.05s">
+          <text x="400" y="68" text-anchor="middle" class="t-caption">routines run on Anthropic's cloud — no local machine, no local files, no env vars</text>
+          <text x="400" y="88" text-anchor="middle" class="t-caption">use these instead:</text>
         </g>
 
-        <!-- Local alternatives -->
-        <g class="reveal-group" style="--d:0.92s">
-          <rect x="80" y="306" width="272" height="64" class="box-failure" />
-          <text x="216" y="330" text-anchor="middle" class="t-tag">/loop</text>
-          <text x="216" y="348" text-anchor="middle" class="t-caption">in-session · full local access</text>
-          <text x="216" y="364" text-anchor="middle" class="t-caption">runs while session is open</text>
-          <rect x="448" y="306" width="272" height="64" class="box-failure" />
-          <text x="584" y="330" text-anchor="middle" class="t-tag">crontab -e + claude CLI</text>
-          <text x="584" y="348" text-anchor="middle" class="t-caption">system cron · local machine</text>
-          <text x="584" y="364" text-anchor="middle" class="t-caption">full env + file access</text>
+        <!-- /loop box -->
+        <g class="reveal-group" style="--d:0.2s">
+          <rect x="60" y="108" width="310" height="250" class="box-failure" />
+          <text x="215" y="140" text-anchor="middle" class="t-tag">/loop</text>
+          <line x1="76" y1="152" x2="354" y2="152" class="grid-line" />
+          <text x="215" y="176" text-anchor="middle" class="t-caption">in-session · full local access</text>
+          <text x="215" y="196" text-anchor="middle" class="t-caption">runs while session is open</text>
+          <line x1="76" y1="214" x2="354" y2="214" class="grid-line" />
+          <text x="215" y="236" text-anchor="middle" class="t-caption">best for</text>
+          <text x="215" y="256" text-anchor="middle" class="t-mono-faint">polling · iterative dev tasks</text>
+          <text x="215" y="276" text-anchor="middle" class="t-mono-faint">in-session automation</text>
+          <line x1="76" y1="296" x2="354" y2="296" class="grid-line" />
+          <text x="215" y="320" text-anchor="middle" class="t-mono-faint">/loop 5m /check-prs</text>
+        </g>
+
+        <!-- crontab box -->
+        <g class="reveal-group" style="--d:0.45s">
+          <rect x="430" y="108" width="310" height="250" class="box-failure" />
+          <text x="585" y="140" text-anchor="middle" class="t-tag">crontab -e + claude CLI</text>
+          <line x1="446" y1="152" x2="724" y2="152" class="grid-line" />
+          <text x="585" y="176" text-anchor="middle" class="t-caption">system cron · local machine</text>
+          <text x="585" y="196" text-anchor="middle" class="t-caption">full env + file access</text>
+          <line x1="446" y1="214" x2="724" y2="214" class="grid-line" />
+          <text x="585" y="236" text-anchor="middle" class="t-caption">best for</text>
+          <text x="585" y="256" text-anchor="middle" class="t-mono-faint">scheduled background jobs</text>
+          <text x="585" y="276" text-anchor="middle" class="t-mono-faint">daily summaries · always-on</text>
+          <line x1="446" y1="296" x2="724" y2="296" class="grid-line" />
+          <text x="585" y="320" text-anchor="middle" class="t-mono-faint">0 9 * * 1-5 claude -p 'standup'</text>
         </g>
 
         <!-- Footer -->
-        <g class="reveal-group" style="--d:1s">
+        <g class="reveal-group" style="--d:0.7s">
           <line x1="200" y1="400" x2="600" y2="400" class="rule-line" />
           <text x="400" y="422" text-anchor="middle" class="t-caption">create via /schedule in Claude Code · no server · no infra needed</text>
         </g>
