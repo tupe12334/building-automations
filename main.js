@@ -89,7 +89,24 @@ const GUIDE_TEXTS = [
     "Or: crontab -e + claude CLI — system cron, full local env and file access, no Anthropic cloud involved.",
     "Create via /schedule · manage and delete at <a href=\"https://claude.ai/code/routines\" target=\"_blank\" rel=\"noopener\">claude.ai/code/routines</a>.",
   ],
-  // 12 — Hooks vs Routines
+  // 12 — Local Alternatives
+  [
+    "Routines are cloud-only — use these four patterns when you need local machine or env access.",
+    "/loop: runs a task repeatedly inside your current Claude Code session. Best for polling and iterative dev while you're actively working.",
+    "ralph-loop: a Claude plugin that manages persistent loop sessions without leaving Claude Code. Find it at claude.com/plugins/ralph-loop.",
+    "/goal: autonomous multi-turn mode — Haiku checks the exit condition each turn and loops until it's met. Good for 'run until all tests pass'.",
+    "crontab + claude -p: system cron calls the claude CLI directly, full local env and file access, runs headless any time of day.",
+    "Rule of thumb: /loop and /goal stay in-session; ralph-loop wraps that; crontab is the always-on headless option.",
+  ],
+  // 13 — claude vs claude -p
+  [
+    "claude: interactive TUI — multi-turn, stays open, built for daily dev and exploration. Output goes to the terminal only.",
+    "claude -p: non-interactive, one-shot — exits after generating output. Pipe-friendly; designed for CI/CD, cron, and scripts.",
+    "Agent SDK: Python/TypeScript library that wraps claude -p programmatically — same tools and agent loop as Claude Code.",
+    "From Jun 15 2026: claude -p and the Agent SDK draw from a new separate monthly Agent SDK credit, distinct from the interactive plan limit.",
+    "Key distinction: if a human is in the loop, use claude. If automation drives it, use claude -p or the SDK.",
+  ],
+  // 14 — Hooks vs Routines
   [
     "Full comparison: trigger, runtime, config, and best-for for each.",
     "Hooks: trigger = events inside session · runtime = your machine · config = ~/.claude/settings.json.",
@@ -98,7 +115,7 @@ const GUIDE_TEXTS = [
     "Routines best for: alert triage · nightly scans · async pipelines · runs without your machine.",
     "Orthogonal, not competing — the same automation can use both.",
   ],
-  // 13 — Takeaways
+  // 15 — Takeaways
   [
     "Manual first: the skill is a distillation of what you already know — you can't automate what you haven't done yourself.",
     "Parallel dispatch: one message, all independent tool calls → wall time = slowest task, not the sum.",
@@ -117,11 +134,15 @@ const SLIDE_NAMES = [
 const slides = document.querySelectorAll('.slide');
 let current = 0;
 
+// First slide of each new narrative section (after intro)
+const SECTION_STARTS = new Set([1, 7, 9, 12, 14]);
+
 function buildDots() {
   const container = document.getElementById('dots');
-  slides.forEach(() => {
+  slides.forEach((_, i) => {
     const d = document.createElement('span');
     d.className = 'dot';
+    if (SECTION_STARTS.has(i)) d.style.marginLeft = '0.65rem';
     container.appendChild(d);
   });
 }
@@ -217,9 +238,24 @@ document.getElementById('guide-handle').addEventListener('click', () => {
 document.getElementById('prev').addEventListener('click', () => go(current - 1));
 document.getElementById('next').addEventListener('click', () => go(current + 1));
 
+const fsBtn = document.getElementById('fullscreen');
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+fsBtn.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', () => {
+  fsBtn.textContent = document.fullscreenElement ? '⛶' : '⛶';
+  fsBtn.setAttribute('aria-label', document.fullscreenElement ? 'Exit fullscreen' : 'Toggle fullscreen');
+});
+
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(current + 1);
   if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(current - 1);
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
 });
 
 let touchX = 0;

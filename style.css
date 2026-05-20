@@ -171,6 +171,7 @@ html, body {
   fill: var(--paper-d);
   stroke: var(--ink);
   stroke-width: 2;
+  filter: drop-shadow(2px 2px 0 var(--border));
 }
 
 .box-wavy {
@@ -520,7 +521,7 @@ html, body {
 
 .t-mono-faint {
   font-family: "SF Mono", monospace;
-  font-size: 10px;
+  font-size: 11px;
   fill: var(--ink-f);
 }
 
@@ -609,6 +610,14 @@ html, body {
 .nav-btn:disabled {
   opacity: 0.3;
   cursor: default;
+}
+
+.nav-btn-fs {
+  border-left: 1px solid var(--border);
+  margin-left: 0.5rem;
+  padding-left: 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 0;
 }
 
 /* ── PROGRESS DOTS ── */
